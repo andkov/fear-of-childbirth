@@ -1,0 +1,444 @@
+# This file contains the SPLUS / R code that appears in the paper:
+#
+# Gradient Projection Algorithms and Software for Arbitrary
+# Rotation Criteria in Factor Analysis.
+#
+# by:
+#
+# Coen A. Bernaards and Robert I. Jennrich.
+#
+# Website: http://www.stat.ucla.edu/research
+# 
+
+# GPForth is the main GP algorithm for orthogonal rotation.
+# GPFoblq is the main GP algorithm for oblique rotation.
+# For both algorithms is required: a loadings matrix A. Optional  
+# a initial rotation matrix Tmat. By default this is the identity matrix.
+# Optional: the rotation method to be used. Between quation marks have to
+# be the last part of the name of the vgQ function, e.g. for vgQ.varimax
+# the argument is "varimax". Identical arguments can be used for oblique
+# rotation. Some rotation criteria (including simplimax, pst, procrustes, 
+# cf,...) require one or more additional arguments. For example, simplimax
+# needs the number of 'close to zero loadings'. This is given included as
+# the extra argument k=27. Check out the rotation methods for details. 
+# When a new rotation method is implemented, and it needs an additional
+# argument then this is the easiest way to pass it to the function. 
+#
+# New rotation methods need to be programmed as vgQ.newmethod. The only
+# inputs are the matrix L, and potential additional arguments. The
+# output consists of the value f  of the criterion, its gradient Gq at L,
+# and the name of the method.
+
+GPForth <- function(A,Tmat=diag(ncol(A)),method="varimax",...){
+ al <- 1
+ L <- A %*% Tmat
+ VgQ <- get(paste("vgQ",method,sep="."))(L,...)
+ G <- crossprod(A,VgQ$Gq)
+ f <- VgQ$f
+ Table <- NULL
+ for (iter in 0:500){
+   M <- crossprod(Tmat,G)
+   S <- (M+t(M))/2
+   Gp <- G - Tmat %*% S
+   s <- sqrt(sum(diag(crossprod(Gp))))
+   Table <- rbind(Table,c(iter,f,log10(s),al))
+   if (s < 1e-5) 
+     break
+   al <- 2*al
+   for (i in 0:10){
+     X <- Tmat - al * Gp
+     UDV <- svd(X)
+     Tmatt <- UDV$u %*% t(UDV$v)
+     L <- A %*% Tmatt
+     VgQt <- get(paste("vgQ",method,sep="."))(L,...)
+     if (VgQt$f < (f-.5*s^2*al))
+       break
+     al <- al/2
+   }
+   Tmat <- Tmatt
+   f <- VgQt$f
+   G <- crossprod(A,VgQt$Gq)
+ }
+ Th <- Tmat
+ Lh <- L
+ method <- VgQ$Method
+ orthogonal <- T
+## Added by Steiger
+colnames(Table) <- c("Iteration", "Function", "Log10(s)","Alpha")
+##
+ return(list(Lh=Lh,Th=Th,Table=Table,method=method,orthogonal=orthogonal))
+}
+
+GPFoblq <- function(A,Tmat=diag(ncol(A)),method="quartimin",...){
+ al <- 1
+ L <- A %*% t(solve(Tmat))
+ VgQ <- get(paste("vgQ",method,sep="."))(L,...)
+ G <- -t(t(L) %*% VgQ$Gq %*% solve(Tmat))
+ f <- VgQ$f
+ Table <- NULL
+ for (iter in 0:500){
+   Gp <- G-Tmat %*% diag(apply(Tmat*G,2,sum))
+   s <- sqrt(sum(diag(crossprod(Gp))))
+   Table <- rbind(Table,c(iter,f,log10(s),al))
+   if (s < 1e-5)
+     break
+   al <- 2*al
+   for (i in 0:10){
+     X <- Tmat-al*Gp
+     v <- 1/sqrt(apply(X^2,2,sum))
+     Tmatt <- X %*% diag(v)
+     L <- A %*% t(solve(Tmatt))
+     VgQt <- get(paste("vgQ",method,sep="."))(L,...)
+     if (VgQt$f < (f-.5*s^2*al))
+       break
+     al <- al/2
+   }
+   Tmat <- Tmatt
+   f <- VgQt$f
+   G <- -t(t(L) %*% VgQt$Gq %*% solve(Tmatt))
+
+ }
+ Th <- Tmat
+ Lh <- L
+ Phi <- t(Tmat) %*% Tmat
+ method <- VgQ$Method
+ orthogonal <- F
+ return(list(Lh=Lh,Phi=Phi,Th=Th,Table=Table,method=method,orthogonal=orthogonal))
+}
+
+
+vgQ.quartimin <- function(L){
+  Method="Quartimin"
+  L2 <- L^2
+  k <- ncol(L)
+  M <- matrix(1,k,k)-diag(k)
+  f <- sum(L2 * (L2 %*% M))/4
+  Gq <- L * (L2 %*% M)
+  return(list(Gq=Gq,f=f,Method=Method))
+} 
+
+vgQ.oblimin <- function(L,gam=0){
+  Method <- paste("Oblimin g=",gam,sep="")
+  if (gam == 0) Method <- "Oblimin Quartimin"
+  if (gam == .5) Method <- "Oblimin Biquartimin"
+  if (gam == 1) Method <- "Oblimin Covarimin"
+  k <- ncol(L)
+  p <- nrow(L)
+  N <- matrix(1,k,k)-diag(k)
+  f <- sum(L^2 * (diag(p)-gam*matrix(1/p,p,p)) %*% L^2 %*% N)/4
+  Gq <- L * ((diag(p)-gam*matrix(1/p,p,p)) %*% L^2 %*% N)
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.target <- function(L,Target){
+  Method <- "Target rotation"
+  # Needs Target matrix, e.g.  Target <- matrix(c(rep(9,4),rep(0,8),rep(9,4)),8) 
+  f <- sum((L-Target)^2)
+  Gq <- 2*(L-Target)
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.pst <- function(L,W,Target){
+  Method <- "Partially specified target"
+  # Needs weight matrix W with 1's at specified values, 0 otherwise
+  # e.g. W = matrix(c(rep(1,4),rep(0,8),rep(1,4)),8). 
+  # When W has only 1's this is procrustes rotation
+  # Needs a Target matrix Target with hypothesized factor loadings.
+  # e.g. Target = matrix(0,8,2)
+  Btilde <- W * Target
+  f <- sum((W*L-Btilde)^2)
+  Gq <- 2*(W*L-Btilde)
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.oblimax <- function(L){
+  Method <- "Oblimax"
+  f <- -(log(sum(L^4))-2*log(sum(L^2)))
+  Gq <- -(4*L^3/(sum(L^4))-4*L/(sum(L^2)))
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.entropy <- function(L){
+  Method <- "Minimum entropy" 
+  f <- -sum(L^2 * log(L^2 + (L^2==0)))/2
+  Gq <- -(L * log(L^2 + (L^2==0)) + L)
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+ 
+vgQ.quartimax <- function(L){
+  Method <- "Quartimax"
+  f <- -sum(diag(crossprod(L^2)))/4
+  Gq <- -L^3
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.varimax <- function(L){
+  Method <- "Varimax"
+  QL <- sweep(L^2,2,apply(L^2,2,mean),"-")
+  f <- -sqrt(sum(diag(crossprod(QL))))^2/4
+  Gq <- -L * QL
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.simplimax <- function(L,k=nrow(L)){
+  Method <- "Simplimax"
+  # m: Number of close to zero loadings
+  Imat <- sign(L^2 <= sort(L^2)[k])
+  f <- sum(Imat*L^2)
+  Gq <- 2*Imat*L
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.bentler <- function(L){
+  Method <- "Bentler's criterion"
+  L2 <- L^2
+  M <- crossprod(L2)
+  D <- diag(diag(M))
+  f <- -(log(det(M))-log(det(D)))/4
+  Gq <- -L * (L2 %*% (solve(M)-solve(D)))
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.tandemI <- function(L){  # Tandem Criterion, Comrey, 1967.
+  Method <- "Tandem I"
+  LL <- (L %*% t(L))
+  LL2 <- LL^2
+  f <- -sum(diag(crossprod(L^2, LL2 %*% L^2)))
+  Gq1 <- 4 * L *(LL2 %*% L^2)
+  Gq2 <- 4 * (LL * (L^2 %*% t(L^2))) %*% L
+  Gq <- -Gq1 - Gq2 
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.tandemII <- function(L){  # Tandem Criterion, Comrey, 1967.
+  Method <- "Tandem II"
+  LL <- (L %*% t(L))
+  LL2 <- LL^2
+  f <- sum(diag(crossprod(L^2, (1-LL2) %*% L^2)))
+  Gq1 <- 4 * L *((1-LL2) %*% L^2)
+  Gq2 <- 4 * (LL * (L^2 %*% t(L^2))) %*% L
+  Gq <- Gq1 - Gq2 
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.geomin <- function(L,eps=.01){
+  Method <- "Geomin"
+  k <- ncol(L)
+  p <- nrow(L)
+  L2 <- L^2+eps
+  pro <- exp(apply(log(L2),1,sum)/k) 
+  f <- sum(pro)
+  Gq <- (2/k)*(L/L2)*matrix(rep(pro,k),p)
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.cf <- function(L,kappa=0){
+  k <- ncol(L)
+  p <- nrow(L)
+  # kappa <- 0 # Quartimax 
+  # kappa <- 1/p # Varimax
+  # kappa <- m/(2*p) # Equamax
+  # kappa <- (m-1)/(p+m-2) # Parsimax
+  # kappa <- 1 # Factor parsimony
+  Method <- paste("Crawford-Ferguson:k=",kappa,sep="")
+  N <- matrix(1,k,k)-diag(k)
+  M <- matrix(1,p,p)-diag(p)
+  L2 <- L^2
+  f1 <- (1-kappa)*sum(diag(crossprod(L2,L2 %*% N)))/4
+  f2 <- kappa*sum(diag(crossprod(L2,M %*% L2)))/4
+  f <- f1 + f2
+  Gq <- (1-kappa) * L * (L2 %*% N) + kappa * L * (M %*% L2)
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.infomax <- function(L){
+  Method <- "Infomax"
+  k <- ncol(L)
+  p <- nrow(L)
+  S <- L^2
+  s <- sum(S)
+  s1 <- apply(S, 1, sum)
+  s2 <- apply(S, 2, sum)
+  E <- S/s
+  e1 <- s1/s
+  e2 <- s2/s
+  Q0 <- sum(-E * log(E))
+  Q1 <- sum(-e1 * log(e1))
+  Q2 <- sum(-e2 * log(e2))
+  f <- log(k) + Q0 - Q1 - Q2
+  H <- -(log(E) + 1)
+  alpha <- sum(S * H)/s^2
+  G0 <- H/s - alpha * matrix(1, p, k)
+  h1 <- -(log(e1) + 1)
+  alpha1 <- s1 %*% h1/s^2
+  G1 <- matrix(rep(h1,k), p)/s - as.vector(alpha1) * matrix(1, p, k)
+  h2 <- -(log(e2) + 1)
+  alpha2 <- h2 %*% s2/s^2
+  G2 <- matrix(rep(h2,p), ncol=k, byrow=T)/s - as.vector(alpha2) * matrix(1, p, k)
+  Gq <- 2 * L * (G0 - G1 - G2)
+  return(list(Gq=Gq,f=f,Method=Method))
+}
+
+vgQ.mccammon <- function(L){
+  Method <- "McCammon entropy"
+  k <- ncol(L)
+  p <- nrow(L)
+  S <- L^2
+  M <- matrix(1,p,p)
+  s2 <- apply(S, 2, sum)
+  P <- S / matrix(rep(s2,p),ncol=k,byrow=T)
+  Q1 <- -sum(P * log(P))
+  H <- -(log(P) + 1)
+  R <- M %*% S
+  G1 <- H/R - M %*% (S*H/R^2)
+  s <- sum(S)
+  p2 <- s2/s
+  Q2 <- -sum(p2 * log(p2))
+  h <- -(log(p2) + 1)
+  alpha <- h %*% p2
+  G2 <- rep(1,p) %*% t(h)/s - as.vector(alpha)*matrix(1,p,k)
+  Gq <- 2*L*(G1/Q1 - G2/Q2)
+  Q <- log(Q1) - log(Q2)
+  return(list(Gq=Gq,f=Q,Method=Method))
+}
+
+#
+# GPromax is a separate function!!!
+# Call directly from command prompt.
+# R code only.
+# 
+GPromax <- function(A,pow=3){
+ method <- "Promax"
+ # Initial rotation: Standardized Varimax
+ require(mva)
+ xx <- promax(A,pow)
+ Lh <- xx$loadings
+ Th <- xx$rotmat
+ orthogonal <- F
+ Table <- NULL
+return(list(Lh=Lh,Th=Th,Table=NULL,method,orthogonal=orthogonal))
+}
+
+
+##
+## UTILITY FUNCTIONS
+
+##
+
+# Kaisers standardized variables
+
+# Can be used for standardization and de-standardization.
+
+# For standardization: only provide 1 argument: the matrix A
+
+# output: standardized A and weights W
+
+# For destandardization: provide 2 arguments: matrix A
+
+# and weights W.
+
+# output: destandardized A and weights W.
+
+Standardize <- function(A,W){
+ 
+if (nargs()==1)
+   
+W <- sqrt(apply(A^2,1,sum))
+ else
+ 
+   W <- 1/W
+ 
+A <- sweep(A,1,W,"/")
+ 
+return(A,W)
+}
+
+
+
+# Random Start
+
+# k: number of dimensions
+
+# orthogonal random start? (Yes, by default).
+
+Random.Start <- function(k,orthogonal=T){
+
+mat <- matrix(rnorm(k*k),k)
+ 
+if (orthogonal){
+   ans <- qr.Q(qr(mat))
+ }
+ 
+else{
+   
+  ans <- mat %*% diag(sqrt(1/diag(t(mat) %*% mat)))
+ 
+ }
+ 
+ans
+
+} 
+
+
+########## Following routines added by Steiger
+
+vgQ.bifactor <- function(L){
+Method <- "bifactor"
+k <- dim(L)[2]
+p <- dim(L)[1]
+L <- L[,2:k]
+Lsq <- L * L
+M <- matrix(1,k-1,k-1) - diag(k-1)
+f <- sum(Lsq * (Lsq %*% M))
+zero <- matrix(0,p,1)
+Gq <- 4*cbind(zero, L * (Lsq %*% M))
+return(list(Gq=Gq,f=f,Method=Method))
+}
+
+
+FindBifactor <- function(A,reps){
+results <- rep( list(list()), reps ) 
+criterion <- rep(NA,reps)
+m <- dim(A)[2]
+for(i in 1:reps) {
+  x <- GPForth(A,method="bifactor",Tmat = Random.Start(m))
+  criterion[i] <- min(x$Table[,2])
+  results[[i]] <- x
+}
+j <- order(criterion)[1]
+return(results[[j]])
+}
+
+
+
+FindBifactorPattern <- function(A,reps,digits=2) {
+options(warn=-1)
+p<-dim(A)[1]
+out <- FindBifactor(A,reps)
+F <- out$Lh
+one.prime <- matrix(1,1,p)
+F.sign <- as.vector(sign(one.prime %*% F))
+F <- F %*% diag(F.sign)
+options(warn=1)
+return(round(F,digits))
+}
+
+
+
+#Test
+A = matrix(c(1,1,0,2,1,0,1,1,0,2,0,1,1,0,1,2,0,1),6,3,byrow=TRUE)
+A
+T <- eigen(t(A) %*% A)$vectors
+A.r <- A%*%T
+A.r
+GPForth(A.r,method="bifactor")
+FindBifactor(A.r,25)
+FindBifactorPattern(A.r,25)
+#library(psych)r
+#data(Thurstone.33)
+#out <- fa(Thurstone,3,n.obs=213,rotate="bifactor",fm="ml")
+#A.r2 <- out$loadings[1:9,]
+A <- read.csv("Thurstone33.csv")
+FindBifactor(A,25)
+FindBifactorPattern(A,25)
+
