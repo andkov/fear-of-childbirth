@@ -8,20 +8,21 @@ library(GPArotation)
 
 
 
-data(Harman)
-
-dto <- readRDS("./data/unshared/derived/dto.rds")
-ds <- dto$analytic
-meta <- dto$MetaData
-
-names(ds)
-names(meta)
-
-ds_cor <- ds %>% dplyr::select(foc_01:foc_49)
-ds_cor <- sapply(ds_cor, as.numeric)
-str(ds_cor)
-
-R <- cor(ds_cor) # correlation matrix R of variables in foc
+# data(Harman)
+# 
+# dto <- readRDS("./data/unshared/derived/dto.rds")
+# ds <- dto$analytic
+# meta <- dto$MetaData
+# 
+# names(ds)
+# names(meta)
+# 
+# ds_cor <- ds %>% dplyr::select(foc_01:foc_49)
+# ds_cor <- sapply(ds_cor, as.numeric)
+# str(ds_cor)
+# 
+# R <- cor(ds_cor) # correlation matrix R of variables in foc
+R <- readRDS("./data/shared/derived/cor.rds")
 eigen <- eigen(R) # eigen decomposition of R      #  VDV' : $values -eigenvalues, $vectors
 svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues, $u,$v
 
