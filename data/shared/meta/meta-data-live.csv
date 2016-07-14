@@ -1,73 +1,73 @@
 name,label
 RespondentID,NA
-DOB,Date of birth
-Over.18,Are you over the age of 18?
-Pregnant,ARE YOU PREGNANT?
-Gender,WHAT IS YOUR GENDER?
-Marital.status,WHAT IS YOUR MARITAL STATUS?
-Education,HOW FAR DID YOU GO IN SCHOOL?
-Education.other,"Other, please specify:"
-EDUCA0,"Other, please specify:"
-EDUCA1,"Other, please specify:"
-EDUCA2,"Other, please specify:"
-EDUCA3,"Other, please specify:"
-EDUCA4,"Other, please specify:"
-EDUCA5,"Other, please specify:"
-EDUCA6,"Other, please specify:"
-EDUCA7,"Other, please specify:"
-EDUCA8,"Other, please specify:"
-EDUCA9,"Other, please specify:"
-EDUCAA,"Other, please specify:"
-EDUCAB,"Other, please specify:"
-EDUCAC,"Other, please specify:"
-EDUCAD,"Other, please specify:"
-EDUCAE,"Other, please specify:"
-EDUCAF,"Other, please specify:"
-EDUCAG,"Other, please specify:"
-EDUCAH,"Other, please specify:"
-EDUCAI,"Other, please specify:"
-EDUCAJ,"Other, please specify:"
-EDUCAK,"Other, please specify:"
-EDUCAL,"Other, please specify:"
-EDUCAM,"Other, please specify:"
-EDUCAN,"Other, please specify:"
-EDUCAO,"Other, please specify:"
-EDUCAP,"Other, please specify:"
-EDUCAQ,"Other, please specify:"
-EDUCAR,"Other, please specify:"
-EDUCAS,"Other, please specify:"
-EDUCAT,"Other, please specify:"
-EDUCAU,"Other, please specify:"
-EDUCAV,"Other, please specify:"
-EDUCAW,"Other, please specify:"
-EDUCAX,"Other, please specify:"
-EDUCAY,"Other, please specify:"
-EDUCAZ,"Other, please specify:"
-EDUCA10,"Other, please specify:"
-EDUCA11,"Other, please specify:"
-EDUCA12,"Other, please specify:"
-EDUCA13,"Other, please specify:"
-EDUCA14,"Other, please specify:"
-EDUCA15,"Other, please specify:"
-EDUCA16,"Other, please specify:"
-EDUCA17,"Other, please specify:"
-EDUCA18,"Other, please specify:"
-EDUCA19,"Other, please specify:"
-EDUCA1A,"Other, please specify:"
-Miscarriage,Have you ever experienced a miscarriage (a pregnancy loss before 20 weeks)? 
-Stillbirth,Have you ever experienced a still birth (a pregnancy loss after 20 weeks)? 
-Terminated,"Have you ever terminated a pregnancy (i.e., had an abortion)? "
-Current.complications,Have you had any medical problems or complications related to your pregnancy so far? 
-Country.Code,Final coding for country of residence 
+DOB,NA
+Over_18,NA
+Pregnant,NA
+Gender,NA
+Marital_status,NA
+Education,NA
+Education_other,NA
+EDUCA0,NA
+EDUCA1,NA
+EDUCA2,NA
+EDUCA3,NA
+EDUCA4,NA
+EDUCA5,NA
+EDUCA6,NA
+EDUCA7,NA
+EDUCA8,NA
+EDUCA9,NA
+EDUCAA,NA
+EDUCAB,NA
+EDUCAC,NA
+EDUCAD,NA
+EDUCAE,NA
+EDUCAF,NA
+EDUCAG,NA
+EDUCAH,NA
+EDUCAI,NA
+EDUCAJ,NA
+EDUCAK,NA
+EDUCAL,NA
+EDUCAM,NA
+EDUCAN,NA
+EDUCAO,NA
+EDUCAP,NA
+EDUCAQ,NA
+EDUCAR,NA
+EDUCAS,NA
+EDUCAT,NA
+EDUCAU,NA
+EDUCAV,NA
+EDUCAW,NA
+EDUCAX,NA
+EDUCAY,NA
+EDUCAZ,NA
+EDUCA10,NA
+EDUCA11,NA
+EDUCA12,NA
+EDUCA13,NA
+EDUCA14,NA
+EDUCA15,NA
+EDUCA16,NA
+EDUCA17,NA
+EDUCA18,NA
+EDUCA19,NA
+EDUCA1A,NA
+Miscarriage,NA
+Stillbirth,NA
+Terminated,NA
+Current_complications,NA
+Country_Code,NA
 Parity,NA
-Current.conception,How was your baby (this pregnancy) conceived? 
-Episiotomy,Have you ever experienced an episiotomy (a cut to the tissue between the vagina and the rectum to help a baby to be born)?
-Current.babies,"How many babies are you carrying (i.e., singleton, twins, triplets)? "
-Income,WHAT IS YOUR FAMILY INCOME?
-Weeks.pregnant,HOW MANY WEEKS ALONG IN YOUR PREGNANCY ARE YOU?
-Care.Provider,Who is your primary care provider for this pregnancy? (choose one)
-Very.satisfied,NA
-Birthplace,Where do you plan to give birth?
+Current_conception,NA
+Episiotomy,NA
+Current_babies,NA
+Income,NA
+Weeks_pregnant,NA
+Care_Provider,NA
+Very_satisfied,NA
+Birthplace,NA
 INTERVENTIONSTOTM,NA
 HARMTOTM,NA
 PAINTOTM,NA
@@ -76,835 +76,834 @@ SEXTOTM,NA
 CSTOTM,NA
 FOCTOTM,NA
 INTERFERENCE,NA
-Know.trauma.vaginal,How many women do you know who have had a difficult or traumatic VAGINAL birth experience? 
-Know.trauma.cesarean,How many women do you know who have had a difficult or traumatic CESAREAN birth experience? 
-Know.positive.vaginal,How many women do you know who have had a very positive VAGINAL birth experience? 
-Know.positive.cesarean,How many women do you know who have had a very positive CESAREAN birth experience? 
-Births.vaginal.traumatic,Would you describe any of your previous VAGINAL birth experiences as traumatic?
-Pregnancies,"Including this pregnancy, how many times in your life have you been pregnant?"
+Know_trauma_vaginal,NA
+Know_trauma_cesarean,NA
+Know_positive_vaginal,NA
+Know_positive_cesarean,NA
+Births_vaginal_traumatic,NA
+Pregnancies,NA
 StartDate,NA
-Due.date,Baby's due date:
+Due_date,NA
 EndDate,NA
-Student.FT,Student
-Student.PT,Student
-Employed.FT,Employed
-Employed.PT,Employed
-Homemaker.FT,Homemaker
-Homemaker.PT,Homemaker
-Unemployed.FT,Unemployed
-Unemloyed.PT,Unemployed
-SeekingWork.FT,Seeking work
-SeekingWork.PT,Seeking work
-Retired.FT,Retired
-Retired.PT,Retired
-Disabled.FT,Disabled and unable to work
-Disabled.PT,Disabled and unable to work
-City,City/Town:
-CITY0,City/Town:
-CITY1,City/Town:
-CITY2,City/Town:
-CITY3,City/Town:
-CITY4,City/Town:
-CITY5,City/Town:
-CITY6,City/Town:
-CITY7,City/Town:
-CITY8,City/Town:
-CITY9,City/Town:
-CITYA,City/Town:
-CITYB,City/Town:
-CITYC,City/Town:
-CITYD,City/Town:
-CITYE,City/Town:
-CITYF,City/Town:
-CITYG,City/Town:
-CITYH,City/Town:
-CITYI,City/Town:
-CITYJ,City/Town:
-CITYK,City/Town:
-CITYL,City/Town:
-CITYM,City/Town:
-CITYN,City/Town:
-CITYO,City/Town:
-CITYP,City/Town:
-CITYQ,City/Town:
-CITYR,City/Town:
-CITYS,City/Town:
-CITYT,City/Town:
-CITYU,City/Town:
-CITYV,City/Town:
-CITYW,City/Town:
-CITYX,City/Town:
-CITYY,City/Town:
-CITYZ,City/Town:
-CITY10,City/Town:
-CITY11,City/Town:
-CITY12,City/Town:
-CITY13,City/Town:
-CITY14,City/Town:
-CITY15,City/Town:
-CITY16,City/Town:
-CITY17,City/Town:
-CITY18,City/Town:
-CITY19,City/Town:
-CITY1A,City/Town:
-Province,State:
-PROVI0,State:
-PROVI1,State:
-PROVI2,State:
-PROVI3,State:
-PROVI4,State:
-PROVI5,State:
-PROVI6,State:
-PROVI7,State:
-PROVI8,State:
-PROVI9,State:
-PROVIA,State:
-PROVIB,State:
-PROVIC,State:
-PROVID,State:
-PROVIE,State:
-PROVIF,State:
-PROVIG,State:
-PROVIH,State:
-PROVII,State:
-PROVIJ,State:
-PROVIK,State:
-PROVIL,State:
-PROVIM,State:
-PROVIN,State:
-PROVIO,State:
-PROVIP,State:
-PROVIQ,State:
-PROVIR,State:
-PROVIS,State:
-PROVIT,State:
-PROVIU,State:
-PROVIV,State:
-PROVIW,State:
-PROVIX,State:
-PROVIY,State:
-PROVIZ,State:
-PROVI10,State:
-PROVI11,State:
-PROVI12,State:
-PROVI13,State:
-PROVI14,State:
-PROVI15,State:
-PROVI16,State:
-PROVI17,State:
-PROVI18,State:
-PROVI19,State:
-PROVI1A,State:
-Country,Country:
-COUNT0,Country:
-COUNT1,Country:
-COUNT2,Country:
-COUNT3,Country:
-COUNT4,Country:
-COUNT5,Country:
-COUNT6,Country:
-COUNT7,Country:
-COUNT8,Country:
-COUNT9,Country:
-COUNTA,Country:
-COUNTB,Country:
-COUNTC,Country:
-COUNTD,Country:
-COUNTE,Country:
-COUNTF,Country:
-COUNTG,Country:
-COUNTH,Country:
-COUNTI,Country:
-COUNTJ,Country:
-COUNTK,Country:
-COUNTL,Country:
-COUNTM,Country:
-COUNTN,Country:
-COUNTO,Country:
-COUNTP,Country:
-COUNTQ,Country:
-COUNTR,Country:
-COUNTS,Country:
-COUNTT,Country:
-COUNTU,Country:
-COUNTV,Country:
-COUNTW,Country:
-COUNTX,Country:
-COUNTY,Country:
-COUNTZ,Country:
-COUNT10,Country:
-COUNT11,Country:
-COUNT12,Country:
-COUNT13,Country:
-COUNT14,Country:
-COUNT15,Country:
-COUNT16,Country:
-COUNT17,Country:
-COUNT18,Country:
-COUNT19,Country:
-COUNT1A,Country:
-Ethnicity,RACE/ETHNICITY: Which racial or ethnic group do you most closely identify with? 	
-Ethnicity.Other,Other (please specify):
-ETHNI0,Other (please specify):
-ETHNI1,Other (please specify):
-ETHNI2,Other (please specify):
-ETHNI3,Other (please specify):
-ETHNI4,Other (please specify):
-ETHNI5,Other (please specify):
-ETHNI6,Other (please specify):
-ETHNI7,Other (please specify):
-ETHNI8,Other (please specify):
-ETHNI9,Other (please specify):
-ETHNIA,Other (please specify):
-ETHNIB,Other (please specify):
-ETHNIC,Other (please specify):
-ETHNID,Other (please specify):
-ETHNIE,Other (please specify):
-ETHNIF,Other (please specify):
-ETHNIG,Other (please specify):
-ETHNIH,Other (please specify):
-ETHNII,Other (please specify):
-ETHNIJ,Other (please specify):
-ETHNIK,Other (please specify):
-ETHNIL,Other (please specify):
-ETHNIM,Other (please specify):
-ETHNIN,Other (please specify):
-ETHNIO,Other (please specify):
-ETHNIP,Other (please specify):
-ETHNIQ,Other (please specify):
-ETHNIR,Other (please specify):
-ETHNIS,Other (please specify):
-ETHNIT,Other (please specify):
-ETHNIU,Other (please specify):
-ETHNIV,Other (please specify):
-ETHNIW,Other (please specify):
-ETHNIX,Other (please specify):
-ETHNIY,Other (please specify):
-ETHNIZ,Other (please specify):
-ETHNI10,Other (please specify):
-ETHNI11,Other (please specify):
-ETHNI12,Other (please specify):
-ETHNI13,Other (please specify):
-ETHNI14,Other (please specify):
-ETHNI15,Other (please specify):
-ETHNI16,Other (please specify):
-ETHNI17,Other (please specify):
-ETHNI18,Other (please specify):
-ETHNI19,Other (please specify):
-ETHNI1A,Other (please specify):
-Language,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU0,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU1,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU2,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU3,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU4,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU5,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU6,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU7,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU8,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU9,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUA,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUB,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUC,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUD,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUE,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUF,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUG,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUH,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUI,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUJ,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUK,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUL,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUM,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUN,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUO,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUP,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUQ,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUR,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUS,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUT,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUU,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUV,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUW,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUX,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUY,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGUZ,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU10,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU11,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU12,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU13,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU14,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU15,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU16,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU17,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU18,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU19,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-LANGU1A,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?
-Language.Coded,Which language(s) do you speak at home
-Has.kids,Do you have children?
-Births,Have you ever given birth before (vaginally or by cesarean section)? 
-Births.vaginal,How many times have you given birth vaginally?
-Births.cesarean,How many times have you given birth by cesarean section?
-Births.cesarean.emerg,Were any of these emergency cesarean deliveries?	
-Births.cesarean.traumatic,Would you describe any of your previous CESAREAN birth experiences as traumatic?
-Assisted.vaginal,"Have you ever experienced an assisted vaginal delivery (i.e., forceps or vacuum delivery)?"
-Current.complications.describe,"If yes, please specify:"
-CURRE1B,"If yes, please specify:"
-CURRE1C,"If yes, please specify:"
-CURRE1D,"If yes, please specify:"
-CURRE1E,"If yes, please specify:"
-CURRE1F,"If yes, please specify:"
-CURRE1G,"If yes, please specify:"
-CURRE1H,"If yes, please specify:"
-CURRE1I,"If yes, please specify:"
-CURRE1J,"If yes, please specify:"
-CURRE1K,"If yes, please specify:"
-CURRE1L,"If yes, please specify:"
-CURRE1M,"If yes, please specify:"
-CURRE1N,"If yes, please specify:"
-CURRE1O,"If yes, please specify:"
-CURRE1P,"If yes, please specify:"
-CURRE1Q,"If yes, please specify:"
-CURRE1R,"If yes, please specify:"
-CURRE1S,"If yes, please specify:"
-CURRE1T,"If yes, please specify:"
-CURRE1U,"If yes, please specify:"
-CURRE1V,"If yes, please specify:"
-CURRE1W,"If yes, please specify:"
-CURRE1X,"If yes, please specify:"
-CURRE1Y,"If yes, please specify:"
-CURRE1Z,"If yes, please specify:"
-CURRE20,"If yes, please specify:"
-CURRE21,"If yes, please specify:"
-CURRE22,"If yes, please specify:"
-CURRE23,"If yes, please specify:"
-CURRE24,"If yes, please specify:"
-CURRE25,"If yes, please specify:"
-CURRE26,"If yes, please specify:"
-CURRE27,"If yes, please specify:"
-CURRE28,"If yes, please specify:"
-CURRE29,"If yes, please specify:"
-CURRE2A,"If yes, please specify:"
-CURRE2B,"If yes, please specify:"
-CURRE2C,"If yes, please specify:"
-CURRE2D,"If yes, please specify:"
-CURRE2E,"If yes, please specify:"
-CURRE2F,"If yes, please specify:"
-CURRE2G,"If yes, please specify:"
-CURRE2H,"If yes, please specify:"
-CURRE2I,"If yes, please specify:"
-CURRE2J,"If yes, please specify:"
-CURRE2K,"If yes, please specify:"
-CURRE2L,"If yes, please specify:"
-Current.conception.other,Other (please specify):
-CURRE0,Other (please specify):
-CURRE1,Other (please specify):
-CURRE2,Other (please specify):
-CURRE3,Other (please specify):
-CURRE4,Other (please specify):
-CURRE5,Other (please specify):
-CURRE6,Other (please specify):
-CURRE7,Other (please specify):
-CURRE8,Other (please specify):
-CURRE9,Other (please specify):
-CURREA,Other (please specify):
-CURREB,Other (please specify):
-CURREC,Other (please specify):
-CURRED,Other (please specify):
-CURREE,Other (please specify):
-CURREF,Other (please specify):
-CURREG,Other (please specify):
-CURREH,Other (please specify):
-CURREI,Other (please specify):
-CURREJ,Other (please specify):
-CURREK,Other (please specify):
-CURREL,Other (please specify):
-CURREM,Other (please specify):
-CURREN,Other (please specify):
-CURREO,Other (please specify):
-CURREP,Other (please specify):
-CURREQ,Other (please specify):
-CURRER,Other (please specify):
-CURRES,Other (please specify):
-CURRET,Other (please specify):
-CURREU,Other (please specify):
-CURREV,Other (please specify):
-CURREW,Other (please specify):
-CURREX,Other (please specify):
-CURREY,Other (please specify):
-CURREZ,Other (please specify):
-CURRE10,Other (please specify):
-CURRE11,Other (please specify):
-CURRE12,Other (please specify):
-CURRE13,Other (please specify):
-CURRE14,Other (please specify):
-CURRE15,Other (please specify):
-CURRE16,Other (please specify):
-CURRE17,Other (please specify):
-CURRE18,Other (please specify):
-CURRE19,Other (please specify):
-CURRE1A,Other (please specify):
-Painful.event,Have you ever experienced a very or extremely physically painful life event?
-Painful.event.describe,Please describe:
-PAINF0,Please describe:
-PAINF1,Please describe:
-PAINF2,Please describe:
-PAINF3,Please describe:
-PAINF4,Please describe:
-PAINF5,Please describe:
-PAINF6,Please describe:
-PAINF7,Please describe:
-PAINF8,Please describe:
-PAINF9,Please describe:
-PAINFA,Please describe:
-PAINFB,Please describe:
-PAINFC,Please describe:
-PAINFD,Please describe:
-PAINFE,Please describe:
-PAINFF,Please describe:
-PAINFG,Please describe:
-PAINFH,Please describe:
-PAINFI,Please describe:
-PAINFJ,Please describe:
-PAINFK,Please describe:
-PAINFL,Please describe:
-PAINFM,Please describe:
-PAINFN,Please describe:
-PAINFO,Please describe:
-PAINFP,Please describe:
-PAINFQ,Please describe:
-PAINFR,Please describe:
-PAINFS,Please describe:
-PAINFT,Please describe:
-PAINFU,Please describe:
-PAINFV,Please describe:
-PAINFW,Please describe:
-PAINFX,Please describe:
-PAINFY,Please describe:
-PAINFZ,Please describe:
-PAINF10,Please describe:
-PAINF11,Please describe:
-PAINF12,Please describe:
-PAINF13,Please describe:
-PAINF14,Please describe:
-PAINF15,Please describe:
-PAINF16,Please describe:
-PAINF17,Please describe:
-PAINF18,Please describe:
-PAINF19,Please describe:
-PAINF1A,Please describe:
-Care.Provider.Other,Other (please specify):
-CARE.0,Other (please specify):
-CARE.1,Other (please specify):
-CARE.2,Other (please specify):
-CARE.3,Other (please specify):
-CARE.4,Other (please specify):
-CARE.5,Other (please specify):
-CARE.6,Other (please specify):
-CARE.7,Other (please specify):
-CARE.8,Other (please specify):
-CARE.9,Other (please specify):
-CARE.A,Other (please specify):
-CARE.B,Other (please specify):
-CARE.C,Other (please specify):
-CARE.D,Other (please specify):
-CARE.E,Other (please specify):
-CARE.F,Other (please specify):
-CARE.G,Other (please specify):
-CARE.H,Other (please specify):
-CARE.I,Other (please specify):
-CARE.J,Other (please specify):
-CARE.K,Other (please specify):
-CARE.L,Other (please specify):
-CARE.M,Other (please specify):
-CARE.N,Other (please specify):
-CARE.O,Other (please specify):
-CARE.P,Other (please specify):
-CARE.Q,Other (please specify):
-CARE.R,Other (please specify):
-CARE.S,Other (please specify):
-CARE.T,Other (please specify):
-CARE.U,Other (please specify):
-CARE.V,Other (please specify):
-CARE.W,Other (please specify):
-CARE.X,Other (please specify):
-CARE.Y,Other (please specify):
-CARE.Z,Other (please specify):
-CARE.10,Other (please specify):
-CARE.11,Other (please specify):
-CARE.12,Other (please specify):
-CARE.13,Other (please specify):
-CARE.14,Other (please specify):
-CARE.15,Other (please specify):
-CARE.16,Other (please specify):
-CARE.17,Other (please specify):
-CARE.18,Other (please specify):
-CARE.19,Other (please specify):
-CARE.1A,Other (please specify):
-Care.Provider.Present,Will this person be present during your labour and delivery?
-Care.Provider.Satisfaction,How satisfied are you with the prenatal care you are receiving from this person?
-Present.Partner,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Physician,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.OB,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Mother,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Father,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Midwife,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Doula,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Partner.Parents,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Sibling,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Children,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Friends,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Other,Who would you like to have present at the delivery of your baby? (Check all that apply)
-Present.Other.specify,Other (please specify):
-PRESE0,Other (please specify):
-PRESE1,Other (please specify):
-PRESE2,Other (please specify):
-PRESE3,Other (please specify):
-PRESE4,Other (please specify):
-PRESE5,Other (please specify):
-PRESE6,Other (please specify):
-PRESE7,Other (please specify):
-PRESE8,Other (please specify):
-PRESE9,Other (please specify):
-PRESEA,Other (please specify):
-PRESEB,Other (please specify):
-PRESEC,Other (please specify):
-PRESED,Other (please specify):
-PRESEE,Other (please specify):
-PRESEF,Other (please specify):
-PRESEG,Other (please specify):
-PRESEH,Other (please specify):
-PRESEI,Other (please specify):
-PRESEJ,Other (please specify):
-PRESEK,Other (please specify):
-PRESEL,Other (please specify):
-PRESEM,Other (please specify):
-PRESEN,Other (please specify):
-PRESEO,Other (please specify):
-PRESEP,Other (please specify):
-PRESEQ,Other (please specify):
-PRESER,Other (please specify):
-PRESES,Other (please specify):
-PRESET,Other (please specify):
-PRESEU,Other (please specify):
-PRESEV,Other (please specify):
-PRESEW,Other (please specify):
-PRESEX,Other (please specify):
-PRESEY,Other (please specify):
-PRESEZ,Other (please specify):
-PRESE10,Other (please specify):
-PRESE11,Other (please specify):
-PRESE12,Other (please specify):
-PRESE13,Other (please specify):
-PRESE14,Other (please specify):
-PRESE15,Other (please specify):
-PRESE16,Other (please specify):
-PRESE17,Other (please specify):
-PRESE18,Other (please specify):
-PRESE19,Other (please specify):
-PRESE1A,Other (please specify):
-Birthplace.other,Other (please specify):
-BIRTH0,Other (please specify):
-BIRTH1,Other (please specify):
-BIRTH2,Other (please specify):
-BIRTH3,Other (please specify):
-BIRTH4,Other (please specify):
-BIRTH5,Other (please specify):
-BIRTH6,Other (please specify):
-BIRTH7,Other (please specify):
-BIRTH8,Other (please specify):
-BIRTH9,Other (please specify):
-BIRTHA,Other (please specify):
-BIRTHB,Other (please specify):
-BIRTHC,Other (please specify):
-BIRTHD,Other (please specify):
-BIRTHE,Other (please specify):
-BIRTHF,Other (please specify):
-BIRTHG,Other (please specify):
-BIRTHH,Other (please specify):
-BIRTHI,Other (please specify):
-BIRTHJ,Other (please specify):
-BIRTHK,Other (please specify):
-BIRTHL,Other (please specify):
-BIRTHM,Other (please specify):
-BIRTHN,Other (please specify):
-BIRTHO,Other (please specify):
-BIRTHP,Other (please specify):
-BIRTHQ,Other (please specify):
-BIRTHR,Other (please specify):
-BIRTHT,Other (please specify):
-BIRTHU,Other (please specify):
-BIRTHV,Other (please specify):
-BIRTHW,Other (please specify):
-BIRTHX,Other (please specify):
-BIRTHY,Other (please specify):
-BIRTHZ,Other (please specify):
-BIRTH10,Other (please specify):
-BIRTH11,Other (please specify):
-BIRTH12,Other (please specify):
-BIRTH13,Other (please specify):
-BIRTH14,Other (please specify):
-BIRTH15,Other (please specify):
-BIRTH16,Other (please specify):
-BIRTH17,Other (please specify):
-BIRTH18,Other (please specify):
-BIRTH19,Other (please specify):
-BIRTH1A,Other (please specify):
-BIRTH1B,Other (please specify):
-Birth.preference,How would you like your baby to be born?
-Birth.preference.dichotomized,How would you like your baby to be born? 
-FOC1,"1 - Losing emotional control in front of other people (being rude, yelling) during labour/birth?"
-FOC2,2 - Having other people see me urinate during labour/birth?
-FOC3,3 - Other people seeing me have a bowel movement during labour/birth?
-FOC4,4 - Other people seeing me naked during labour/birth?
-FOC5,5 - Not living up to expectations to be strong?
-FOC6,6 - Being watched by strangers during labour/birth?
-FOC7,7 - Experiencing pain during contractions?
-FOC8,8 - Experiencing pain during a vaginal birth?
-FOC9,9 - Experiencing pain during a cesarean birth?
-FOC10,10 - Experiencing pain during labour?
-FOC11,11 - Experiencing pain while pushing the baby out?
-FOC12,12 - Not getting the pain medication I need?
-FOC13,13 - Not being able to have an epidural during labour if I want/need one?
-FOC14,14 - Receiving unwanted pain medication during labour/birth?
-FOC15,15 - Feeling pressure to receive pain medication during labour/birth even though I may not want to?
-FOC16,"16 - Feeling pressure from others to have a natural (unmedicated) childbirth, even though this is not really what I want?"
-FOC17,"17 - Not being able to have the kind of birth I want (i.e., either vaginal or cesarean)?"
-FOC18,"18 - Not being able to have a cesarean birth, even though this is what I would prefer?"
-FOC19,"19 - Not being able to have a vaginal birth, even though this is what I would prefer?"
-FOC20,20 - Having a vaginal birth?
-FOC21,21 - Having a cesarean birth?
-FOC22,22 - The baby being harmed during labour/birth?
-FOC23,23 - The baby dying during labour/birth?
-FOC24,24 - The baby being damaged/handicapped as a consequence of labour/birth?
-FOC25,"25 - The baby contracting an illness during labour/birth (e.g., Herpes, HIV)?"
-FOC26,26 - The baby suffocating during labour/birth?
-FOC27,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?"
-FOC28,28 - Bleeding too much during labour/birth?
-FOC29,29 - Being harmed because of incompetent medical care?
-FOC30,30 - Dying during labour/birth?
-FOC31,31 - Vaginal tearing during labour/birth?
-FOC32,32 - Rectal tearing/damage as a consequence of labour/birth?
-FOC33,33 - Being left with scars from a vaginal birth?
-FOC34,34 - Being left with scars from a cesarean birth?
-FOC35,35 - Stretching of my vagina from giving birth vaginally?
-FOC36,36 - My body looking less attractive following the birth?
-FOC37,37 - My vagina looking less attractive following a vaginal childbirth?
-FOC38,38 - Enjoying sexual intercourse less because of stretching from a vaginal birth?
-FOC39,39 - My partner enjoying sexual intercourse less because of stretching of my vagina from having a vaginal birth?
-FOC40,40 - Having an episiotomy?
-FOC41,41 - Requiring vacuum or forceps?
-FOC42,42 - Being administered injections?
-FOC43,43 - Having a catheter inserted (a tube inserted into the urethra to collect urine)?
-FOC44,44 - Having general anesthetic?
-FOC45,45 - Having scars or wounds that do not heal properly?
-FOC46,46 - Needing to have stitches after the birth?
-FOC47,47 - Enjoying sexual intercourse less because of pain or discomfort from the birth?
-FOC48,48 - Being administered an epidural?
-FOC49,49 - Vomiting during labour/birth?
-FOC.OTHER,Other (please specify):
-FOC.O0,Other (please specify):
-FOC.O1,Other (please specify):
-FOC.O2,Other (please specify):
-FOC.O3,Other (please specify):
-FOC.O4,Other (please specify):
-FOC.O5,Other (please specify):
-FOC.O6,Other (please specify):
-FOC.O7,Other (please specify):
-FOC.O8,Other (please specify):
-FOC.O9,Other (please specify):
-FOC.OA,Other (please specify):
-FOC.OB,Other (please specify):
-FOC.OC,Other (please specify):
-FOC.OD,Other (please specify):
-FOC.OE,Other (please specify):
-FOC.OF,Other (please specify):
-FOC.OG,Other (please specify):
-FOC.OH,Other (please specify):
-FOC.OI,Other (please specify):
-FOC.OJ,Other (please specify):
-FOC.OK,Other (please specify):
-FOC.OL,Other (please specify):
-FOC.OM,Other (please specify):
-FOC.ON,Other (please specify):
-FOC.OO,Other (please specify):
-FOC.OP,Other (please specify):
-FOC.OQ,Other (please specify):
-FOC.OR,Other (please specify):
-FOC.OS,Other (please specify):
-FOC.OT,Other (please specify):
-FOC.OU,Other (please specify):
-FOC.OV,Other (please specify):
-FOC.OW,Other (please specify):
-FOC.OX,Other (please specify):
-FOC.OY,Other (please specify):
-FOC.OZ,Other (please specify):
-FOC.O10,Other (please specify):
-FOC.O11,Other (please specify):
-FOC.O12,Other (please specify):
-FOC.O13,Other (please specify):
-FOC.O14,Other (please specify):
-FOC.O15,Other (please specify):
-FOC.O16,Other (please specify):
-FOC.O17,Other (please specify):
-FOC.O18,Other (please specify):
-FOC.O19,Other (please specify):
-FOC.O1A,Other (please specify):
-FOCI1,Interference 1 - My relationship with my partner/spouse.
-FOCI2,Interference 2 - My relationships with family members
-FOCI3,Interference 3 - Other relationships in my life
-FOCI4,Interference 4 - My relationships with my prenatal caregivers
-FOCI5,Interference 5 - My work life
-FOCI6,Interference 6 - My leisure activities
-FOCI7,Interference 7 - Getting ready for the new baby
-FOCI.OTHER,Other (please specify):
-FOCI.0,Other (please specify):
-FOCI.1,Other (please specify):
-FOCI.2,Other (please specify):
-FOCI.3,Other (please specify):
-FOCI.4,Other (please specify):
-FOCI.5,Other (please specify):
-FOCI.6,Other (please specify):
-FOCI.7,Other (please specify):
-FOCI.8,Other (please specify):
-FOCI.9,Other (please specify):
-FOCI.A,Other (please specify):
-FOCI.B,Other (please specify):
-FOCI.C,Other (please specify):
-FOCI.D,Other (please specify):
-FOCI.E,Other (please specify):
-FOCI.F,Other (please specify):
-FOCI.G,Other (please specify):
-FOCI.H,Other (please specify):
-FOCI.I,Other (please specify):
-FOCI.J,Other (please specify):
-FOCI.K,Other (please specify):
-FOCI.L,Other (please specify):
-FOCI.M,Other (please specify):
-FOCI.N,Other (please specify):
-FOCI.O,Other (please specify):
-FOCI.P,Other (please specify):
-FOCI.Q,Other (please specify):
-FOCI.R,Other (please specify):
-FOCI.S,Other (please specify):
-FOCI.T,Other (please specify):
-FOCI.U,Other (please specify):
-FOCI.V,Other (please specify):
-FOCI.W,Other (please specify):
-FOCI.X,Other (please specify):
-FOCI.Y,Other (please specify):
-FOCI.Z,Other (please specify):
-FOCI.10,Other (please specify):
-FOCI.11,Other (please specify):
-FOCI.12,Other (please specify):
-FOCI.13,Other (please specify):
-FOCI.14,Other (please specify):
-FOCI.15,Other (please specify):
-FOCI.16,Other (please specify):
-FOCI.17,Other (please specify):
-FOCI.18,Other (please specify):
-FOCI.19,Other (please specify):
-FOCI.1A,Other (please specify):
-WDEQ1.LABOUR.FANTASTIC,Fantastic
-WDEQ1.R,Fantastic R
-WDEQ2.LABOUR.FRIGHTFUL,Frightful
-WDEQ3.LABOUR.LONELY,Lonely
-WDEQ4.LABOUR.STRONG,Strong
-WDEQ4.R,Strong R
-WDEQ5.LABOUR.CONFIDENT,Confident
-WEDQ5.R,Confident R
-WDEQ6.LABOUR.AFRAID,Afraid
-WDEQ7.LABOUR.DESERTED,Deserted
-WDEQ8.LABOUR.WEAK,Weak
-WDEQ9.LABOUR.SAFE,Safe
-WDEQ9.R,Safe R
-WDEQ10.LABOUR.INDEPENDENT,Independent
-WDEQ10.R,Independent R
-WDEQ11.LABOUR.DESOLATE,Desolate
-WDEQ12.LABOUR.TENSE,Tense
-WDEQ13.LABOUR.GLAD,Glad
-WDEQ13.R,Glad R
-WDEQ14.LABOUR.PROUD,Proud
-WDEQ14.R,Proud R
-WDEQ15.LABOUR.ABANDONED,Abandoned
-WDEQ16.LABOUR.COMPOSED,Composed
-WDEQ16.R,Composed R
-WDEQ17.LABOUR.RELAXED,Relaxed
-WDEQ17.R,Relaxed R
-WDEQ18.LABOUR.HAPPY,Happy
-WDEQ18.R,Happy R
-WDEQ19.LABOUR.PANIC,Panic
-WDEQ20.LABOUR.HOPELESSNESS,Hopelessness
-WDEQ21.LABOUR.LONGING,Longing for the child
-WDEQ21.R,Longing for the child R
-WDEQ22.LABOUR.CONFIDENCE,Self-confidence
-WDEQ22.R,Self-confidence R
-WDEQ23.LABOUR.TRUST,Trust
-WDEQ23.R,Trust R
-WDEQ24.LABOUR.PAIN,Pain
-WDEQ25.LABOUR.BEHAVBADLY,Behave extremely badly
-WDEQ26.LABOUR.SURRENDER,Surrender control 
-WDEQ26.R,Surrender control R
-WDEQ27.LABOUR.LOSECONTROL,Totally lose control of myself
-WDEQ28.DELIVERY.ENJOYABLE,Extremely enjoyable
-WDEQ28.R,Extremely enjoyable R
-WDEQ29.DELIVERY.NATURAL,Extremely natural
-WDEQ29.R,Extremely natural R
-WDEQ30.DELIVERY.COURSE,Totally a matter of course
-WDEQ30.R,Totall a matter of course R
-WDEQ31.DELIVERY.DANGEROUS,Extremely dangerous
-WDEQ32.FANTASY.DEATH,Fantasies that your child will die during labour/delivery?
-WDEQ33.FANTASY.INJURY,Fantasies that your child will be injured during labour/delivery?
-EPDS1.LAUGH,"OVER THE LAST 7 DAYS:
-I have been able to laugh and see the funny side of things "
-EPDS2.ENJOYMENT,I have looked forward with enjoyment to things 
-EPDS3.BLAME,I have blamed myself unnecessarily when things went wrong
-EPDS4.ANXIOUS,I have been anxious or worried for no good reason
-EPDS5.SCARED,I have felt scared or panicky for no very good reason
-EPDS6.COPING,Things have been getting on top of me
-EPDS7.SLEEPING,I have been so unhappy that I have had difficulty sleeping
-EPDS8.MISERABLE,I have felt sad or miserable
-EPDS9.CRYING,I have been so unhappy that I have been crying
-EPDS10.SELFHARM,The thought of harming myself has occurred to me
-MQ1,MQ1 - I could not remove the hook from a fish that was caught.
-MQ2,MQ2 - I would feel some revulsion looking at a preserved brain in a bottle.
-MQ3,"MQ3 - If a badly injured person appears on TV, I turn my head away."
-MQ4,MQ4 - I dislike looking at pictures of accidents or injuries in magazines.
-MQ5,MQ5 - I do not mind visiting a hospital and seeing ill or injured persons.
-MQ6,MQ6 - Medical odors make me tense and uncomfortable.
-MQ7,MQ7 - I would not go hunting because I could not stand the sight of a dead animal.
-MQ8,MQ8 - Watching a butcher at work would make me anxious.
-MQ9,MQ9 - A career as a doctor or nurse is very attractive to me.
-MQ10,MQ10 - I would feel faint if I saw someone with a wound in the eye.
-MQ11,MQ11 - Watching people use sharp power tools make me nervous.
-MQ12,MQ12 - The prospect of getting an injection or seeing someone else get one bothers me quite a bit.
-MQ13,MQ13 - I feel sick at the sight of blood.
-MQ14,MQ14 - I enjoy reading articles about modern medical techniques.
-MQ15,"MQ15 - Injuries, accidents, blood, etc. bother me more than anything else."
-MQ16,MQ16 - Under no circumstance would I accept an invitation to watch a surgical operation.
-MQ17,MQ17 - When I see an accident I feel tense.
-MQ18,MQ18 - It would not bother me to see a bad cut as long as it had been cleaned and stitched.
-MQ19,MQ19 - Using very sharp knives makes me nervous.
-MQ20,"MQ20 - Not only do cuts and wounds upset me, but the sight of people with amputated limbs, large scars, or plastic surgery also bother me."
-MQ21,"MQ21 - If instruments were available, it would be interesting to see the action of the internal organs in a living body."
-MQ22,MQ22 - I am frightened at the idea of someone drawing a blood sample from me.
-MQ23,MQ23 - I donâ€™t believe anyone could help a person with a bloody wound without feeling at least a little upset.
-MQ24,MQ24 - I am terrified by the idea of having surgery.
-MQ25,MQ25 - I am frightened by the thought that I might some day have to help a person badly hurt in car wreck.
-MQ26,MQ26 - I shudder to think of accidentally cutting myself.
-MQ27,MQ27 - The sight of dried blood is repulsive.
-MQ28,MQ28 - Blood and gore upset me no more than the average person.
-MQ29,MQ29 - The sight of an open wound nauseates me.
-MQ30,MQ30 - I could never swab out a wound.
-INCLUDE.RESPONSES,"Please indicate below if you would like us to include your survey responses in our research. If you respond &quot;No&quot; to the question below, we will not include your responses in our research."
-filter..,Previous_CS = 1 (FILTER)
-EPDS3.R,EPDS3 - Reverse Scored
-EPDS5.R,EPDS5 - Reverse Scored
-EPDS6.R,EPDS6 - Reverse Scored
-EPDS7.R,EPDS7 - Reverse Scored
-EPDS8.R,EPDS8 - Reverse Scored
-EPDS9.R,EPDS9 - Reverse Scored
-EPDS10.R,EPDS10 - Reverse Scored
+Student_FT,NA
+Student_PT,NA
+Employed_FT,NA
+Employed_PT,NA
+Homemaker_FT,NA
+Homemaker_PT,NA
+Unemployed_FT,NA
+Unemloyed_PT,NA
+SeekingWork_FT,NA
+SeekingWork_PT,NA
+Retired_FT,NA
+Retired_PT,NA
+Disabled_FT,NA
+Disabled_PT,NA
+City,NA
+CITY0,NA
+CITY1,NA
+CITY2,NA
+CITY3,NA
+CITY4,NA
+CITY5,NA
+CITY6,NA
+CITY7,NA
+CITY8,NA
+CITY9,NA
+CITYA,NA
+CITYB,NA
+CITYC,NA
+CITYD,NA
+CITYE,NA
+CITYF,NA
+CITYG,NA
+CITYH,NA
+CITYI,NA
+CITYJ,NA
+CITYK,NA
+CITYL,NA
+CITYM,NA
+CITYN,NA
+CITYO,NA
+CITYP,NA
+CITYQ,NA
+CITYR,NA
+CITYS,NA
+CITYT,NA
+CITYU,NA
+CITYV,NA
+CITYW,NA
+CITYX,NA
+CITYY,NA
+CITYZ,NA
+CITY10,NA
+CITY11,NA
+CITY12,NA
+CITY13,NA
+CITY14,NA
+CITY15,NA
+CITY16,NA
+CITY17,NA
+CITY18,NA
+CITY19,NA
+CITY1A,NA
+Province,NA
+PROVI0,NA
+PROVI1,NA
+PROVI2,NA
+PROVI3,NA
+PROVI4,NA
+PROVI5,NA
+PROVI6,NA
+PROVI7,NA
+PROVI8,NA
+PROVI9,NA
+PROVIA,NA
+PROVIB,NA
+PROVIC,NA
+PROVID,NA
+PROVIE,NA
+PROVIF,NA
+PROVIG,NA
+PROVIH,NA
+PROVII,NA
+PROVIJ,NA
+PROVIK,NA
+PROVIL,NA
+PROVIM,NA
+PROVIN,NA
+PROVIO,NA
+PROVIP,NA
+PROVIQ,NA
+PROVIR,NA
+PROVIS,NA
+PROVIT,NA
+PROVIU,NA
+PROVIV,NA
+PROVIW,NA
+PROVIX,NA
+PROVIY,NA
+PROVIZ,NA
+PROVI10,NA
+PROVI11,NA
+PROVI12,NA
+PROVI13,NA
+PROVI14,NA
+PROVI15,NA
+PROVI16,NA
+PROVI17,NA
+PROVI18,NA
+PROVI19,NA
+PROVI1A,NA
+Country,NA
+COUNT0,NA
+COUNT1,NA
+COUNT2,NA
+COUNT3,NA
+COUNT4,NA
+COUNT5,NA
+COUNT6,NA
+COUNT7,NA
+COUNT8,NA
+COUNT9,NA
+COUNTA,NA
+COUNTB,NA
+COUNTC,NA
+COUNTD,NA
+COUNTE,NA
+COUNTF,NA
+COUNTG,NA
+COUNTH,NA
+COUNTI,NA
+COUNTJ,NA
+COUNTK,NA
+COUNTL,NA
+COUNTM,NA
+COUNTN,NA
+COUNTO,NA
+COUNTP,NA
+COUNTQ,NA
+COUNTR,NA
+COUNTS,NA
+COUNTT,NA
+COUNTU,NA
+COUNTV,NA
+COUNTW,NA
+COUNTX,NA
+COUNTY,NA
+COUNTZ,NA
+COUNT10,NA
+COUNT11,NA
+COUNT12,NA
+COUNT13,NA
+COUNT14,NA
+COUNT15,NA
+COUNT16,NA
+COUNT17,NA
+COUNT18,NA
+COUNT19,NA
+COUNT1A,NA
+Ethnicity,NA
+Ethnicity_Other,NA
+ETHNI0,NA
+ETHNI1,NA
+ETHNI2,NA
+ETHNI3,NA
+ETHNI4,NA
+ETHNI5,NA
+ETHNI6,NA
+ETHNI7,NA
+ETHNI8,NA
+ETHNI9,NA
+ETHNIA,NA
+ETHNIB,NA
+ETHNIC,NA
+ETHNID,NA
+ETHNIE,NA
+ETHNIF,NA
+ETHNIG,NA
+ETHNIH,NA
+ETHNII,NA
+ETHNIJ,NA
+ETHNIK,NA
+ETHNIL,NA
+ETHNIM,NA
+ETHNIN,NA
+ETHNIO,NA
+ETHNIP,NA
+ETHNIQ,NA
+ETHNIR,NA
+ETHNIS,NA
+ETHNIT,NA
+ETHNIU,NA
+ETHNIV,NA
+ETHNIW,NA
+ETHNIX,NA
+ETHNIY,NA
+ETHNIZ,NA
+ETHNI10,NA
+ETHNI11,NA
+ETHNI12,NA
+ETHNI13,NA
+ETHNI14,NA
+ETHNI15,NA
+ETHNI16,NA
+ETHNI17,NA
+ETHNI18,NA
+ETHNI19,NA
+ETHNI1A,NA
+Language,NA
+LANGU0,NA
+LANGU1,NA
+LANGU2,NA
+LANGU3,NA
+LANGU4,NA
+LANGU5,NA
+LANGU6,NA
+LANGU7,NA
+LANGU8,NA
+LANGU9,NA
+LANGUA,NA
+LANGUB,NA
+LANGUC,NA
+LANGUD,NA
+LANGUE,NA
+LANGUF,NA
+LANGUG,NA
+LANGUH,NA
+LANGUI,NA
+LANGUJ,NA
+LANGUK,NA
+LANGUL,NA
+LANGUM,NA
+LANGUN,NA
+LANGUO,NA
+LANGUP,NA
+LANGUQ,NA
+LANGUR,NA
+LANGUS,NA
+LANGUT,NA
+LANGUU,NA
+LANGUV,NA
+LANGUW,NA
+LANGUX,NA
+LANGUY,NA
+LANGUZ,NA
+LANGU10,NA
+LANGU11,NA
+LANGU12,NA
+LANGU13,NA
+LANGU14,NA
+LANGU15,NA
+LANGU16,NA
+LANGU17,NA
+LANGU18,NA
+LANGU19,NA
+LANGU1A,NA
+Language_Coded,NA
+Has_kids,NA
+Births,NA
+Births_vaginal,NA
+Births_cesarean,NA
+Births_cesarean_emerg,NA
+Births_cesarean_traumatic,NA
+Assisted_vaginal,NA
+Current_complications_describe,NA
+CURRE1B,NA
+CURRE1C,NA
+CURRE1D,NA
+CURRE1E,NA
+CURRE1F,NA
+CURRE1G,NA
+CURRE1H,NA
+CURRE1I,NA
+CURRE1J,NA
+CURRE1K,NA
+CURRE1L,NA
+CURRE1M,NA
+CURRE1N,NA
+CURRE1O,NA
+CURRE1P,NA
+CURRE1Q,NA
+CURRE1R,NA
+CURRE1S,NA
+CURRE1T,NA
+CURRE1U,NA
+CURRE1V,NA
+CURRE1W,NA
+CURRE1X,NA
+CURRE1Y,NA
+CURRE1Z,NA
+CURRE20,NA
+CURRE21,NA
+CURRE22,NA
+CURRE23,NA
+CURRE24,NA
+CURRE25,NA
+CURRE26,NA
+CURRE27,NA
+CURRE28,NA
+CURRE29,NA
+CURRE2A,NA
+CURRE2B,NA
+CURRE2C,NA
+CURRE2D,NA
+CURRE2E,NA
+CURRE2F,NA
+CURRE2G,NA
+CURRE2H,NA
+CURRE2I,NA
+CURRE2J,NA
+CURRE2K,NA
+CURRE2L,NA
+Current_conception_other,NA
+CURRE0,NA
+CURRE1,NA
+CURRE2,NA
+CURRE3,NA
+CURRE4,NA
+CURRE5,NA
+CURRE6,NA
+CURRE7,NA
+CURRE8,NA
+CURRE9,NA
+CURREA,NA
+CURREB,NA
+CURREC,NA
+CURRED,NA
+CURREE,NA
+CURREF,NA
+CURREG,NA
+CURREH,NA
+CURREI,NA
+CURREJ,NA
+CURREK,NA
+CURREL,NA
+CURREM,NA
+CURREN,NA
+CURREO,NA
+CURREP,NA
+CURREQ,NA
+CURRER,NA
+CURRES,NA
+CURRET,NA
+CURREU,NA
+CURREV,NA
+CURREW,NA
+CURREX,NA
+CURREY,NA
+CURREZ,NA
+CURRE10,NA
+CURRE11,NA
+CURRE12,NA
+CURRE13,NA
+CURRE14,NA
+CURRE15,NA
+CURRE16,NA
+CURRE17,NA
+CURRE18,NA
+CURRE19,NA
+CURRE1A,NA
+Painful_event,NA
+Painful_event_describe,NA
+PAINF0,NA
+PAINF1,NA
+PAINF2,NA
+PAINF3,NA
+PAINF4,NA
+PAINF5,NA
+PAINF6,NA
+PAINF7,NA
+PAINF8,NA
+PAINF9,NA
+PAINFA,NA
+PAINFB,NA
+PAINFC,NA
+PAINFD,NA
+PAINFE,NA
+PAINFF,NA
+PAINFG,NA
+PAINFH,NA
+PAINFI,NA
+PAINFJ,NA
+PAINFK,NA
+PAINFL,NA
+PAINFM,NA
+PAINFN,NA
+PAINFO,NA
+PAINFP,NA
+PAINFQ,NA
+PAINFR,NA
+PAINFS,NA
+PAINFT,NA
+PAINFU,NA
+PAINFV,NA
+PAINFW,NA
+PAINFX,NA
+PAINFY,NA
+PAINFZ,NA
+PAINF10,NA
+PAINF11,NA
+PAINF12,NA
+PAINF13,NA
+PAINF14,NA
+PAINF15,NA
+PAINF16,NA
+PAINF17,NA
+PAINF18,NA
+PAINF19,NA
+PAINF1A,NA
+Care_Provider_Other,NA
+CARE_0,NA
+CARE_1,NA
+CARE_2,NA
+CARE_3,NA
+CARE_4,NA
+CARE_5,NA
+CARE_6,NA
+CARE_7,NA
+CARE_8,NA
+CARE_9,NA
+CARE_A,NA
+CARE_B,NA
+CARE_C,NA
+CARE_D,NA
+CARE_E,NA
+CARE_F,NA
+CARE_G,NA
+CARE_H,NA
+CARE_I,NA
+CARE_J,NA
+CARE_K,NA
+CARE_L,NA
+CARE_M,NA
+CARE_N,NA
+CARE_O,NA
+CARE_P,NA
+CARE_Q,NA
+CARE_R,NA
+CARE_S,NA
+CARE_T,NA
+CARE_U,NA
+CARE_V,NA
+CARE_W,NA
+CARE_X,NA
+CARE_Y,NA
+CARE_Z,NA
+CARE_10,NA
+CARE_11,NA
+CARE_12,NA
+CARE_13,NA
+CARE_14,NA
+CARE_15,NA
+CARE_16,NA
+CARE_17,NA
+CARE_18,NA
+CARE_19,NA
+CARE_1A,NA
+Care_Provider_Present,NA
+Care_Provider_Satisfaction,NA
+Present_Partner,NA
+Present_Physician,NA
+Present_OB,NA
+Present_Mother,NA
+Present_Father,NA
+Present_Midwife,NA
+Present_Doula,NA
+Present_Partner_Parents,NA
+Present_Sibling,NA
+Present_Children,NA
+Present_Friends,NA
+Present_Other,NA
+Present_Other_specify,NA
+PRESE0,NA
+PRESE1,NA
+PRESE2,NA
+PRESE3,NA
+PRESE4,NA
+PRESE5,NA
+PRESE6,NA
+PRESE7,NA
+PRESE8,NA
+PRESE9,NA
+PRESEA,NA
+PRESEB,NA
+PRESEC,NA
+PRESED,NA
+PRESEE,NA
+PRESEF,NA
+PRESEG,NA
+PRESEH,NA
+PRESEI,NA
+PRESEJ,NA
+PRESEK,NA
+PRESEL,NA
+PRESEM,NA
+PRESEN,NA
+PRESEO,NA
+PRESEP,NA
+PRESEQ,NA
+PRESER,NA
+PRESES,NA
+PRESET,NA
+PRESEU,NA
+PRESEV,NA
+PRESEW,NA
+PRESEX,NA
+PRESEY,NA
+PRESEZ,NA
+PRESE10,NA
+PRESE11,NA
+PRESE12,NA
+PRESE13,NA
+PRESE14,NA
+PRESE15,NA
+PRESE16,NA
+PRESE17,NA
+PRESE18,NA
+PRESE19,NA
+PRESE1A,NA
+Birthplace_other,NA
+BIRTH0,NA
+BIRTH1,NA
+BIRTH2,NA
+BIRTH3,NA
+BIRTH4,NA
+BIRTH5,NA
+BIRTH6,NA
+BIRTH7,NA
+BIRTH8,NA
+BIRTH9,NA
+BIRTHA,NA
+BIRTHB,NA
+BIRTHC,NA
+BIRTHD,NA
+BIRTHE,NA
+BIRTHF,NA
+BIRTHG,NA
+BIRTHH,NA
+BIRTHI,NA
+BIRTHJ,NA
+BIRTHK,NA
+BIRTHL,NA
+BIRTHM,NA
+BIRTHN,NA
+BIRTHO,NA
+BIRTHP,NA
+BIRTHQ,NA
+BIRTHR,NA
+BIRTHT,NA
+BIRTHU,NA
+BIRTHV,NA
+BIRTHW,NA
+BIRTHX,NA
+BIRTHY,NA
+BIRTHZ,NA
+BIRTH10,NA
+BIRTH11,NA
+BIRTH12,NA
+BIRTH13,NA
+BIRTH14,NA
+BIRTH15,NA
+BIRTH16,NA
+BIRTH17,NA
+BIRTH18,NA
+BIRTH19,NA
+BIRTH1A,NA
+BIRTH1B,NA
+Birth_preference,NA
+Birth_preference_dichotomized,NA
+FOC1,NA
+FOC2,NA
+FOC3,NA
+FOC4,NA
+FOC5,NA
+FOC6,NA
+FOC7,NA
+FOC8,NA
+FOC9,NA
+FOC10,NA
+FOC11,NA
+FOC12,NA
+FOC13,NA
+FOC14,NA
+FOC15,NA
+FOC16,NA
+FOC17,NA
+FOC18,NA
+FOC19,NA
+FOC20,NA
+FOC21,NA
+FOC22,NA
+FOC23,NA
+FOC24,NA
+FOC25,NA
+FOC26,NA
+FOC27,NA
+FOC28,NA
+FOC29,NA
+FOC30,NA
+FOC31,NA
+FOC32,NA
+FOC33,NA
+FOC34,NA
+FOC35,NA
+FOC36,NA
+FOC37,NA
+FOC38,NA
+FOC39,NA
+FOC40,NA
+FOC41,NA
+FOC42,NA
+FOC43,NA
+FOC44,NA
+FOC45,NA
+FOC46,NA
+FOC47,NA
+FOC48,NA
+FOC49,NA
+FOC_OTHER,NA
+FOC_O0,NA
+FOC_O1,NA
+FOC_O2,NA
+FOC_O3,NA
+FOC_O4,NA
+FOC_O5,NA
+FOC_O6,NA
+FOC_O7,NA
+FOC_O8,NA
+FOC_O9,NA
+FOC_OA,NA
+FOC_OB,NA
+FOC_OC,NA
+FOC_OD,NA
+FOC_OE,NA
+FOC_OF,NA
+FOC_OG,NA
+FOC_OH,NA
+FOC_OI,NA
+FOC_OJ,NA
+FOC_OK,NA
+FOC_OL,NA
+FOC_OM,NA
+FOC_ON,NA
+FOC_OO,NA
+FOC_OP,NA
+FOC_OQ,NA
+FOC_OR,NA
+FOC_OS,NA
+FOC_OT,NA
+FOC_OU,NA
+FOC_OV,NA
+FOC_OW,NA
+FOC_OX,NA
+FOC_OY,NA
+FOC_OZ,NA
+FOC_O10,NA
+FOC_O11,NA
+FOC_O12,NA
+FOC_O13,NA
+FOC_O14,NA
+FOC_O15,NA
+FOC_O16,NA
+FOC_O17,NA
+FOC_O18,NA
+FOC_O19,NA
+FOC_O1A,NA
+FOCI1,NA
+FOCI2,NA
+FOCI3,NA
+FOCI4,NA
+FOCI5,NA
+FOCI6,NA
+FOCI7,NA
+FOCI_OTHER,NA
+FOCI_0,NA
+FOCI_1,NA
+FOCI_2,NA
+FOCI_3,NA
+FOCI_4,NA
+FOCI_5,NA
+FOCI_6,NA
+FOCI_7,NA
+FOCI_8,NA
+FOCI_9,NA
+FOCI_A,NA
+FOCI_B,NA
+FOCI_C,NA
+FOCI_D,NA
+FOCI_E,NA
+FOCI_F,NA
+FOCI_G,NA
+FOCI_H,NA
+FOCI_I,NA
+FOCI_J,NA
+FOCI_K,NA
+FOCI_L,NA
+FOCI_M,NA
+FOCI_N,NA
+FOCI_O,NA
+FOCI_P,NA
+FOCI_Q,NA
+FOCI_R,NA
+FOCI_S,NA
+FOCI_T,NA
+FOCI_U,NA
+FOCI_V,NA
+FOCI_W,NA
+FOCI_X,NA
+FOCI_Y,NA
+FOCI_Z,NA
+FOCI_10,NA
+FOCI_11,NA
+FOCI_12,NA
+FOCI_13,NA
+FOCI_14,NA
+FOCI_15,NA
+FOCI_16,NA
+FOCI_17,NA
+FOCI_18,NA
+FOCI_19,NA
+FOCI_1A,NA
+WDEQ1_LABOUR_FANTASTIC,NA
+WDEQ1_R,NA
+WDEQ2_LABOUR_FRIGHTFUL,NA
+WDEQ3_LABOUR_LONELY,NA
+WDEQ4_LABOUR_STRONG,NA
+WDEQ4_R,NA
+WDEQ5_LABOUR_CONFIDENT,NA
+WEDQ5_R,NA
+WDEQ6_LABOUR_AFRAID,NA
+WDEQ7_LABOUR_DESERTED,NA
+WDEQ8_LABOUR_WEAK,NA
+WDEQ9_LABOUR_SAFE,NA
+WDEQ9_R,NA
+WDEQ10_LABOUR_INDEPENDENT,NA
+WDEQ10_R,NA
+WDEQ11_LABOUR_DESOLATE,NA
+WDEQ12_LABOUR_TENSE,NA
+WDEQ13_LABOUR_GLAD,NA
+WDEQ13_R,NA
+WDEQ14_LABOUR_PROUD,NA
+WDEQ14_R,NA
+WDEQ15_LABOUR_ABANDONED,NA
+WDEQ16_LABOUR_COMPOSED,NA
+WDEQ16_R,NA
+WDEQ17_LABOUR_RELAXED,NA
+WDEQ17_R,NA
+WDEQ18_LABOUR_HAPPY,NA
+WDEQ18_R,NA
+WDEQ19_LABOUR_PANIC,NA
+WDEQ20_LABOUR_HOPELESSNESS,NA
+WDEQ21_LABOUR_LONGING,NA
+WDEQ21_R,NA
+WDEQ22_LABOUR_CONFIDENCE,NA
+WDEQ22_R,NA
+WDEQ23_LABOUR_TRUST,NA
+WDEQ23_R,NA
+WDEQ24_LABOUR_PAIN,NA
+WDEQ25_LABOUR_BEHAVBADLY,NA
+WDEQ26_LABOUR_SURRENDER,NA
+WDEQ26_R,NA
+WDEQ27_LABOUR_LOSECONTROL,NA
+WDEQ28_DELIVERY_ENJOYABLE,NA
+WDEQ28_R,NA
+WDEQ29_DELIVERY_NATURAL,NA
+WDEQ29_R,NA
+WDEQ30_DELIVERY_COURSE,NA
+WDEQ30_R,NA
+WDEQ31_DELIVERY_DANGEROUS,NA
+WDEQ32_FANTASY_DEATH,NA
+WDEQ33_FANTASY_INJURY,NA
+EPDS1_LAUGH,NA
+EPDS2_ENJOYMENT,NA
+EPDS3_BLAME,NA
+EPDS4_ANXIOUS,NA
+EPDS5_SCARED,NA
+EPDS6_COPING,NA
+EPDS7_SLEEPING,NA
+EPDS8_MISERABLE,NA
+EPDS9_CRYING,NA
+EPDS10_SELFHARM,NA
+MQ1,NA
+MQ2,NA
+MQ3,NA
+MQ4,NA
+MQ5,NA
+MQ6,NA
+MQ7,NA
+MQ8,NA
+MQ9,NA
+MQ10,NA
+MQ11,NA
+MQ12,NA
+MQ13,NA
+MQ14,NA
+MQ15,NA
+MQ16,NA
+MQ17,NA
+MQ18,NA
+MQ19,NA
+MQ20,NA
+MQ21,NA
+MQ22,NA
+MQ23,NA
+MQ24,NA
+MQ25,NA
+MQ26,NA
+MQ27,NA
+MQ28,NA
+MQ29,NA
+MQ30,NA
+INCLUDE_RESPONSES,NA
+filter_.,NA
+EPDS3_R,NA
+EPDS5_R,NA
+EPDS6_R,NA
+EPDS7_R,NA
+EPDS8_R,NA
+EPDS9_R,NA
+EPDS10_R,NA
 EPDSTOTM,NA
 MQ5R,NA
 MQ9R,NA
@@ -913,26 +912,26 @@ MQ18R,NA
 MQ21R,NA
 MQ28R,NA
 MQTOTM,NA
-WDEQA.TOTM,NA
-WDEQA.TOT,NA
-WDEQA.SCALED.0.TO.5,NA
-Singletons.yes,NA
-Income.recoded,NA
-Country.recode,NA
-Episiotomy.yes,NA
-Painful.event.yes,NA
-Emergency.CS,NA
-Traumatic.CS,NA
-Assisted.vag,NA
+WDEQA_TOTM,NA
+WDEQA_TOT,NA
+WDEQA_SCALED_0_TO_5,NA
+Singletons_yes,NA
+Income_recoded,NA
+Country_recode,NA
+Episiotomy_yes,NA
+Painful_event_yes,NA
+Emergency_CS,NA
+Traumatic_CS,NA
+Assisted_vag,NA
 Test,NA
-Traumatic.vaginal,NA
-Previous.CS,NA
-Previous.vag.delivery,NA
-Maternal.age,NA
-Age.35.or.older,NA
-Age.40.or.older,NA
-Age.three.categories,NA
-Education.recode,NA
-Stillbirth.yes,NA
-Termination.yes,NA
-Miscarriage.yes,NA
+Traumatic_vaginal,NA
+Previous_CS,NA
+Previous_vag_delivery,NA
+Maternal_age,NA
+Age_35_or_older,NA
+Age_40_or_older,NA
+Age_three_categories,NA
+Education_recode,NA
+Stillbirth_yes,NA
+Termination_yes,NA
+Miscarriage_yes,NA
