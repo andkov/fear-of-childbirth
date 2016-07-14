@@ -11,7 +11,7 @@ library(GPArotation)
 data(Harman)
 
 dto <- readRDS("./data/unshared/derived/dto.rds")
-ds <- dto$UnitData
+ds <- dto$analytic
 meta <- dto$MetaData
 
 names(ds)
