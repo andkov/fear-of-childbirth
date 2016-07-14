@@ -11,7 +11,7 @@ fpmFunction <- function( FPM.matrix, mainTitle=NULL ) {
   # Data prep for ggplot
   dsFORp <- reshape2::melt(FPM.matrix, id.vars=rownames(FPM.matrix))  ## id.vars declares MEASURED variables (as opposed to RESPONSE variable)
   dsFORp <- plyr::rename(dsFORp, replace=c(Var1="Variable", Var2="Factor", value="Loading"))
- browser()
+ # browser()
   dsFORp$Positive <- ifelse(dsFORp$Loading >= 0, "Positive", "Negative") #Or see Recipe 10.8
   dsFORp$LoadingAbs <- abs(dsFORp$Loading) # Long form
 #   dsFORp$LoadingPretty <- round(abs(dsFORp$Loading), roundingDigits) # Long form
