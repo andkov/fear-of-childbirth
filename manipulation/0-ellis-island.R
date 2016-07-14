@@ -55,12 +55,29 @@ metaData <- read.csv("./data/shared/meta/meta-data-dead.csv")
 
 
 # ---- tweak-data --------------------------------------------------------------
+# ---- tweek-data ------------------------------------------------------------
+# list the variables to select
+select_variables <- metaData %>% 
+  dplyr::filter(select==TRUE) %>% 
+  dplyr::select(name)
+(select_variables <- as.character(select_variables$name))
+# subset selected variables
+ds_small <- unitData %>% 
+  dplyr::select_(.dots = select_variables)
+# rename selected variables
+d_rules <- metaData %>%
+  dplyr::filter(name %in% names(ds_small)) %>% 
+  dplyr::select(name, name_new ) # leave only collumn, which values you wish to append
+names(ds_small) <- d_rules[,"name_new"]
+
 
 # ---- save-to-disk ------------------------------------------------------------
 
 dto <- list()
 dto[["unitData"]] <- unitData
 dto[['metaData']] <- metaData
+dto[['analytic']] <- ds_small
+
 # Save as a compress, binary R dataset.  It's no longer readable with a text editor, but it saves metadata (eg, factor information).
 saveRDS(dto, file="./data/unshared/derived/dto.rds", compress="xz")
 
@@ -74,7 +91,7 @@ names(dto)
 names(dto[["unitData"]])
 # 2nd element - meta data, info about variables
 names(dto[["metaData"]])
-
-
+# 3rd element - small, groomed data to be used for analysis
+names(dto[["analytic"]])
 
 
