@@ -34,7 +34,9 @@ shinyServer( function(input, output) {
   dsTag <- reactive({
     switch(EXPR=input$dataset,
            "Cognitive abilities"="cognitive",
-           "Items_9"            = "items_9"
+           "Items_9"            = "items_9",
+           "Items_49"           = "items_49",
+           "Items_35"           = "items_35"
            # "Emotional Traits"="emotional",
            # "Physical Measures"="physical",
 #            "Harman74"="Harman74",
@@ -46,7 +48,9 @@ shinyServer( function(input, output) {
   datasetInput <- reactive({
     switch(EXPR=input$dataset,
            "Cognitive Abilities"=cognitive,
-           "Items_9"            =items_9
+           "Items_9"            =items_9,
+           "Items_49"           =items_49,
+           "Items_35"           =items_35
            # "Emotional Traits"=emotional,
            # "Physical Measures"=physical,
 #            "Harman74"=Harman74,
@@ -58,7 +62,9 @@ shinyServer( function(input, output) {
   datasetDescription <- reactive({
     switch(EXPR=input$dataset,
            "Cognitive Abilities"=dscr.cognitive,
-           "Items_9"            =dscr.items_9
+           "Items_9"            =dscr.items_9,
+           "Items_49"           =dscr.items_49,
+           "Items_35"           =dscr.items_35
            # "Emotional Traits"=dscr.emotional,
            # "Physical Measures"=dscr.physical,
 #            "Harman74"=dscr.Harman74,
@@ -69,7 +75,9 @@ shinyServer( function(input, output) {
   p <- reactive({
     switch(EXPR=input$dataset,
            "Cognitive Abilities"=p.cognitive,
-           "Items_9"            =p.items_9
+           "Items_9"            =p.items_9, 
+           "Items_49"           =p.items_49,
+           "Items_35"           =p.items_35
            # "Emotional Traits"=p.emotional,
            # "Physical Measures"=p.physical,
 #            "Harman74"= p.Harman74,
@@ -81,7 +89,9 @@ shinyServer( function(input, output) {
   n <- reactive({
     switch(EXPR=input$dataset,
            "Cognitive Abilities"=n.cognitive,
-           "Items_9"            =n.items_9
+           "Items_9"            =n.items_9,
+           "Items_49"           =n.items_49,
+           "Items_35"           =n.items_35
            # "Emotional Traits"=n.emotional,
            # "Physical Measures"=n.physical,
 #            "Harman74"=n.Harman74,
@@ -104,20 +114,22 @@ shinyServer( function(input, output) {
   
   imageFileName <- reactive({
     switch(EXPR=input$tabcur,
-           "Data"=           "clouds_03.png", 
-           "Correlations"=   "clouds_R_03.png",
-           "Eigens"=         "clouds_D_03.png", 
-           "RMSEA"=          "clouds_D_03.png",
-           "Components"=     "clouds_V_03.png",
-           "Factors"=        "clouds_L_03.png",
-           "Table"=          "clouds_L_03.png",
-           "Documentation"=          "clouds_03.png"   
+           "Data"         =   "clouds_03.png", 
+           "Correlations" =   "clouds_R_03.png",
+           "Eigens"       =   "clouds_D_03.png", 
+           "RMSEA"        =   "clouds_D_03.png",
+           "Components"   =   "clouds_V_03.png",
+           "Factors"      =   "clouds_L_03.png",
+           "Table"        =   "clouds_L_03.png",
+           "Documentation"=   "clouds_03.png"   
   )}) # imageFileName             
 
 inputDatavars <- reactive({
   switch(EXPR=input$dataset,
          "Cognitive Abilities"="cognitive_03.png",
-         "Items_9"="emotional_03.png"
+         "Items_9"            ="items_9.png",
+         "Items_49"           ="items_49.png",
+         "Items_35"           ="items_35.png"
          # "Emotional Traits"="emotional_03.png",
          # "Physical Measures"="physical_03.png",
          # "Thurstone"="Thurstone_03.png"
