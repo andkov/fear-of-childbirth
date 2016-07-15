@@ -7,7 +7,7 @@ library(sem)
 library(GPArotation)
 
 
-
+sample_size <- 643
 # data(Harman)
 # 
 # dto <- readRDS("./data/unshared/derived/dto.rds")
@@ -22,17 +22,25 @@ library(GPArotation)
 # str(ds_cor)
 # 
 # R <- cor(ds_cor) # correlation matrix R of variables in foc
+ds <- readRDS("./data/shared/derived/cor.rds")
 R <- readRDS("./data/shared/derived/cor.rds")
 eigen <- eigen(R) # eigen decomposition of R      #  VDV' : $values -eigenvalues, $vectors
 svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues, $u,$v
 
 
-items_9 <- R
-n.items_9 <- 643
+items_9 <- ds[1:9,1:9]
+n.items_9 <- sample_size
 p.items_9 <- nrow(items_9)
 
+# ---- data-for-49-items ------------
+items_49 <- ds
+n.items_49 <- sample_size
+p.items_49 <- nrow(items_49)
 
-
+# ---- data-for-35-items ------------
+items_35 <- ds[1:10,1:10]
+n.items_35 <- sample_size
+p.items_35 <- nrow(items_35)
 
 # Harman.Holzinger: 9 x 9 correlation matrix of cognitive ability tests, N = 696.
 cognitive <- Harman.Holzinger
