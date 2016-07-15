@@ -2,7 +2,7 @@
 # fpmFunction is used to create output$ objects in server.R
 fpmFunction <- function( FPM.matrix, mainTitle=NULL ) {   
   roundingDigits <- 2 #Let the caller define in the future (especially with observed values that aren't close to 1.0).
-  stripSize <- 24  #Let the caller define in the future?
+  stripSize <- 14  #Let the caller define in the future?
   valuelabelSize <- 5 #7 # the values of the factor loadings
   axisTitleFontSize <- 18
   axisTextFontSize <- 18
