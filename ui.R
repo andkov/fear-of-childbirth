@@ -32,7 +32,7 @@ library(GPArotation)
                          "Crawford-Ferguson (Q)"="cfQ")) #Close radioButtons          
           , sliderInput("kappa","Value of kappa for Crawford-Ferguson:",min=0, max=1, value=0, step=.05) # sliderInput - "kappa" - value for Crawford-Ferguson
           , br(), br()
-          , imageOutput("PyramidImage", width="200px", height="400px")
+          , imageOutput("PyramidImage", width="50%", height="50%")
        )},# Close sidebarPanel
       
       {mainPanel(

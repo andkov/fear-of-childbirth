@@ -46,14 +46,23 @@ svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues
 # ds_cor <- sapply(ds_cor, as.numeric)
 # str(ds_cor)
 
+
 # ---- data-version-49 ------------------
 ds_49 <- ds %>% dplyr::select(foc_01:foc_49)
 vars_49 <- names(ds_49)
-vars_49 <- gsub("foc_", "", vars_49)
+# vars_49 <- gsub("foc_", "_", vars_49)
+vars_49 <- metaData %>% 
+  dplyr::filter(name_new %in% vars_49) %>% 
+  dplyr::mutate(name_ = paste0(gsub("foc_", "_", vars_49),"-",label_graph,"-",domain)) 
+vars_49 <- vars_49[,"name_"]
+
 ds_49 <- sapply(ds_49, as.numeric)
-R_49 <- cor(ds_49)
-n.R_49 <- sample_size
-p.R_49 <- nrow(R_49)
+R49 <- cor(ds_49)
+colnames(R49) <- vars_49
+rownames(R49) <- vars_49
+saveRDS(R49,"./data/shared/derived/cor.rds")
+n.R49 <- sample_size
+p.R49 <- nrow(R49)
 colnames(R_49) <- vars_49
 rownames(R_49) <- vars_49
 

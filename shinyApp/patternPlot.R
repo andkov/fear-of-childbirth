@@ -1,12 +1,14 @@
-
+# TODO: point to the script creating the object FPM.matrix, the source object
 # fpmFunction is used to create output$ objects in server.R
 fpmFunction <- function( FPM.matrix, mainTitle=NULL ) {   
   roundingDigits <- 2 #Let the caller define in the future (especially with observed values that aren't close to 1.0).
   stripSize <- 24  #Let the caller define in the future?
-  valuelabelSize <- 7 # the values of the factor loadings
+  valuelabelSize <- 5 #7 # the values of the factor loadings
   axisTitleFontSize <- 18
   axisTextFontSize <- 18
-  legendTextFontSize <- 18
+  legendTextFontSize <- 5
+  keep_factors <- paste0("F",1:10) # number of columns to show
+  show_factors <- paste0("F",1:k) # number of factors to print
   
   # Data prep for ggplot
   dsFORp <- reshape2::melt(FPM.matrix, id.vars=rownames(FPM.matrix))  ## id.vars declares MEASURED variables (as opposed to RESPONSE variable)
@@ -47,25 +49,34 @@ fpmFunction <- function( FPM.matrix, mainTitle=NULL ) {
   
   } # close color theme selection
   
-  
+  # browser()
+  # keep_factors <- paste0("F",1:10)
+  # show_factors <- paste0("F",1:k)
+  # vjust_ <- 2.2#1.3
+  # stripSize <- 12 #24
+  # valuelabelSize <- 4 #  7
+  dsFORp_ <- dsFORp %>% dplyr::filter(Factor %in% keep_factors)
   # Graph definition
-  pp <- ggplot(dsFORp, aes(x=Factor, y=LoadingAbs, fill=Positive, color=Positive, label=LoadingPretty)) +
+  pp <- ggplot(dsFORp_,aes(x=Factor,y=LoadingAbs,fill=Positive,color=Positive,label=LoadingPretty)) +
     geom_bar(stat="identity", na.rm=T) +
     geom_text(y=0, vjust=-.1,size=valuelabelSize, na.rm=T) +
     scale_color_manual(values=colorFont, guide="none") +
     scale_fill_manual(values=colorsFill) +
     #   scale_fill_discrete(h=c(0,360)+15, c=100, l=65, h.start=0, direction=1, na.value="grey50") + #http://docs.ggplot2.org/0.9.3/scale_hue.html
     scale_y_continuous(limits=c(0,1.1), breaks=c(.5,1), expand=c(0,0)) +
-    scale_x_discrete(breaks = c("F1","F2","F3"))+
+    # scale_x_discrete(breaks = show_factors)+
     facet_grid(VariablePretty ~ .) +
     labs(title=mainTitle, x="Weights", y="Loadings (Absolute)", fill=NULL) + 
-    theme_bw() +
+    theme_minimal() +
+    # theme_tufte()+
     theme(panel.grid.minor=element_blank()) + 
     theme(axis.title=element_text(color="gray30", size=axisTitleFontSize)) + #The labels (eg, 'Weights' & 'Loadings') 
-    theme(axis.text.x=element_text(color="gray50", size=axisTextFontSize, vjust=1.3)) + #(eg, V1, V2,...)
-    theme(axis.text.y=element_text(color="gray50", size=axisTextFontSize)) + #(eg, 0.5, 1.0)
+    theme(axis.text.x=element_text(color="gray50", size=axisTextFontSize, vjust=1)) + #(eg, V1, V2,...)
+    # theme(axis.text.y=element_text(color="gray50", size=axisTextFontSize)) + #(eg, 0.5, 1.0)
+    theme(axis.text.y=element_blank()) + #(eg, 0.5, 1.0)
     theme(strip.text.y=element_text(angle=0, size=stripSize)) + 
     theme(legend.position="blank")
+  pp
 #     theme(legend.text=element_text(size=legendTextFontSize))
   
 #   if( k < p ) { #If there's space in the lower right corner of the plot area, then use it.
