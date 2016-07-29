@@ -71,10 +71,10 @@ fpmFunction <- function( FPM.matrix, mainTitle=NULL ) {
     # theme_tufte()+
     theme(panel.grid.minor=element_blank()) + 
     theme(axis.title=element_text(color="gray30", size=axisTitleFontSize)) + #The labels (eg, 'Weights' & 'Loadings') 
-    theme(axis.text.x=element_text(color="gray50", size=axisTextFontSize, vjust=1)) + #(eg, V1, V2,...)
+    theme(axis.text.x=element_text(color="gray50", size=axisTextFontSize, vjust=1.2)) + #(eg, V1, V2,...)
     # theme(axis.text.y=element_text(color="gray50", size=axisTextFontSize)) + #(eg, 0.5, 1.0)
     theme(axis.text.y=element_blank()) + #(eg, 0.5, 1.0)
-    theme(strip.text.y=element_text(angle=0, size=stripSize)) + 
+    theme(strip.text.y=element_text(angle=0, size=stripSize,hjust = 0, vjust=1)) + 
     theme(legend.position="blank")
   pp
 #     theme(legend.text=element_text(size=legendTextFontSize))

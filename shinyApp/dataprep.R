@@ -23,9 +23,11 @@ sample_size <- 643
 # 
 # R <- cor(ds_cor) # correlation matrix R of variables in foc
 ds <- readRDS("./data/shared/derived/cor.rds")
-R <- readRDS("./data/shared/derived/cor.rds")
-eigen <- eigen(R) # eigen decomposition of R      #  VDV' : $values -eigenvalues, $vectors
-svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues, $u,$v
+ds_47 <- readRDS("./data/shared/derived/cor47.rds")
+ds_46 <- readRDS("./data/shared/derived/cor46.rds")
+# R <- readRDS("./data/shared/derived/cor.rds")
+# eigen <- eigen(R) # eigen decomposition of R      #  VDV' : $values -eigenvalues, $vectors
+# svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues, $u,$v
 
 
 items_9 <- ds[1:9,1:9]
@@ -36,6 +38,17 @@ p.items_9 <- nrow(items_9)
 items_49 <- ds
 n.items_49 <- sample_size
 p.items_49 <- nrow(items_49)
+
+# ---- data-for-47-items ------------
+items_47 <- ds_47 
+n.items_47 <- sample_size
+p.items_47 <- nrow(items_47)
+
+# ---- data-for-46-items ------------
+# droping items 5, 18, 49
+items_46 <- ds_46 
+n.items_46 <- sample_size
+p.items_46 <- nrow(items_46)
 
 # ---- data-for-35-items ------------
 items_35 <- ds[1:10,1:10]

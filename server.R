@@ -36,7 +36,7 @@ shinyServer( function(input, output) {
            "Cognitive abilities"="cognitive",
            "Items_9"            = "items_9",
            "Items_49"           = "items_49",
-           "Items_35"           = "items_35"
+           "Items_46"           = "items_46"
            # "Emotional Traits"="emotional",
            # "Physical Measures"="physical",
 #            "Harman74"="Harman74",
@@ -50,7 +50,7 @@ shinyServer( function(input, output) {
            "Cognitive Abilities"=cognitive,
            "Items_9"            =items_9,
            "Items_49"           =items_49,
-           "Items_35"           =items_35
+           "Items_46"           =items_46
            # "Emotional Traits"=emotional,
            # "Physical Measures"=physical,
 #            "Harman74"=Harman74,
@@ -64,7 +64,7 @@ shinyServer( function(input, output) {
            "Cognitive Abilities"=dscr.cognitive,
            "Items_9"            =dscr.items_9,
            "Items_49"           =dscr.items_49,
-           "Items_35"           =dscr.items_35
+           "Items_46"           =dscr.items_46
            # "Emotional Traits"=dscr.emotional,
            # "Physical Measures"=dscr.physical,
 #            "Harman74"=dscr.Harman74,
@@ -77,7 +77,7 @@ shinyServer( function(input, output) {
            "Cognitive Abilities"=p.cognitive,
            "Items_9"            =p.items_9, 
            "Items_49"           =p.items_49,
-           "Items_35"           =p.items_35
+           "Items_46"           =p.items_46
            # "Emotional Traits"=p.emotional,
            # "Physical Measures"=p.physical,
 #            "Harman74"= p.Harman74,
@@ -91,7 +91,7 @@ shinyServer( function(input, output) {
            "Cognitive Abilities"=n.cognitive,
            "Items_9"            =n.items_9,
            "Items_49"           =n.items_49,
-           "Items_35"           =n.items_35
+           "Items_46"           =n.items_46
            # "Emotional Traits"=n.emotional,
            # "Physical Measures"=n.physical,
 #            "Harman74"=n.Harman74,
@@ -105,6 +105,7 @@ shinyServer( function(input, output) {
            none="none",
            Varimax="Varimax", # 1958
            promax="promax",
+           oblimin="oblimin",
            bifactorT="bifactorT",
            bifactorQ="bifactorQ",
            cfT="cfT",
@@ -129,7 +130,7 @@ inputDatavars <- reactive({
          "Cognitive Abilities"="cognitive_03.png",
          "Items_9"            ="items_9.png",
          "Items_49"           ="items_49.png",
-         "Items_35"           ="items_35.png"
+         "Items_46"           ="items_35.png"
          # "Emotional Traits"="emotional_03.png",
          # "Physical Measures"="physical_03.png",
          # "Thurstone"="Thurstone_03.png"

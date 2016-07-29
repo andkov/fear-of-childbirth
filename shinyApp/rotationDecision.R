@@ -25,6 +25,20 @@
     rownames(Phi) <- paste0("F", 1:k)    
     Phi    
   } 
+  else if( input$rotation=="oblimin" ) { 
+    A <- stats::factanal(factors = k, covmat=R, rotation="none", control=list(rotate=list(normalize=TRUE)))
+    Atemp <- GPArotation::GPFoblq(loadings(A), method="oblimin")
+    FPM <- Atemp$loadings
+    FPM <- cbind(FPM, matrix(numeric(0), p, p-k)) # appends empty columns to have p columns
+    colnames(FPM) <- paste0("F", 1:p) # renames for better presentation in tables and graphs
+    FPM # THE OUTPUT, Factor pattern
+    Phi <- Atemp$Phi
+    if( is.null(Phi)) {Phi<-diag(k)} else{Phi}
+    colnames(Phi) <- paste0("F", 1:k)
+    rownames(Phi) <- paste0("F", 1:k)    
+    Phi # Factor Correlation
+  } 
+
   else if( input$rotation=="none" ) { 
     A <- stats::factanal(factors = k, covmat=R, rotation="none", control=list(rotate=list(normalize=TRUE)))
     Atemp <- A
@@ -38,21 +52,8 @@
     rownames(Phi) <- paste0("F", 1:k)    
     Phi   
   } 
-  else if( input$rotation %in% c("cfT","cfQ") ) { 
-    A <- stats::factanal(factors = k, covmat=R, rotation="none", control=list(rotate=list(normalize=TRUE)))
-    L <- A$loadings
-    Atemp <- eval(parse(text=
-                        paste0(rotationInput(),"(L,Tmat=diag(ncol(L)),kappa=input$kappa,normalize=FALSE, eps=1e-5, maxit=1000)")))
-    FPM <- Atemp$loadings # FPM - Factor Pattern Matrix
-    FPM <- cbind(FPM,matrix(numeric(0), p, p-k)) # appends empty columns to have p columns
-    colnames(FPM) <- paste0("F", 1:p) # renames for better presentation in tables and graphs
-    FPM  # THE OUTPUT
-    Phi <- Atemp$Phi
-    if( is.null(Phi)) {Phi<-diag(k)} else{Phi}
-    colnames(Phi) <- paste0("F", 1:k)
-    rownames(Phi) <- paste0("F", 1:k)    
-    Phi
-  } 
+
+  
   else if( input$rotation==rotationInput() ) { 
     A <- stats::factanal(factors = k, covmat=R, rotation="none", control=list(rotate=list(normalize=TRUE)))
     L <- A$loadings

@@ -34,8 +34,6 @@ ds <- dto$analytic
 # ---- inspect-data -------------------------------------------------------------
 dplyr::glimpse(ds)
 levels(ds$foc_01)
-ds_cor <- ds %>% dplyr::select(foc_01:foc_49)
-ds_cor <- sapply(ds_cor, as.numeric)
 
 R <- cor(ds_cor) # correlation matrix R of variables in foc
 eigen <- eigen(R) # eigen decomposition of R      #  VDV' : $values -eigenvalues, $vectors
@@ -48,23 +46,82 @@ svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues
 
 
 # ---- data-version-49 ------------------
+ds_cor <- ds %>% dplyr::select(foc_01:foc_49)
+ds_cor <- sapply(ds_cor, as.numeric)
+
 ds_49 <- ds %>% dplyr::select(foc_01:foc_49)
 vars_49 <- names(ds_49)
 # vars_49 <- gsub("foc_", "_", vars_49)
 vars_49 <- metaData %>% 
   dplyr::filter(name_new %in% vars_49) %>% 
-  dplyr::mutate(name_ = paste0(gsub("foc_", "_", vars_49),"-",label_graph,"-",domain)) 
-vars_49 <- vars_49[,"name_"]
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "_", vars_49),"-",label_graph,"-",domain))
+  # dplyr::mutate(name_ = label_short)
+  dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"---",domain, "---", label_graph))
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",domain, "-",label_graph))
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",label_graph))
+vars_49 <- vars_49[,"name_"] 
 
-ds_49 <- sapply(ds_49, as.numeric)
-R49 <- cor(ds_49)
-colnames(R49) <- vars_49
-rownames(R49) <- vars_49
-saveRDS(R49,"./data/shared/derived/cor.rds")
-n.R49 <- sample_size
-p.R49 <- nrow(R49)
-colnames(R_49) <- vars_49
-rownames(R_49) <- vars_49
+ds_49 <- sapply(ds_49, as.numeric) 
+R49 <- cor(ds_49) 
+colnames(R49) <- vars_49 
+rownames(R49) <- vars_49 
+saveRDS(R49,"./data/shared/derived/cor.rds") 
+
+# ---- data-version-47 ------------------
+
+ds_cor <- ds %>% dplyr::select(foc_01:foc_49, -foc_41, -foc_49)
+ds_cor <- sapply(ds_cor, as.numeric)
+
+ds_47 <- ds %>% dplyr::select(foc_01:foc_49, -foc_41, -foc_49)
+vars_47 <- names(ds_47)
+
+vars_47 <- metaData %>% 
+  dplyr::filter(name_new %in% vars_47) %>% 
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "_", vars_49),"-",label_graph,"-",domain))
+  # dplyr::mutate(name_ = label_short)
+  dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_47),"---",domain, "---", label_graph))
+# dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",domain, "-",label_graph))
+# dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",label_graph))
+vars_47 <- vars_47[,"name_"] 
+
+ds_47 <- sapply(ds_47, as.numeric) 
+R47 <- cor(ds_47) 
+colnames(R47) <- vars_47 
+rownames(R47) <- vars_47 
+saveRDS(R47,"./data/shared/derived/cor47.rds") 
+
+# ---- data-version-46 ------------------
+
+ds_cor <- ds %>% dplyr::select(foc_01:foc_49, -foc_05, -foc_18, -foc_49)
+ds_cor <- sapply(ds_cor, as.numeric)
+
+ds_46 <- ds %>% dplyr::select(foc_01:foc_49, -foc_05, -foc_18, -foc_49)
+vars_46 <- names(ds_46)
+
+vars_46 <- metaData %>% 
+  dplyr::filter(name_new %in% vars_46) %>% 
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "_", vars_49),"-",label_graph,"-",domain))
+  # dplyr::mutate(name_ = label_short)
+  dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_46),"---",domain, "---", label_graph))
+# dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",domain, "-",label_graph))
+# dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",label_graph))
+vars_46 <- vars_46[,"name_"] 
+
+ds_46 <- sapply(ds_46, as.numeric) 
+R46 <- cor(ds_46) 
+colnames(R46) <- vars_46 
+rownames(R46) <- vars_46 
+saveRDS(R46,"./data/shared/derived/cor46.rds") 
+
+
+
+### ----  adlkfjakdf -------------------
+
+
+n.R49 <- sample_size 
+p.R49 <- nrow(R49) 
+colnames(R_49) <- vars_49 
+rownames(R_49) <- vars_49 
 
 # ---- data-version-10 ------------------
 ds_10 <- ds %>% dplyr::select(foc_01:foc_10)
