@@ -7,53 +7,99 @@ library(sem)
 library(GPArotation)
 
 
+# ---- declare-globals ---------------------------------------------------------
 sample_size <- 643
-# data(Harman)
+# ---- load-data ---------------------------------------------------------------
+dto <- readRDS("./data/unshared/derived/dto.rds")
+unitData <- dto$unitData
+metaData <- dto$metaData 
+ds <- dto$analytic
+
+names(ds)
+names(metaData)
+
+
+
+# ---- tweek-data ------------------------------------------------------------
+
+# ---- inspect-data -------------------------------------------------------------
+dplyr::glimpse(ds)
+levels(ds$foc_01)
+
+R <- cor(ds_cor) # correlation matrix R of variables in foc
+eigen <- eigen(R) # eigen decomposition of R      #  VDV' : $values -eigenvalues, $vectors
+svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues, $u,$v
+
+# ---- function-make-correlation-matrix ------------------------------
+make_cor <- function(ds,metaData,items){
+  
+  # d <- ds %>% dplyr::select(foc_01:foc_49)
+  d <- ds %>% dplyr::select_(.dots=items)
+  
+  rownames <- metaData %>% 
+    dplyr::filter(name_new %in% items) %>% 
+    dplyr::mutate(name_ = paste0(gsub("foc_", "", items),"---",domain, "---", label_graph))
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",domain, "-",label_graph))
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",label_graph))
+  rownames <- rownames[,"name_"]
+  
+  d <- sapply(d, as.numeric)
+  cormat <- cor(d)
+  colnames(cormat) <- rownames; rownames(cormat) <- rownames
+  return(cormat)
+}
+
+# ---- data-phase-0 ------------------
+items_phase_0 <- c(paste0("foc_0",1:9), paste0("foc_",10:49))
+R0 <- make_cor(ds, metaData, items_phase_0)
+saveRDS(R0,"./data/shared/derived/R0.rds") 
+# Phase_0 <- ds
+items_0 <- R0
+n.items_0 <- sample_size
+p.items_0 <- nrow(R0)
+
+
+# ---- data-phase-1 ------------------
+drop_items_1 <- c("foc_05", "foc_30", "foc_49")
+items_phase_1 <- setdiff(items_phase_0, drop_items_1)
+items = items_phase_1
+R1 <- make_cor(ds, metaData, items_phase_1)
+# Phase_1 <- ds
+items_1 <- R1
+n.items_1 <- sample_size
+p.items_1 <- nrow(R1)
+
+# ---- data-phase-2 ------------------
+drop_items_2 <- c("foc_09", "foc_32", "foc_45")
+items_phase_2 <- setdiff(items_phase_1, drop_items_2)
+items = items_phase_2
+R2 <- make_cor(ds, metaData, items_phase_2)
+# Phase_2 <- ds
+items_2 <- R2
+n.items_2 <- sample_size
+p.items_2 <- nrow(R2)
+
+
+# # ---- data-for-49-items ------------
+# items_49 <- ds
+# n.items_49 <- sample_size
+# p.items_49 <- nrow(items_49)
 # 
-# dto <- readRDS("./data/unshared/derived/dto.rds")
-# ds <- dto$analytic
-# meta <- dto$MetaData
+# # ---- data-for-47-items ------------
+# items_47 <- ds_47 
+# n.items_47 <- sample_size
+# p.items_47 <- nrow(items_47)
 # 
-# names(ds)
-# names(meta)
+# # ---- data-for-46-items ------------
+# # droping items 5, 18, 49
+# items_46 <- ds_46 
+# n.items_46 <- sample_size
+# p.items_46 <- nrow(items_46)
 # 
-# ds_cor <- ds %>% dplyr::select(foc_01:foc_49)
-# ds_cor <- sapply(ds_cor, as.numeric)
-# str(ds_cor)
-# 
-# R <- cor(ds_cor) # correlation matrix R of variables in foc
-ds <- readRDS("./data/shared/derived/cor.rds")
-ds_47 <- readRDS("./data/shared/derived/cor47.rds")
-ds_46 <- readRDS("./data/shared/derived/cor46.rds")
-# R <- readRDS("./data/shared/derived/cor.rds")
-# eigen <- eigen(R) # eigen decomposition of R      #  VDV' : $values -eigenvalues, $vectors
-# svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues, $u,$v
-
-
-items_9 <- ds[1:9,1:9]
-n.items_9 <- sample_size
-p.items_9 <- nrow(items_9)
-
-# ---- data-for-49-items ------------
-items_49 <- ds
-n.items_49 <- sample_size
-p.items_49 <- nrow(items_49)
-
-# ---- data-for-47-items ------------
-items_47 <- ds_47 
-n.items_47 <- sample_size
-p.items_47 <- nrow(items_47)
-
-# ---- data-for-46-items ------------
-# droping items 5, 18, 49
-items_46 <- ds_46 
-n.items_46 <- sample_size
-p.items_46 <- nrow(items_46)
-
-# ---- data-for-35-items ------------
-items_35 <- ds[1:10,1:10]
-n.items_35 <- sample_size
-p.items_35 <- nrow(items_35)
+# # ---- data-for-35-items ------------
+# items_35 <- ds[1:10,1:10]
+# n.items_35 <- sample_size
+# p.items_35 <- nrow(items_35)
 
 # Harman.Holzinger: 9 x 9 correlation matrix of cognitive ability tests, N = 696.
 cognitive <- Harman.Holzinger

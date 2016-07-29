@@ -12,10 +12,8 @@ library(GPArotation)
         selectInput("dataset", "Choose a dataset:", # selectInput - "dataset" - choose dataset
                       choices = c(
                        
-                        "Phase_0",
-                        "Phase_1",
-                        "Phase_2",
-                        "Phase_3"
+                       "Items_49",
+                        "Items_46"
                        # "Cognitive Abilities"
                         # "Emotional Traits", 
                         # "Physical Measures",
