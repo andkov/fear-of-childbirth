@@ -653,55 +653,55 @@ BIRTH1A,Other (please specify):,,,,,
 BIRTH1B,Other (please specify):,,,,,
 Birth_preference,How would you like your baby to be born?,,,,,
 Birth_preference_dichotomized,How would you like your baby to be born? ,,,,,
-FOC1,"1 - Losing emotional control in front of other people (being rude, yelling) during labour/birth?",TRUE,foc_01,rude,"1 - Losing emotional control in front of other people (being rude, yelling) during labour/birth?",embarrass
-FOC2,2 - Having other people see me urinate during labour/birth?,TRUE,foc_02,urine,2 - Having other people see me urinate during labour/birth?,embarrass
-FOC3,3 - Other people seeing me have a bowel movement during labour/birth?,TRUE,foc_03,bowel,3 - Other people seeing me have a bowel movement during labour/birth?,embarrass
-FOC4,4 - Other people seeing me naked during labour/birth?,TRUE,foc_04,naked,4 - Other people seeing me naked during labour/birth?,embarrass
-FOC5,5 - Not living up to expectations to be strong?,TRUE,foc_05,weak,5 - Not living up to expectations to be strong?,embarrass
-FOC6,6 - Being watched by strangers during labour/birth?,TRUE,foc_06,watched,6 - Being watched by strangers during labour/birth?,embarrass
+FOC1,"1 - Losing emotional control in front of other people (being rude, yelling) during labour/birth?",TRUE,foc_01,rude,"1 - Losing emotional control in front of other people (being rude, yelling) during labour/birth?",embarrassment
+FOC2,2 - Having other people see me urinate during labour/birth?,TRUE,foc_02,urine,2 - Having other people see me urinate during labour/birth?,embarrassment
+FOC3,3 - Other people seeing me have a bowel movement during labour/birth?,TRUE,foc_03,bowel,3 - Other people seeing me have a bowel movement during labour/birth?,embarrassment
+FOC4,4 - Other people seeing me naked during labour/birth?,TRUE,foc_04,naked,4 - Other people seeing me naked during labour/birth?,embarrassment
+FOC5,5 - Not living up to expectations to be strong?,TRUE,foc_05,weak,5 - Not living up to expectations to be strong?,embarrassment
+FOC6,6 - Being watched by strangers during labour/birth?,TRUE,foc_06,watched,6 - Being watched by strangers during labour/birth?,embarrassment
 FOC7,7 - Experiencing pain during contractions?,TRUE,foc_07,pain.cnt,7 - Experiencing pain during contractions?,pain
-FOC8,8 - Experiencing pain during a vaginal birth?,TRUE,foc_08,pain.vag,8 - Experiencing pain during a vaginal birth?,pain
-FOC9,9 - Experiencing pain during a cesarean birth?,TRUE,foc_09,pain.csr,9 - Experiencing pain during a cesarean birth?,pain
-FOC10,10 - Experiencing pain during labour?,TRUE,foc_10,pain.lab,10 - Experiencing pain during labour?,pain
-FOC11,11 - Experiencing pain while pushing the baby out?,TRUE,foc_11,pain.out,11 - Experiencing pain while pushing the baby out?,pain
-FOC12,12 - Not getting the pain medication I need?,TRUE,foc_12,pain.med,12 - Not getting the pain medication I need?,medication
-FOC13,13 - Not being able to have an epidural during labour if I want/need one?,TRUE,foc_13,epidur,13 - Not being able to have an epidural during labour if I want/need one?,medication
-FOC14,14 - Receiving unwanted pain medication during labour/birth?,TRUE,foc_14,no!med,14 - Receiving unwanted pain medication during labour/birth?,medication
-FOC15,15 - Feeling pressure to receive pain medication during labour/birth even though I may not want to?,TRUE,foc_15,press.med,15 - Feeling pressure to receive pain medication during labour/birth even though I may not want to?,medication
-FOC16,"16 - Feeling pressure from others to have a natural (unmedicated) childbirth, even though this is not really what I want?",TRUE,foc_16,press.nat,"16 - Feeling pressure from others to have a natural (unmedicated) childbirth, even though this is not really what I want?",medication
-FOC17,"17 - Not being able to have the kind of birth I want (i.e., either vaginal or cesarean)?",TRUE,foc_17,no.choice,"17 - Not being able to have the kind of birth I want (i.e., either vaginal or cesarean)?",delivery_mode
-FOC18,"18 - Not being able to have a cesarean birth, even though this is what I would prefer?",TRUE,foc_18,no.cesar,"18 - Not being able to have a cesarean birth, even though this is what I would prefer?",delivery_mode
-FOC19,"19 - Not being able to have a vaginal birth, even though this is what I would prefer?",TRUE,foc_19,no.vagin,"19 - Not being able to have a vaginal birth, even though this is what I would prefer?",delivery_mode
-FOC20,20 - Having a vaginal birth?,TRUE,foc_20,vaginal?,20 - Having a vaginal birth?,delivery_mode
-FOC21,21 - Having a cesarean birth?,TRUE,foc_21,ceasarean?,21 - Having a cesarean birth?,delivery_mode
-FOC22,22 - The baby being harmed during labour/birth?,TRUE,foc_22,baby.harm,22 - The baby being harmed during labour/birth?,safety_baby
-FOC23,23 - The baby dying during labour/birth?,TRUE,foc_23,baby.die,23 - The baby dying during labour/birth?,safety_baby
-FOC24,24 - The baby being damaged/handicapped as a consequence of labour/birth?,TRUE,foc_24,baby.dam,24 - The baby being damaged/handicapped as a consequence of labour/birth?,safety_baby
-FOC25,"25 - The baby contracting an illness during labour/birth (e.g., Herpes, HIV)?",TRUE,foc_25,baby.ill,"25 - The baby contracting an illness during labour/birth (e.g., Herpes, HIV)?",safety_baby
-FOC26,26 - The baby suffocating during labour/birth?,TRUE,foc_26,baby.suff,26 - The baby suffocating during labour/birth?,safety_baby
-FOC27,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",TRUE,foc_27,baby.hurt,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",safety_baby
-FOC28,28 - Bleeding too much during labour/birth?,TRUE,foc_28,bleed,28 - Bleeding too much during labour/birth?,safety_mom
-FOC29,29 - Being harmed because of incompetent medical care?,TRUE,foc_29,incompetent,29 - Being harmed because of incompetent medical care?,safety_mom
-FOC30,30 - Dying during labour/birth?,TRUE,foc_30,die,30 - Dying during labour/birth?,safety_mom
-FOC31,31 - Vaginal tearing during labour/birth?,TRUE,foc_31,vag.tear,31 - Vaginal tearing during labour/birth?,safety_mom
-FOC32,32 - Rectal tearing/damage as a consequence of labour/birth?,TRUE,foc_32,rec.tear,32 - Rectal tearing/damage as a consequence of labour/birth?,safety_mom
-FOC33,33 - Being left with scars from a vaginal birth?,TRUE,foc_33,vag.scars,33 - Being left with scars from a vaginal birth?,body_change
-FOC34,34 - Being left with scars from a cesarean birth?,TRUE,foc_34,ces.scars,34 - Being left with scars from a cesarean birth?,body_change
-FOC35,35 - Stretching of my vagina from giving birth vaginally?,TRUE,foc_35,vag.stretch,35 - Stretching of my vagina from giving birth vaginally?,body_change
-FOC36,36 - My body looking less attractive following the birth?,TRUE,foc_36,less.attract,36 - My body looking less attractive following the birth?,body_change
-FOC37,37 - My vagina looking less attractive following a vaginal childbirth?,TRUE,foc_37,vag.atttract,37 - My vagina looking less attractive following a vaginal childbirth?,body_change
-FOC38,38 - Enjoying sexual intercourse less because of stretching from a vaginal birth?,TRUE,foc_38,enjoy.sex,38 - Enjoying sexual intercourse less because of stretching from a vaginal birth?,sex_function
-FOC39,39 - My partner enjoying sexual intercourse less because of stretching of my vagina from having a vaginal birth?,TRUE,foc_39,enjoy.sex.p,39 - My partner enjoying sexual intercourse less because of stretching of my vagina from having a vaginal birth?,sex_function
+FOC8,8 - Experiencing pain during a vaginal birth?,TRUE,foc_08,vaginal,8 - Experiencing pain during a vaginal birth?,pain
+FOC9,9 - Experiencing pain during a cesarean birth?,TRUE,foc_09,cesarean,9 - Experiencing pain during a cesarean birth?,pain
+FOC10,10 - Experiencing pain during labour?,TRUE,foc_10,labour,10 - Experiencing pain during labour?,pain
+FOC11,11 - Experiencing pain while pushing the baby out?,TRUE,foc_11,pushing,11 - Experiencing pain while pushing the baby out?,pain
+FOC12,12 - Not getting the pain medication I need?,TRUE,foc_12,no.med,12 - Not getting the pain medication I need?,meds
+FOC13,13 - Not being able to have an epidural during labour if I want/need one?,TRUE,foc_13,no.epid,13 - Not being able to have an epidural during labour if I want/need one?,meds
+FOC14,14 - Receiving unwanted pain medication during labour/birth?,TRUE,foc_14,unwanted,14 - Receiving unwanted pain medication during labour/birth?,meds
+FOC15,15 - Feeling pressure to receive pain medication during labour/birth even though I may not want to?,TRUE,foc_15,pres.pain,15 - Feeling pressure to receive pain medication during labour/birth even though I may not want to?,meds
+FOC16,"16 - Feeling pressure from others to have a natural (unmedicated) childbirth, even though this is not really what I want?",TRUE,foc_16,pres.natur,"16 - Feeling pressure from others to have a natural (unmedicated) childbirth, even though this is not really what I want?",meds
+FOC17,"17 - Not being able to have the kind of birth I want (i.e., either vaginal or cesarean)?",TRUE,foc_17,no.choice,"17 - Not being able to have the kind of birth I want (i.e., either vaginal or cesarean)?",delivery.mode
+FOC18,"18 - Not being able to have a cesarean birth, even though this is what I would prefer?",TRUE,foc_18,no.cesarean,"18 - Not being able to have a cesarean birth, even though this is what I would prefer?",delivery.mode
+FOC19,"19 - Not being able to have a vaginal birth, even though this is what I would prefer?",TRUE,foc_19,no.vaginal,"19 - Not being able to have a vaginal birth, even though this is what I would prefer?",delivery.mode
+FOC20,20 - Having a vaginal birth?,TRUE,foc_20,vaginal?,20 - Having a vaginal birth?,delivery.mode
+FOC21,21 - Having a cesarean birth?,TRUE,foc_21,ceasarean?,21 - Having a cesarean birth?,delivery.mode
+FOC22,22 - The baby being harmed during labour/birth?,TRUE,foc_22,harmed,22 - The baby being harmed during labour/birth?,safe.baby
+FOC23,23 - The baby dying during labour/birth?,TRUE,foc_23,die,23 - The baby dying during labour/birth?,safe.baby
+FOC24,24 - The baby being damaged/handicapped as a consequence of labour/birth?,TRUE,foc_24,handicapped,24 - The baby being damaged/handicapped as a consequence of labour/birth?,safe.baby
+FOC25,"25 - The baby contracting an illness during labour/birth (e.g., Herpes, HIV)?",TRUE,foc_25,ill,"25 - The baby contracting an illness during labour/birth (e.g., Herpes, HIV)?",safe.baby
+FOC26,26 - The baby suffocating during labour/birth?,TRUE,foc_26,suffocate,26 - The baby suffocating during labour/birth?,safe.baby
+FOC27,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",TRUE,foc_27,hurt.y.interv,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",safe.baby
+FOC28,28 - Bleeding too much during labour/birth?,TRUE,foc_28,bleed,28 - Bleeding too much during labour/birth?,safe.mom
+FOC29,29 - Being harmed because of incompetent medical care?,TRUE,foc_29,incompetent,29 - Being harmed because of incompetent medical care?,safe.mom
+FOC30,30 - Dying during labour/birth?,TRUE,foc_30,die,30 - Dying during labour/birth?,safe.mom
+FOC31,31 - Vaginal tearing during labour/birth?,TRUE,foc_31,vag.tear,31 - Vaginal tearing during labour/birth?,safe.mom
+FOC32,32 - Rectal tearing/damage as a consequence of labour/birth?,TRUE,foc_32,rec.tear,32 - Rectal tearing/damage as a consequence of labour/birth?,safe.mom
+FOC33,33 - Being left with scars from a vaginal birth?,TRUE,foc_33,scars.v,33 - Being left with scars from a vaginal birth?,body.change
+FOC34,34 - Being left with scars from a cesarean birth?,TRUE,foc_34,scars.c,34 - Being left with scars from a cesarean birth?,body.change
+FOC35,35 - Stretching of my vagina from giving birth vaginally?,TRUE,foc_35,stretch.v,35 - Stretching of my vagina from giving birth vaginally?,body.change
+FOC36,36 - My body looking less attractive following the birth?,TRUE,foc_36,less.attr,36 - My body looking less attractive following the birth?,body.change
+FOC37,37 - My vagina looking less attractive following a vaginal childbirth?,TRUE,foc_37,less.attr.v,37 - My vagina looking less attractive following a vaginal childbirth?,body.change
+FOC38,38 - Enjoying sexual intercourse less because of stretching from a vaginal birth?,TRUE,foc_38,enjoy,38 - Enjoying sexual intercourse less because of stretching from a vaginal birth?,sex.function
+FOC39,39 - My partner enjoying sexual intercourse less because of stretching of my vagina from having a vaginal birth?,TRUE,foc_39,partner,39 - My partner enjoying sexual intercourse less because of stretching of my vagina from having a vaginal birth?,sex.function
 FOC40,40 - Having an episiotomy?,TRUE,foc_40,episiotomy,40 - Having an episiotomy?,interventions
 FOC41,41 - Requiring vacuum or forceps?,TRUE,foc_41,vacuum,41 - Requiring vacuum or forceps?,interventions
 FOC42,42 - Being administered injections?,TRUE,foc_42,injection,42 - Being administered injections?,interventions
-FOC43,43 - Having a catheter inserted (a tube inserted into the urethra to collect urine)?,TRUE,foc_43,cetheter,43 - Having a catheter inserted (a tube inserted into the urethra to collect urine)?,interventions
-FOC44,44 - Having general anesthetic?,TRUE,foc_44,g.anesthetic,44 - Having general anesthetic?,interventions
+FOC43,43 - Having a catheter inserted (a tube inserted into the urethra to collect urine)?,TRUE,foc_43,catheter,43 - Having a catheter inserted (a tube inserted into the urethra to collect urine)?,interventions
+FOC44,44 - Having general anesthetic?,TRUE,foc_44,g.anest,44 - Having general anesthetic?,interventions
 FOC45,45 - Having scars or wounds that do not heal properly?,TRUE,foc_45,not.heal,45 - Having scars or wounds that do not heal properly?,interventions
 FOC46,46 - Needing to have stitches after the birth?,TRUE,foc_46,stitches,46 - Needing to have stitches after the birth?,interventions
-FOC47,47 - Enjoying sexual intercourse less because of pain or discomfort from the birth?,TRUE,foc_47,sex.discumf,47 - Enjoying sexual intercourse less because of pain or discomfort from the birth?,sex_function
-FOC48,48 - Being administered an epidural?,TRUE,foc_48,epidural,48 - Being administered an epidural?,interventions
-FOC49,49 - Vomiting during labour/birth?,TRUE,foc_49,vomit,49 - Vomiting during labour/birth?,embarrass
+FOC47,47 - Enjoying sexual intercourse less because of pain or discomfort from the birth?,TRUE,foc_47,sex.discomf,47 - Enjoying sexual intercourse less because of pain or discomfort from the birth?,sex.function
+FOC48,48 - Being administered an epidural?,TRUE,foc_48,epidural,48 - Being administered an epidural?,sex.function
+FOC49,49 - Vomiting during labour/birth?,TRUE,foc_49,vomit,49 - Vomiting during labour/birth?,delivery.mode
 FOC_OTHER,Other (please specify):,,,,,
 FOC_O0,Other (please specify):,,,,,
 FOC_O1,Other (please specify):,,,,,
