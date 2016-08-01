@@ -45,27 +45,49 @@ svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues
 # str(ds_cor)
 
 
-# ---- data-version-49 ------------------
-ds_cor <- ds %>% dplyr::select(foc_01:foc_49)
-ds_cor <- sapply(ds_cor, as.numeric)
+# ---- data-phase-0 ------------------
 
-ds_49 <- ds %>% dplyr::select(foc_01:foc_49)
-vars_49 <- names(ds_49)
-# vars_49 <- gsub("foc_", "_", vars_49)
-vars_49 <- metaData %>% 
-  dplyr::filter(name_new %in% vars_49) %>% 
-  # dplyr::mutate(name_ = paste0(gsub("foc_", "_", vars_49),"-",label_graph,"-",domain))
-  # dplyr::mutate(name_ = label_short)
-  dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"---",domain, "---", label_graph))
-  # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",domain, "-",label_graph))
-  # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",label_graph))
-vars_49 <- vars_49[,"name_"] 
+items_phase_0 <- c(paste0("foc_0",1:9), paste0("foc_",10:49))
 
-ds_49 <- sapply(ds_49, as.numeric) 
-R49 <- cor(ds_49) 
-colnames(R49) <- vars_49 
-rownames(R49) <- vars_49 
-saveRDS(R49,"./data/shared/derived/cor.rds") 
+
+make_cor <- function(ds,metaData,items){
+  
+  # d <- ds %>% dplyr::select(foc_01:foc_49)
+  d <- ds %>% dplyr::select_(.dots=items)
+ 
+  rownames <- metaData %>% 
+    dplyr::filter(name_new %in% items) %>% 
+       dplyr::mutate(name_ = paste0(gsub("foc_", "", items),"---",domain, "---", label_graph))
+       # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",domain, "-",label_graph))
+       # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",label_graph))
+  rownames <- rownames[,"name_"]
+  
+  d <- sapply(d, as.numeric)
+  cormat <- cor(d)
+  colnames(cormat) <- rownames; rownames(cormat) <- rownames
+  return(cormat)
+}
+R0 <- make_cor(ds, metaData, items_phase_0)
+saveRDS(R47,"./data/shared/derived/R0.rds") 
+
+
+
+# ---- data-phase-1 ------------------
+drop_items_1 <- c("foc_05", "foc_30", "foc_49")
+items_phase_1 <- setdiff(items_phase_0, drop_items_1)
+items = items_phase_1
+R1 <- make_cor(ds, metaData, items_phase_1)
+
+
+# ---- data-phase-2 ------------------
+drop_items_2 <- c("foc_05", "foc_30", "foc_49")
+items_phase_2 <- setdiff(items_phase_1, drop_items_2)
+items = items_phase_2
+R2 <- make_cor(ds, metaData, items_phase_2)
+
+
+# ---- data-phase-3 ------------------
+
 
 # ---- data-version-47 ------------------
 
@@ -90,7 +112,7 @@ colnames(R47) <- vars_47
 rownames(R47) <- vars_47 
 saveRDS(R47,"./data/shared/derived/cor47.rds") 
 
-# ---- data-version-46 ------------------
+# ---- data-phase-v ------------------
 
 ds_cor <- ds %>% dplyr::select(foc_01:foc_49, -foc_05, -foc_18, -foc_49)
 ds_cor <- sapply(ds_cor, as.numeric)
@@ -111,7 +133,7 @@ ds_46 <- sapply(ds_46, as.numeric)
 R46 <- cor(ds_46) 
 colnames(R46) <- vars_46 
 rownames(R46) <- vars_46 
-saveRDS(R46,"./data/shared/derived/cor46.rds") 
+saveRDS(R46,"./data/shared/derived/cor_phase_1.rds") 
 
 
 

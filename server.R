@@ -114,8 +114,14 @@ shinyServer( function(input, output) {
   rotationInput <- reactive({
     switch(EXPR=input$rotation,
            none="none",
+           # targetT = "targetT",
+           # targetQ = "targetQ",
            Varimax="Varimax", # 1958
-           promax="promax",
+           quartimax = "quartimax",
+           quartimin = "quartimin",
+           geominT    = "geominT",
+           geominQ    = "geominQ",
+           # promax="promax",
            oblimin="oblimin",
            bifactorT="bifactorT",
            bifactorQ="bifactorQ",
