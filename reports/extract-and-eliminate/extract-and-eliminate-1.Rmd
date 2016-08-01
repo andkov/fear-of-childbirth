@@ -1,5 +1,5 @@
 ---
-title: "Phase 0 solutions"
+title: "Phase 1 solutions"
 output:
   html_document:
     css: ~/GitHub/fear-of-childbirth/libs/css/sidebar.css
@@ -32,7 +32,7 @@ opts_chunk$set(
   fig.height = 12,
   fig.width = 11,
   # out.width = "550px",
-  fig.path = 'figure_rmd_phase_0/',     
+  fig.path = 'figure_rmd_phase_1/',     
   dev = "png",
   dpi = 100
   # fig.path = 'figure_pdf/',     
@@ -80,8 +80,26 @@ read_chunk("./reports/extract-and-eliminate/extract-and-eliminate.R")
 
 ```{r function-rotation, echo=echoChunks, results='show', message=FALSE}
 ```
-# Phase 0
-```{r data-phase-0, echo=echoChunks, results='hide', message=FALSE}
+# Phase 1
+After analysing all 49 original items we have decided to exclude itmes with low loading across all factors. The following items has been eliminated during phase 0 of the analysis:  
+
+- item 5
+> Not living up to expectations to be strong?
+
+- item 16
+> Feeling pressure from others to have a natural (unmedicated) childbirth, even though this is not really what I want?
+
+- item 18
+> Not being able to have a cesarean birth, even though this is what I would prefer?
+
+- item 45
+> Having scars or wounds that do not heal properly?
+
+- item 49
+> Vomiting during labour/birth?
+
+
+```{r data-phase-1, echo=echoChunks, results='hide', message=FALSE}
 ```
 
 ```{r print-solution, echo=echoChunks, results='asis', message=FALSE, warning=FALSE}

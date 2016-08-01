@@ -3,14 +3,14 @@
 # fpmFunction is used to create output$ objects in server.R
 fpmFunction <- function( FPM.matrix, mainTitle=NULL ) {   
   roundingDigits <- 2 #Let the caller define in the future (especially with observed values that aren't close to 1.0).
-  stripSize <- 8  #Let the caller define in the future?
+  stripSize <- 11  #Let the caller define in the future?
   valuelabelSize <- 4 #7 # the values of the factor loadings
   axisTitleFontSize <- 12
   axisTextFontSize <- 12
-  legendTextFontSize <- 4 # 
+  legendTextFontSize <- 6 # 
   keep_factors <- paste0("F",1:10) # number of columns to show
   show_factors <- paste0("F",1:k) # number of factors to print
-  
+  titleSize <- 14 # 
   # Data prep for ggplot
   dsFORp <- reshape2::melt(FPM.matrix, id.vars=rownames(FPM.matrix))  ## id.vars declares MEASURED variables (as opposed to RESPONSE variable)
   dsFORp <- plyr::rename(dsFORp, replace=c(Var1="Variable", Var2="Factor", value="Loading"))
@@ -64,7 +64,8 @@ fpmFunction <- function( FPM.matrix, mainTitle=NULL ) {
     scale_color_manual(values=colorFont, guide="none") +
     scale_fill_manual(values=colorsFill) +
     #   scale_fill_discrete(h=c(0,360)+15, c=100, l=65, h.start=0, direction=1, na.value="grey50") + #http://docs.ggplot2.org/0.9.3/scale_hue.html
-    scale_y_continuous(limits=c(0,1.1), breaks=c(.5,1), expand=c(0,0)) +
+    # scale_y_continuous(limits=c(0,1.1), breaks=c(.5,1), expand=c(0,0)) +
+    scale_y_continuous(limits=c(0,1.1), breaks=c(0), expand=c(0,0)) +
     # scale_x_discrete(breaks = show_factors)+
     facet_grid(VariablePretty ~ .) +
     labs(title=mainTitle, x="Weights", y="Loadings (Absolute)", fill=NULL) + 
@@ -75,7 +76,8 @@ fpmFunction <- function( FPM.matrix, mainTitle=NULL ) {
     theme(axis.text.x=element_text(color="gray50", size=axisTextFontSize, vjust=1.2)) + #(eg, V1, V2,...)
     # theme(axis.text.y=element_text(color="gray50", size=axisTextFontSize)) + #(eg, 0.5, 1.0)
     theme(axis.text.y=element_blank()) + #(eg, 0.5, 1.0)
-    theme(strip.text.y=element_text(angle=0, size=stripSize,hjust = 0, vjust=0)) + 
+    theme(strip.text.y=element_text(angle=0, size=stripSize,hjust = 0, vjust=1)) + 
+    theme(plot.title = element_text(size=titleSize, hjust=1, vjust=1)) +
     theme(legend.position="blank")
   pp
 #     theme(legend.text=element_text(size=legendTextFontSize))

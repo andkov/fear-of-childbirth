@@ -48,6 +48,8 @@ names(metaData)
 dplyr::glimpse(ds)
 levels(ds$foc_01)
 
+names_labels(ds)
+
 # ---- tweak-data --------------------------------------------------------------
 
 
@@ -70,11 +72,9 @@ make_cor <- function(ds,metaData,items){
   colnames(cormat) <- rownames; rownames(cormat) <- rownames
   return(cormat)
 }
-
-
 # ---- function-rotation -----------------
 
-display_solution <- function(R,k, sample_size,rotation_){
+display_solution <- function(R,k, sample_size,rotation_,mainTitle=NULL){
   A <- stats::factanal(factors = k, covmat=R, rotation="none", control=list(rotate=list(normalize=TRUE)))
   L <- A$loadings
   if(rotation_=="oblimin"  ){rotation_string <- "(L, Tmat=diag(ncol(L)), gam=0,               normalize=FALSE, eps=1e-5, maxit=1000)"}
@@ -96,7 +96,7 @@ display_solution <- function(R,k, sample_size,rotation_){
   if(rotation_=="geominQ"  ){rotation_string <- "(L, Tmat=diag(ncol(L)),           delta=.01, normalize=FALSE, eps=1e-5, maxit=1000)"}
   if(rotation_=="cfT"      ){rotation_string <- "(L, Tmat=diag(ncol(L)),             kappa=0, normalize=FALSE, eps=1e-5, maxit=1000)"}
   if(rotation_=="cfQ"      ){rotation_string <- "(L, Tmat=diag(ncol(L)),             kappa=0, normalize=FALSE, eps=1e-5, maxit=1000)"}
-  if(rotation_=="infomaxT" ){rotation_string <- "L, Tmat=diag(ncol(L)),                       normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation_=="infomaxT" ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
   if(rotation_=="infomaxQ" ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
   if(rotation_=="mccammon" ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
   if(rotation_=="bifactorT"){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
@@ -117,7 +117,7 @@ display_solution <- function(R,k, sample_size,rotation_){
   solution <- list("FPM"=FPM,"Phi"=Phi)
   # load the function to gread the graph, needs k value
   source("./scripts/factor-pattern-plot.R") # to graph factor patterns
-  g <- fpmFunction(FPM.matrix=solution$FPM, mainTitle=NULL) #Call/execute the function defined above.
+  g <- fpmFunction(FPM.matrix=solution$FPM, mainTitle=mainTitle) #Call/execute the function defined above.
   # print(g) #Print graph with factor pattern
   file_name <- paste0("./data/shared/derived/FPM/",rotation_,"_",k,".csv")
   #browser()
@@ -145,7 +145,7 @@ svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues
 
 
 # ---- data-phase-1 ------------------
-drop_items_1 <-c("foc_49", "foc_45", "foc_18","foc_05", "foc_16")
+drop_items_1 <-c("foc_05", "foc_16", "foc_18","foc_49", "foc_45")
 items_phase_1 <- setdiff(items_phase_0, drop_items_1)
 items = items_phase_1
 R1 <- make_cor(ds, metaData, items_phase_1)
@@ -166,25 +166,30 @@ p.items_2 <- nrow(R2)
 
 
 # ---- example-analysis ----------------
-R <- R0 # What dataset?
-k <-5 # How many factors/latent variables?
-sample_size <- 643# How big is sample size?
-solution <- display_solution(R,k,sample_size,"oblimin")
+# R <- R0 # What dataset?
+# k <-5 # How many factors/latent variables?
+# sample_size <- 643# How big is sample size?
+# solution <- display_solution(R,k,sample_size,"oblimin")
 # solution
 
-# ---- graph-phase-0-solution --------------------
+# ---- print-solution --------------------
+phase <- "1"
 R <- R1 # correlation matrix for items at phase 0
 sample_size <- 643
-for(solution_ in c("oblimin")){   # },"quartimin","geominQ","bifactorQ")){
-# for(solution_ in c("oblimin","quartimin","geominQ","bifactorQ")){
+
+# for(rotation_ in c("oblimin","geominQ")){   # },"quartimin","geominQ","bifactorQ")){
+  for(rotation_ in c("oblimin","quartimin","geominQ","bifactorQ","Varimax","quartimax","geominT","bifactorT")){ 
+    
   cat("\n\n")
-  cat(paste0("## ",solution_)); 
-  for(nfactors_ in c(7)){  
-    cat("\n\n")
-    cat(paste0("### ",nfactors_)); 
-    cat("\n\n")
-    solution <- display_solution(R,k=nfactors_,sample_size,solution_) %>%
-      print()
+  cat(paste0("## ",rotation_))
+  for(nfactors_ in c(4:10)){
+  # for(nfactors_ in c(4:10)){  
+    mainTitle <- paste0(rotation_,", phase ",phase)
+    cat("\n\n") 
+    cat(paste0("### ",nfactors_));  
+    cat("\n\n") 
+    solution <- display_solution(R,k=nfactors_,sample_size,rotation_,mainTitle=mainTitle) %>% 
+      print() 
     cat("\n\n")
     
 
@@ -196,7 +201,9 @@ for(solution_ in c("oblimin")){   # },"quartimin","geominQ","bifactorQ")){
 
 # ---- reproduce ---------------------------------------
 rmarkdown::render(input = "./reports/extract-and-eliminate/extract-and-eliminate-0.Rmd" ,
-                  output_format="html_document", clean=TRUE)
+                  output_format="html_document", clean=TRUE) 
 
+rmarkdown::render(input = "./reports/extract-and-eliminate/extract-and-eliminate-1.Rmd" ,
+                  output_format="html_document", clean=TRUE) 
 
 
