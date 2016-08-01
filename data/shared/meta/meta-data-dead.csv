@@ -679,7 +679,7 @@ FOC23,23 - The baby dying during labour/birth?,TRUE,foc_23,die,23 - The baby dyi
 FOC24,24 - The baby being damaged/handicapped as a consequence of labour/birth?,TRUE,foc_24,handicapped,24 - The baby being damaged/handicapped as a consequence of labour/birth?,safe.baby
 FOC25,"25 - The baby contracting an illness during labour/birth (e.g., Herpes, HIV)?",TRUE,foc_25,ill,"25 - The baby contracting an illness during labour/birth (e.g., Herpes, HIV)?",safe.baby
 FOC26,26 - The baby suffocating during labour/birth?,TRUE,foc_26,suffocate,26 - The baby suffocating during labour/birth?,safe.baby
-FOC27,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",TRUE,foc_27,hurt.y.interv,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",safe.baby
+FOC27,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",TRUE,foc_27,hurt,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",safe.baby
 FOC28,28 - Bleeding too much during labour/birth?,TRUE,foc_28,bleed,28 - Bleeding too much during labour/birth?,safe.mom
 FOC29,29 - Being harmed because of incompetent medical care?,TRUE,foc_29,incompetent,29 - Being harmed because of incompetent medical care?,safe.mom
 FOC30,30 - Dying during labour/birth?,TRUE,foc_30,die,30 - Dying during labour/birth?,safe.mom
