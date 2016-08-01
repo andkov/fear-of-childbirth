@@ -26,9 +26,6 @@ names(metaData)
 dplyr::glimpse(ds)
 levels(ds$foc_01)
 
-R <- cor(ds_cor) # correlation matrix R of variables in foc
-eigen <- eigen(R) # eigen decomposition of R      #  VDV' : $values -eigenvalues, $vectors
-svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues, $u,$v
 
 # ---- function-make-correlation-matrix ------------------------------
 make_cor <- function(ds,metaData,items){
@@ -49,6 +46,7 @@ make_cor <- function(ds,metaData,items){
   return(cormat)
 }
 
+
 # ---- data-phase-0 ------------------
 items_phase_0 <- c(paste0("foc_0",1:9), paste0("foc_",10:49))
 R0 <- make_cor(ds, metaData, items_phase_0)
@@ -60,7 +58,7 @@ p.items_0 <- nrow(R0)
 
 
 # ---- data-phase-1 ------------------
-drop_items_1 <- c("foc_05", "foc_30", "foc_49")
+drop_items_1 <- c("foc_49", "foc_45", "foc_18","foc_05", "foc_16")
 items_phase_1 <- setdiff(items_phase_0, drop_items_1)
 items = items_phase_1
 R1 <- make_cor(ds, metaData, items_phase_1)
@@ -70,7 +68,7 @@ n.items_1 <- sample_size
 p.items_1 <- nrow(R1)
 
 # ---- data-phase-2 ------------------
-drop_items_2 <- c("foc_09", "foc_32", "foc_45")
+drop_items_2 <- c("foc_27", "foc_17")
 items_phase_2 <- setdiff(items_phase_1, drop_items_2)
 items = items_phase_2
 R2 <- make_cor(ds, metaData, items_phase_2)
@@ -78,6 +76,14 @@ R2 <- make_cor(ds, metaData, items_phase_2)
 items_2 <- R2
 n.items_2 <- sample_size
 p.items_2 <- nrow(R2)
+
+
+
+
+# --- eigen-analysis ---------------------------------
+R <- cor(R0) # correlation matrix R of variables in foc
+eigen <- eigen(R) # eigen decomposition of R      #  VDV' : $values -eigenvalues, $vectors
+svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues, $u,$v
 
 
 # # ---- data-for-49-items ------------
