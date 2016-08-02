@@ -10,3 +10,6 @@ Analysis of the CFQ resulted in 6 factorially-derived subscales, and an interfer
 
 #### Discussion
 The CFQ represents the most comprehensive measure of fear of childbirth currently available. We hope this new measure proves useful to identify women with elevated fear of childbirth.
+
+
+[revision responses](https://github.com/andkov/fear-of-childbirth/blob/master/reports/extract-and-eliminate/revision-comments.md)
