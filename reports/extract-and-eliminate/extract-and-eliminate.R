@@ -54,6 +54,9 @@ names_labels(ds)
 
 
 
+
+
+
 # ---- function-correlation ------------------------------
 make_cor <- function(ds,metaData,items){
   
@@ -164,7 +167,6 @@ items_2 <- R2
 n.items_2 <- sample_size
 p.items_2 <- nrow(R2)
 
-
 # ---- example-analysis ----------------
 # R <- R0 # What dataset?
 # k <-5 # How many factors/latent variables?
@@ -199,11 +201,71 @@ sample_size <- 643
 # ---- reason-through-elimination ---------------------------
 
 
+
+# ---- scree-plot ---------------------
+
+Scree.Plot(R0,main="SCREE Plot\nFear of Childbirth Questionnaire (n=643)")
+
+# ---- FA-statistics -------------------
+FA.Stats(R0,n.factors=1:16,n.obs=643,
+         main="RMSEA Plot\nFear of Childbirth Questionnaire (n=643)",
+         RMSEA.cutoff=0.05)
+
+
+# ---- PA-psych ----------------
+library(psych)
+foc <- ds %>% dplyr::select_(.dots = items_phase_0)
+foc <- matrix(as.numeric(unlist(foc)), nrow=nrow(foc), ncol=ncol(foc)) # turn it into a matrix
+
+pa_result <- psych::fa.parallel(
+  foc, 
+  fm = "uls",
+  fa = "both",
+  se.bars = TRUE
+) # "Parallel analysis suggests that the number of factors =  9" (from "psych" package)
+
+
+# ----- PA-nFactors ---------------
+library(nFactors) 
+
+# The nScree function returns an analysis of the number of component or factors to retain in an
+# exploratory principal component or factor analysis. The function also returns information about the
+# number of components/factors to retain with the Kaiser rule and the parallel analysis.
+nFactors::nScree(x=eigen$values, model="factors")
+nFactors::plotnScree(nFactors::nScree(x=eigen(R0)$values, model="factors")) # from nFactors package
+
+# This function gives the distribution of the eigenvalues of correlation or a covariance matrices of
+# random uncorrelated standardized normal variables. The mean and a selected quantile of this distribution
+# are returned.
+ap <- nFactors::parallel(subject=nrow(foc),var=ncol(foc),rep=1000,cent=.05)
+nS <- nScree(x=eigen$values, aparallel=ap$eigen$qevpea)
+plotnScree(nS)
+# Optimal Coordinates: 8
+# Acceleration Factor: 1 (number before the point at which the line bends the most)
+# Parallel Analysis: 9 (from Horn 1965)
+# Eigenvalues: 9
+
+# ---- MAP-paramap ---------------------
+# install.packages("paramap_1.1.tar.gz", repos=NULL, type="source") 
+library(paramap)
+paramap::map( R0, corkind='pearson', display = 'yes' )
+
+
+# ---- compare-eigens ----------------
+observed_eignes <- eigen(R0)$values
+simulated_eigens <- read.csv("./data/shared/raw/simulated_eigens.csv", header=T, stringsAsFactors = F)
+compare_eignes <- cbind(observed_eignes,simulated_eigens )
+compare_eignes
+
+
 # ---- reproduce ---------------------------------------
 rmarkdown::render(input = "./reports/extract-and-eliminate/extract-and-eliminate-0.Rmd" ,
                   output_format="html_document", clean=TRUE) 
 
 rmarkdown::render(input = "./reports/extract-and-eliminate/extract-and-eliminate-1.Rmd" ,
+                  output_format="html_document", clean=TRUE) 
+
+rmarkdown::render(input = "./reports/extract-and-eliminate/revision-comments.Rmd" ,
                   output_format="html_document", clean=TRUE) 
 
 

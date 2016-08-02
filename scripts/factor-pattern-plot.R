@@ -92,3 +92,63 @@ fpmFunction <- function( FPM.matrix, mainTitle=NULL ) {
 
   return( pp )
 }
+
+FA.StatsGG <- function(Correlation.Matrix, n.obs, n.factors, conf=.90, maxit=1000, RMSEA.cutoff=NULL, main="RMSEA Plot", sub=NULL) {
+  #This function is a ggplot2 adaption for the function written by James H. Steiger (2013): Advanced Factor Functions V1.05  2013/03/20
+  runs <- length(n.factors)  
+  R <- Correlation.Matrix
+  maxfac <- max(n.factors)
+  res <- matrix(NA, runs,8)
+  roots <- eigen(R)$values
+  for( i in 1:runs ) {
+    output <- factanal(covmat=R, n.obs=n.obs, factors=n.factors[i], maxit=maxit)
+    X2 <- output$STATISTIC
+    df <- output$dof
+    ci <- rmsea.ci(X2, df ,n.obs,conf)
+    pvar <- sum(roots[1:n.factors[i]])
+    v <- c(n.factors[i], pvar, X2, df, 1-pchisq(X2,df), ci$Point.Estimate, ci$Lower.Limit, ci$Upper.Limit)      
+    res[i, ] <- v
+  }
+  colnames(res)=c("Factors","Cum.Eigen","Chi-Square","Df","p.value", "RMSEA.Pt","RMSEA.Lo","RMSEA.Hi")
+  ds <- data.frame(FactorID=n.factors, Rmsea=res[,6], Lower=res[,7], Upper=res[,8])
+  g <- ggplot(ds, aes(x=FactorID, y=Rmsea, ymin=Lower, ymax=Upper)) +
+    annotate("rect", ymax=RMSEA.cutoff, ymin=-Inf, xmin=-Inf, xmax=Inf, fill="#F4A58255") +
+    geom_line(size=1.5, color="#0571B0", na.rm = TRUE) +
+    geom_errorbar(width=0.05, size=1.5, color="#92C5DE", na.rm = TRUE) +
+    scale_x_continuous(breaks=n.factors) +
+    scale_y_continuous(expand=c(0,0)) + 
+    labs(title=main, x="Number of Factors", y="RMSEA") +
+    theme_bw() +
+    theme(panel.grid.minor=element_blank()) + 
+    theme(plot.title=element_text(color="gray30", size=30)) + #The labels (eg, 'Eigenvalue' & 'Component Number') 
+    theme(axis.title=element_text(color="gray30", size=18)) + #The labels (eg, 'Eigenvalue' & 'Component Number') 
+    theme(axis.text.x=element_text(color="gray50", size=18, vjust=1.3)) + #(eg, V1, V2,...)
+    theme(axis.text.y=element_text(color="gray50", size=18))  #(eg, 0.5, 1.0)
+  
+  print(g)
+  
+  return(res)
+}
+
+
+Scree.PlotGG <- function(R, main="Scree Plot", sub=NULL){
+  #This function is a ggplot2 adaption for the function written by James H. Steiger (2013): Advanced Factor Functions V1.05  2013/03/20
+  roots <- eigen(R)$values
+  x <- 1:dim(R)[1]    
+  ds <- data.frame(x=x, roots=roots)
+  g <- ggplot(ds, aes(x=x, y=roots)) +
+    annotate("rect", ymax=1, ymin=-Inf, xmin=-Inf, xmax=Inf, fill="#F4A58255") +#rgb(1, 0, 0, alpha=.1,maxColorValue=1)) +
+    geom_line(size=1.5, color="#0571B0", na.rm = TRUE) +
+    geom_point(size=5, color="#92C5DE", na.rm = TRUE)+
+    scale_x_continuous(breaks=x) +
+    scale_y_continuous(expand=c(0,0)) +
+    labs(title=main, x="Component Number", y="Eigenvalue") +
+    theme_bw() +
+    theme(panel.grid.minor=element_blank()) + 
+    theme(plot.title=element_text(color="gray30", size=30)) + #The labels (eg, 'Eigenvalue' & 'Component Number') 
+    theme(axis.title=element_text(color="gray30", size=18)) + #The labels (eg, 'Eigenvalue' & 'Component Number') 
+    theme(axis.text.x=element_text(color="gray50", size=18, vjust=1.3)) + #(eg, V1, V2,...)
+    theme(axis.text.y=element_text(color="gray50", size=18))  #(eg, 0.5, 1.0)
+  
+  print(g)
+}
