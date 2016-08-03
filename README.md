@@ -13,3 +13,8 @@ The CFQ represents the most comprehensive measure of fear of childbirth currentl
 
 
 [revision responses](https://github.com/andkov/fear-of-childbirth/blob/master/reports/extract-and-eliminate/revision-comments.md)
+
+### Analysis
+
+- [Phase 0](https://rawgit.com/andkov/fear-of-childbirth/master/reports/extract-and-eliminate/extract-and-eliminate-0.html) : original 49 items
+- [Phase 1](https://rawgit.com/andkov/fear-of-childbirth/master/reports/extract-and-eliminate/extract-and-eliminate-1.html) : removing items that didn't load well on any of the factors, namely : 5, 16, 18, 45, 49
