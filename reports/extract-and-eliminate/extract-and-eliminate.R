@@ -131,7 +131,7 @@ display_solution <- function(R,k, sample_size,rotation_,mainTitle=NULL){
 }
 
 
-# data-phase-0 -----------------------
+# ---- data-phase-0 -----------------------
 items_phase_0 <- c(paste0("foc_0",1:9), paste0("foc_",10:49))
 R0 <- make_cor(ds, metaData, items_phase_0)
 saveRDS(R0,"./data/shared/derived/R0.rds") 
