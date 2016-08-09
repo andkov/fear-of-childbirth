@@ -11,19 +11,29 @@ library(GPArotation)
       {sidebarPanel(
         selectInput("dataset", "Choose a dataset:", # selectInput - "dataset" - choose dataset
                       choices = c(
-                        "Cognitive Abilities",
-                        "Items_9"
+                       
+                        "Phase_0",
+                        "Phase_1",
+                        "Phase_2",
+                        "Phase_3"
+                       # "Cognitive Abilities"
                         # "Emotional Traits", 
                         # "Physical Measures",
                         # "Thurstone"
 #                                 ,"Uploaded"
                         )) # selectInput          
-          , numericInput("k", label="Retain k factors:", value=3) # numericInput - "k" - number of retained factors
+          , numericInput("k", label="Retain k factors:", value=7) # numericInput - "k" - number of retained factors
           , radioButtons("rotation", "Choose the rotation Method", # radioButtons - "rotation" - select rotation method
                        list(#"SVD eigenvectors"="svd",
                          "Unrotated"="none",
+                         # "Target (T)"="targetT",
+                         # "Target (Q)"="targetQ",
                          "Varimax (T)"="Varimax", 
-                         "Promax (Q)"="promax",
+                         "Quartimax (T)" = "quartimax", 
+                         "Quartimin (Q)" = "quartimin", 
+                         "Geomin (T)" = "geominT", 
+                         "Geomin (Q)" = "geominQ",
+                         "Oblimin (Q)"   ="oblimin",
                          "Bifactor (T)"="bifactorT",
                          "Bifactor (Q)"="bifactorQ",
                          "Crawford-Ferguson (T)"="cfT",

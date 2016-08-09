@@ -23,3 +23,11 @@ We initially developed 49 items covering the following domains of potential chil
 * and medical interventions (e.g., fear of having an episiotomy).
 
 CFQ items are scored on a 0 (not at all) to 4 (extremely) point, Likert-type scale.
+=======
+
+[revision responses](https://github.com/andkov/fear-of-childbirth/blob/master/reports/extract-and-eliminate/revision-comments.md)
+
+### Analysis
+
+- [Phase 0](https://rawgit.com/andkov/fear-of-childbirth/master/reports/extract-and-eliminate/extract-and-eliminate-0.html) : original 49 items
+- [Phase 1](https://rawgit.com/andkov/fear-of-childbirth/master/reports/extract-and-eliminate/extract-and-eliminate-1.html) : removing items that didn't load well on any of the factors, namely : 5, 16, 18, 45, 49
