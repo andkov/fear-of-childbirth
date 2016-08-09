@@ -131,23 +131,23 @@ display_solution <- function(R,k, sample_size,rotation_,mainTitle=NULL){
 }
 
 
-# ---- data-phase-0 ------------------
+# data-phase-0 -----------------------
 items_phase_0 <- c(paste0("foc_0",1:9), paste0("foc_",10:49))
 R0 <- make_cor(ds, metaData, items_phase_0)
 saveRDS(R0,"./data/shared/derived/R0.rds") 
 
-# Phase_0 <- ds
+
 items_0 <- R0
 n.items_0 <- sample_size
 p.items_0 <- nrow(R0)
 
-# --- eigen-analysis ---------------------------------
+# --- eigen-analysis -------------------
 R <- cor(R0) # correlation matrix R of variables in foc
 eigen <- eigen(R) # eigen decomposition of R      #  VDV' : $values -eigenvalues, $vectors
 svd <- svd(R)   # single value decomposition of R #  UDV' : $d      -eigenvalues, $u,$v
 
 
-# ---- data-phase-1 ------------------
+# ---- data-phase-1 -------------------
 drop_items_1 <-c("foc_05", "foc_16", "foc_18","foc_49", "foc_45")
 items_phase_1 <- setdiff(items_phase_0, drop_items_1)
 items = items_phase_1
@@ -157,8 +157,8 @@ items_1 <- R1
 n.items_1 <- sample_size
 p.items_1 <- nrow(R1)
 
-# ---- data-phase-2 ------------------
-drop_items_2 <- c("foc_27", "foc_17")
+# ---- data-phase-2 -------------------
+drop_items_2 <- c("foc_31", "foc_32", "foc_46")
 items_phase_2 <- setdiff(items_phase_1, drop_items_2)
 items = items_phase_2
 R2 <- make_cor(ds, metaData, items_phase_2)
@@ -169,23 +169,23 @@ p.items_2 <- nrow(R2)
 
 # ---- example-analysis ----------------
 # R <- R0 # What dataset?
-# k <-5 # How many factors/latent variables?
+k <-5 # How many factors/latent variables?
 # sample_size <- 643# How big is sample size?
 # solution <- display_solution(R,k,sample_size,"oblimin")
 # solution
 
 # ---- print-solution --------------------
-phase <- "1"
-R <- R1 # correlation matrix for items at phase 0
+phase <- "2"
+R <- R2 # correlation matrix for items at phase 0
 sample_size <- 643
-
+k <- 4
 # for(rotation_ in c("oblimin","geominQ")){   # },"quartimin","geominQ","bifactorQ")){
-  for(rotation_ in c("oblimin","quartimin","geominQ","bifactorQ","Varimax","quartimax","geominT","bifactorT")){ 
-    
+for(rotation_ in c("oblimin","quartimin","geominQ","bifactorQ","Varimax","quartimax","geominT","bifactorT")){ 
+  
   cat("\n\n")
   cat(paste0("## ",rotation_))
   for(nfactors_ in c(4:10)){
-  # for(nfactors_ in c(4:10)){  
+    # for(nfactors_ in c(4:10)){  
     mainTitle <- paste0(rotation_,", phase ",phase)
     cat("\n\n") 
     cat(paste0("### ",nfactors_));  
@@ -194,10 +194,10 @@ sample_size <- 643
       print() 
     cat("\n\n")
     
-
+    
   }  
 }  
- 
+
 # ---- reason-through-elimination ---------------------------
 
 
@@ -256,6 +256,57 @@ observed_eignes <- eigen(R0)$values
 simulated_eigens <- read.csv("./data/shared/raw/simulated_eigens.csv", header=T, stringsAsFactors = F)
 compare_eignes <- cbind(observed_eignes,simulated_eigens )
 compare_eignes
+
+
+
+# conduction parallel analysis on the interferent scale
+
+# ---- function-correlation-itf ------------------------------
+make_cor_itf <- function(ds,metaData,items){
+  
+  # d <- ds %>% dplyr::select(foc_01:foc_49)
+  d <- ds %>% dplyr::select_(.dots=items)
+  
+  rownames <- metaData %>% 
+    dplyr::filter(name_new %in% items) %>% 
+    dplyr::mutate(name_ = paste0(gsub("itf_", "", items),"---",domain, "---", label_graph))
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",domain, "-",label_graph))
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",label_graph))
+  rownames <- rownames[,"name_"]
+  
+  d <- sapply(d, as.numeric)
+  cormat <- cor(d)
+  colnames(cormat) <- rownames; rownames(cormat) <- rownames
+  return(cormat)
+}
+
+# data-phase-itf -----------------------
+items_int <- c(paste0("itf_",1:7))
+Ritf <- make_cor_itf(ds, metaData, items_int)
+saveRDS(Ritf,"./data/shared/derived/Ritf.rds") 
+
+
+# ---- scree-plot-itf ---------------------
+
+Scree.Plot(Ritf,main="SCREE Plot\nFear of Interference Scale (n=643)")
+
+# ---- FA-statistics-itf -------------------
+FA.Stats(Ritf,n.factors=1:3,n.obs=643,
+         main="RMSEA Plot\nFear of Childbirth Questionnaire (n=643)",
+         RMSEA.cutoff=0.05)
+
+
+# ---- PA-psych-itf ----------------
+library(psych)
+itf <- ds %>% dplyr::select_(.dots = items_int)
+itf <- matrix(as.numeric(unlist(itf)), nrow=nrow(itf), ncol=ncol(itf)) # turn it into a matrix
+
+pa_result <- psych::fa.parallel(
+  itf, 
+  fm = "uls",
+  fa = "both",
+  se.bars = TRUE
+) 
 
 
 # ---- reproduce ---------------------------------------
