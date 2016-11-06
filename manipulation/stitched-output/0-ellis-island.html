@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title></title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<p>This report was automatically generated with the R package <strong>knitr</strong>
+(version 1.14).</p>
+
+<pre><code class="r"># The purpose of this script is to create a data object (dto) 
+# (dto) which will hold all data and metadata from each candidate study of the exercise
+# Run the line below to stitch a basic html output. For elaborated report, run the corresponding .Rmd file
+# knitr::stitch_rmd(script=&quot;./manipulation/0-ellis-island.R&quot;, output=&quot;./manipulation/stitched-output/0-ellis-island.md&quot;)
+# These first few lines run only when the file is run in RStudio, !!NOT when an Rmd/Rnw file calls it!!
+rm(list=ls(all=TRUE))  #Clear the variables from previous runs.
+cat(&quot;\f&quot;) # clear console 
+</code></pre>
+
+
+<pre><code class="r"># Attach these packages so their functions don&#39;t need to be qualified: http://r-pkgs.had.co.nz/namespace.html#search-path
+library(magrittr) # enables piping : %&gt;% 
+# Verify these packages are available on the machine, but their functions need to be qualified: http://r-pkgs.had.co.nz/namespace.html#search-path
+requireNamespace(&quot;foreign&quot;) # for importing SPSS files
+requireNamespace(&quot;ggplot2&quot;) # graphing
+requireNamespace(&quot;readr&quot;)   # data input
+requireNamespace(&quot;tidyr&quot;)   # data manipulation
+requireNamespace(&quot;dplyr&quot;)   # Avoid attaching dplyr, b/c its function names conflict with a lot of packages (esp base, stats, and plyr).
+requireNamespace(&quot;testit&quot;)  # For asserting conditions meet expected patterns.
+# requireNamespace(&quot;car&quot;)     # For it&#39;s `recode()` function.
+</code></pre>
+
+<pre><code class="r"># Call `base::source()` on any repo file that defines functions needed below.  Ideally, no real operations are performed.
+source(&quot;./scripts/common-functions.R&quot;) # used in multiple reports
+source(&quot;./scripts/graph-presets.R&quot;) # fonts, colors, themes 
+</code></pre>
+
+<pre><code class="r">data_path_input  &lt;- &quot;./data/unshared/raw/Final Dataset NFSept 6 2015_1.sav&quot;
+</code></pre>
+
+<pre><code class="r"># load data objects
+unitData &lt;- foreign::read.spss(data_path_input,to.data.frame = TRUE) 
+</code></pre>
+
+<pre><code>## Warning in foreign::read.spss(data_path_input, to.data.frame = TRUE): ./
+## data/unshared/raw/Final Dataset NFSept 6 2015_1.sav: Unrecognized record
+## type 7, subtype 14 encountered in system file
+</code></pre>
+
+<pre><code>## Warning in foreign::read.spss(data_path_input, to.data.frame = TRUE): ./
+## data/unshared/raw/Final Dataset NFSept 6 2015_1.sav: Unrecognized record
+## type 7, subtype 18 encountered in system file
+</code></pre>
+
+<pre><code>## Warning in foreign::read.spss(data_path_input, to.data.frame = TRUE): ./
+## data/unshared/raw/Final Dataset NFSept 6 2015_1.sav: Unrecognized record
+## type 7, subtype 21 encountered in system file
+</code></pre>
+
+<pre><code>## Warning in foreign::read.spss(data_path_input, to.data.frame = TRUE): ./
+## data/unshared/raw/Final Dataset NFSept 6 2015_1.sav: Unrecognized record
+## type 7, subtype 24 encountered in system file
+</code></pre>
+
+<pre><code class="r">nl &lt;- names_labels(unitData)
+</code></pre>
+
+<pre><code class="r">## we begin by extracting the names and (hopefuly their) labels of variables from each dataset
+# and combine them in a single rectanguar object, long/stacked with respect to study names
+nl &lt;- names_labels(unitData)
+readr::write_csv(nl,&quot;./data/shared/meta/meta-data-live.csv&quot;)
+</code></pre>
+
+<pre><code class="r"># after the final version of the data files used in the excerside have been obtained
+# we made a dead copy of `./data/shared/derived/meta-raw-live.csv` and named it `./data/shared/meta-data-map.csv`
+# decisions on variables&#39; renaming and classification is encoded in this map
+# reproduce ellis-island script every time you make changes to `meta-data-map.csv`
+metaData &lt;- read.csv(&quot;./data/shared/meta/meta-data-dead.csv&quot;)
+</code></pre>
+
+<pre><code class="r"># list the variables to select
+select_variables &lt;- metaData %&gt;% 
+  dplyr::filter(select==TRUE) %&gt;% 
+  dplyr::select(name)
+(select_variables &lt;- as.character(select_variables$name))
+</code></pre>
+
+<pre><code>##  [1] &quot;RespondentID&quot;   &quot;Pregnant&quot;       &quot;Marital_status&quot; &quot;Education&quot;     
+##  [5] &quot;Weeks_pregnant&quot; &quot;Has_kids&quot;       &quot;FOC1&quot;           &quot;FOC2&quot;          
+##  [9] &quot;FOC3&quot;           &quot;FOC4&quot;           &quot;FOC5&quot;           &quot;FOC6&quot;          
+## [13] &quot;FOC7&quot;           &quot;FOC8&quot;           &quot;FOC9&quot;           &quot;FOC10&quot;         
+## [17] &quot;FOC11&quot;          &quot;FOC12&quot;          &quot;FOC13&quot;          &quot;FOC14&quot;         
+## [21] &quot;FOC15&quot;          &quot;FOC16&quot;          &quot;FOC17&quot;          &quot;FOC18&quot;         
+## [25] &quot;FOC19&quot;          &quot;FOC20&quot;          &quot;FOC21&quot;          &quot;FOC22&quot;         
+## [29] &quot;FOC23&quot;          &quot;FOC24&quot;          &quot;FOC25&quot;          &quot;FOC26&quot;         
+## [33] &quot;FOC27&quot;          &quot;FOC28&quot;          &quot;FOC29&quot;          &quot;FOC30&quot;         
+## [37] &quot;FOC31&quot;          &quot;FOC32&quot;          &quot;FOC33&quot;          &quot;FOC34&quot;         
+## [41] &quot;FOC35&quot;          &quot;FOC36&quot;          &quot;FOC37&quot;          &quot;FOC38&quot;         
+## [45] &quot;FOC39&quot;          &quot;FOC40&quot;          &quot;FOC41&quot;          &quot;FOC42&quot;         
+## [49] &quot;FOC43&quot;          &quot;FOC44&quot;          &quot;FOC45&quot;          &quot;FOC46&quot;         
+## [53] &quot;FOC47&quot;          &quot;FOC48&quot;          &quot;FOC49&quot;          &quot;FOCI1&quot;         
+## [57] &quot;FOCI2&quot;          &quot;FOCI3&quot;          &quot;FOCI4&quot;          &quot;FOCI5&quot;         
+## [61] &quot;FOCI6&quot;          &quot;FOCI7&quot;
+</code></pre>
+
+<pre><code class="r"># subset selected variables
+ds_small &lt;- unitData %&gt;% 
+  dplyr::select_(.dots = select_variables)
+# rename selected variables
+d_rules &lt;- metaData %&gt;%
+  dplyr::filter(name %in% names(ds_small)) %&gt;% 
+  dplyr::select(name, name_new ) # leave only collumn, which values you wish to append
+names(ds_small) &lt;- d_rules[,&quot;name_new&quot;]
+</code></pre>
+
+<pre><code class="r">dto &lt;- list()
+dto[[&quot;unitData&quot;]] &lt;- unitData
+dto[[&#39;metaData&#39;]] &lt;- metaData
+dto[[&#39;analytic&#39;]] &lt;- ds_small
+
+# Save as a compress, binary R dataset.  It&#39;s no longer readable with a text editor, but it saves metadata (eg, factor information).
+saveRDS(dto, file=&quot;./data/unshared/derived/dto.rds&quot;, compress=&quot;xz&quot;)
+</code></pre>
+
+<pre><code class="r"># the production of the dto object is now complete
+# we verify its structure and content:
+dto &lt;- readRDS(&quot;./data/unshared/derived/dto.rds&quot;)
+names(dto)
+</code></pre>
+
+<pre><code>## [1] &quot;unitData&quot; &quot;metaData&quot; &quot;analytic&quot;
+</code></pre>
+
+<pre><code class="r"># 1st element - unit(person) level data
+names(dto[[&quot;unitData&quot;]])
+</code></pre>
+
+<pre><code>##   [1] &quot;RespondentID&quot;                   &quot;DOB&quot;                           
+##   [3] &quot;Over_18&quot;                        &quot;Pregnant&quot;                      
+##   [5] &quot;Gender&quot;                         &quot;Marital_status&quot;                
+##   [7] &quot;Education&quot;                      &quot;Education_other&quot;               
+##   [9] &quot;EDUCA0&quot;                         &quot;EDUCA1&quot;                        
+##  [11] &quot;EDUCA2&quot;                         &quot;EDUCA3&quot;                        
+##  [13] &quot;EDUCA4&quot;                         &quot;EDUCA5&quot;                        
+##  [15] &quot;EDUCA6&quot;                         &quot;EDUCA7&quot;                        
+##  [17] &quot;EDUCA8&quot;                         &quot;EDUCA9&quot;                        
+##  [19] &quot;EDUCAA&quot;                         &quot;EDUCAB&quot;                        
+##  [21] &quot;EDUCAC&quot;                         &quot;EDUCAD&quot;                        
+##  [23] &quot;EDUCAE&quot;                         &quot;EDUCAF&quot;                        
+##  [25] &quot;EDUCAG&quot;                         &quot;EDUCAH&quot;                        
+##  [27] &quot;EDUCAI&quot;                         &quot;EDUCAJ&quot;                        
+##  [29] &quot;EDUCAK&quot;                         &quot;EDUCAL&quot;                        
+##  [31] &quot;EDUCAM&quot;                         &quot;EDUCAN&quot;                        
+##  [33] &quot;EDUCAO&quot;                         &quot;EDUCAP&quot;                        
+##  [35] &quot;EDUCAQ&quot;                         &quot;EDUCAR&quot;                        
+##  [37] &quot;EDUCAS&quot;                         &quot;EDUCAT&quot;                        
+##  [39] &quot;EDUCAU&quot;                         &quot;EDUCAV&quot;                        
+##  [41] &quot;EDUCAW&quot;                         &quot;EDUCAX&quot;                        
+##  [43] &quot;EDUCAY&quot;                         &quot;EDUCAZ&quot;                        
+##  [45] &quot;EDUCA10&quot;                        &quot;EDUCA11&quot;                       
+##  [47] &quot;EDUCA12&quot;                        &quot;EDUCA13&quot;                       
+##  [49] &quot;EDUCA14&quot;                        &quot;EDUCA15&quot;                       
+##  [51] &quot;EDUCA16&quot;                        &quot;EDUCA17&quot;                       
+##  [53] &quot;EDUCA18&quot;                        &quot;EDUCA19&quot;                       
+##  [55] &quot;EDUCA1A&quot;                        &quot;Miscarriage&quot;                   
+##  [57] &quot;Stillbirth&quot;                     &quot;Terminated&quot;                    
+##  [59] &quot;Current_complications&quot;          &quot;Country_Code&quot;                  
+##  [61] &quot;Parity&quot;                         &quot;Current_conception&quot;            
+##  [63] &quot;Episiotomy&quot;                     &quot;Current_babies&quot;                
+##  [65] &quot;Income&quot;                         &quot;Weeks_pregnant&quot;                
+##  [67] &quot;Care_Provider&quot;                  &quot;Very_satisfied&quot;                
+##  [69] &quot;Birthplace&quot;                     &quot;INTERVENTIONSTOTM&quot;             
+##  [71] &quot;HARMTOTM&quot;                       &quot;PAINTOTM&quot;                      
+##  [73] &quot;SHYTOTM&quot;                        &quot;SEXTOTM&quot;                       
+##  [75] &quot;CSTOTM&quot;                         &quot;FOCTOTM&quot;                       
+##  [77] &quot;INTERFERENCE&quot;                   &quot;Know_trauma_vaginal&quot;           
+##  [79] &quot;Know_trauma_cesarean&quot;           &quot;Know_positive_vaginal&quot;         
+##  [81] &quot;Know_positive_cesarean&quot;         &quot;Births_vaginal_traumatic&quot;      
+##  [83] &quot;Pregnancies&quot;                    &quot;StartDate&quot;                     
+##  [85] &quot;Due_date&quot;                       &quot;EndDate&quot;                       
+##  [87] &quot;Student_FT&quot;                     &quot;Student_PT&quot;                    
+##  [89] &quot;Employed_FT&quot;                    &quot;Employed_PT&quot;                   
+##  [91] &quot;Homemaker_FT&quot;                   &quot;Homemaker_PT&quot;                  
+##  [93] &quot;Unemployed_FT&quot;                  &quot;Unemloyed_PT&quot;                  
+##  [95] &quot;SeekingWork_FT&quot;                 &quot;SeekingWork_PT&quot;                
+##  [97] &quot;Retired_FT&quot;                     &quot;Retired_PT&quot;                    
+##  [99] &quot;Disabled_FT&quot;                    &quot;Disabled_PT&quot;                   
+## [101] &quot;City&quot;                           &quot;CITY0&quot;                         
+## [103] &quot;CITY1&quot;                          &quot;CITY2&quot;                         
+## [105] &quot;CITY3&quot;                          &quot;CITY4&quot;                         
+## [107] &quot;CITY5&quot;                          &quot;CITY6&quot;                         
+## [109] &quot;CITY7&quot;                          &quot;CITY8&quot;                         
+## [111] &quot;CITY9&quot;                          &quot;CITYA&quot;                         
+## [113] &quot;CITYB&quot;                          &quot;CITYC&quot;                         
+## [115] &quot;CITYD&quot;                          &quot;CITYE&quot;                         
+## [117] &quot;CITYF&quot;                          &quot;CITYG&quot;                         
+## [119] &quot;CITYH&quot;                          &quot;CITYI&quot;                         
+## [121] &quot;CITYJ&quot;                          &quot;CITYK&quot;                         
+## [123] &quot;CITYL&quot;                          &quot;CITYM&quot;                         
+## [125] &quot;CITYN&quot;                          &quot;CITYO&quot;                         
+## [127] &quot;CITYP&quot;                          &quot;CITYQ&quot;                         
+## [129] &quot;CITYR&quot;                          &quot;CITYS&quot;                         
+## [131] &quot;CITYT&quot;                          &quot;CITYU&quot;                         
+## [133] &quot;CITYV&quot;                          &quot;CITYW&quot;                         
+## [135] &quot;CITYX&quot;                          &quot;CITYY&quot;                         
+## [137] &quot;CITYZ&quot;                          &quot;CITY10&quot;                        
+## [139] &quot;CITY11&quot;                         &quot;CITY12&quot;                        
+## [141] &quot;CITY13&quot;                         &quot;CITY14&quot;                        
+## [143] &quot;CITY15&quot;                         &quot;CITY16&quot;                        
+## [145] &quot;CITY17&quot;                         &quot;CITY18&quot;                        
+## [147] &quot;CITY19&quot;                         &quot;CITY1A&quot;                        
+## [149] &quot;Province&quot;                       &quot;PROVI0&quot;                        
+## [151] &quot;PROVI1&quot;                         &quot;PROVI2&quot;                        
+## [153] &quot;PROVI3&quot;                         &quot;PROVI4&quot;                        
+## [155] &quot;PROVI5&quot;                         &quot;PROVI6&quot;                        
+## [157] &quot;PROVI7&quot;                         &quot;PROVI8&quot;                        
+## [159] &quot;PROVI9&quot;                         &quot;PROVIA&quot;                        
+## [161] &quot;PROVIB&quot;                         &quot;PROVIC&quot;                        
+## [163] &quot;PROVID&quot;                         &quot;PROVIE&quot;                        
+## [165] &quot;PROVIF&quot;                         &quot;PROVIG&quot;                        
+## [167] &quot;PROVIH&quot;                         &quot;PROVII&quot;                        
+## [169] &quot;PROVIJ&quot;                         &quot;PROVIK&quot;                        
+## [171] &quot;PROVIL&quot;                         &quot;PROVIM&quot;                        
+## [173] &quot;PROVIN&quot;                         &quot;PROVIO&quot;                        
+## [175] &quot;PROVIP&quot;                         &quot;PROVIQ&quot;                        
+## [177] &quot;PROVIR&quot;                         &quot;PROVIS&quot;                        
+## [179] &quot;PROVIT&quot;                         &quot;PROVIU&quot;                        
+## [181] &quot;PROVIV&quot;                         &quot;PROVIW&quot;                        
+## [183] &quot;PROVIX&quot;                         &quot;PROVIY&quot;                        
+## [185] &quot;PROVIZ&quot;                         &quot;PROVI10&quot;                       
+## [187] &quot;PROVI11&quot;                        &quot;PROVI12&quot;                       
+## [189] &quot;PROVI13&quot;                        &quot;PROVI14&quot;                       
+## [191] &quot;PROVI15&quot;                        &quot;PROVI16&quot;                       
+## [193] &quot;PROVI17&quot;                        &quot;PROVI18&quot;                       
+## [195] &quot;PROVI19&quot;                        &quot;PROVI1A&quot;                       
+## [197] &quot;Country&quot;                        &quot;COUNT0&quot;                        
+## [199] &quot;COUNT1&quot;                         &quot;COUNT2&quot;                        
+## [201] &quot;COUNT3&quot;                         &quot;COUNT4&quot;                        
+## [203] &quot;COUNT5&quot;                         &quot;COUNT6&quot;                        
+## [205] &quot;COUNT7&quot;                         &quot;COUNT8&quot;                        
+## [207] &quot;COUNT9&quot;                         &quot;COUNTA&quot;                        
+## [209] &quot;COUNTB&quot;                         &quot;COUNTC&quot;                        
+## [211] &quot;COUNTD&quot;                         &quot;COUNTE&quot;                        
+## [213] &quot;COUNTF&quot;                         &quot;COUNTG&quot;                        
+## [215] &quot;COUNTH&quot;                         &quot;COUNTI&quot;                        
+## [217] &quot;COUNTJ&quot;                         &quot;COUNTK&quot;                        
+## [219] &quot;COUNTL&quot;                         &quot;COUNTM&quot;                        
+## [221] &quot;COUNTN&quot;                         &quot;COUNTO&quot;                        
+## [223] &quot;COUNTP&quot;                         &quot;COUNTQ&quot;                        
+## [225] &quot;COUNTR&quot;                         &quot;COUNTS&quot;                        
+## [227] &quot;COUNTT&quot;                         &quot;COUNTU&quot;                        
+## [229] &quot;COUNTV&quot;                         &quot;COUNTW&quot;                        
+## [231] &quot;COUNTX&quot;                         &quot;COUNTY&quot;                        
+## [233] &quot;COUNTZ&quot;                         &quot;COUNT10&quot;                       
+## [235] &quot;COUNT11&quot;                        &quot;COUNT12&quot;                       
+## [237] &quot;COUNT13&quot;                        &quot;COUNT14&quot;                       
+## [239] &quot;COUNT15&quot;                        &quot;COUNT16&quot;                       
+## [241] &quot;COUNT17&quot;                        &quot;COUNT18&quot;                       
+## [243] &quot;COUNT19&quot;                        &quot;COUNT1A&quot;                       
+## [245] &quot;Ethnicity&quot;                      &quot;Ethnicity_Other&quot;               
+## [247] &quot;ETHNI0&quot;                         &quot;ETHNI1&quot;                        
+## [249] &quot;ETHNI2&quot;                         &quot;ETHNI3&quot;                        
+## [251] &quot;ETHNI4&quot;                         &quot;ETHNI5&quot;                        
+## [253] &quot;ETHNI6&quot;                         &quot;ETHNI7&quot;                        
+## [255] &quot;ETHNI8&quot;                         &quot;ETHNI9&quot;                        
+## [257] &quot;ETHNIA&quot;                         &quot;ETHNIB&quot;                        
+## [259] &quot;ETHNIC&quot;                         &quot;ETHNID&quot;                        
+## [261] &quot;ETHNIE&quot;                         &quot;ETHNIF&quot;                        
+## [263] &quot;ETHNIG&quot;                         &quot;ETHNIH&quot;                        
+## [265] &quot;ETHNII&quot;                         &quot;ETHNIJ&quot;                        
+## [267] &quot;ETHNIK&quot;                         &quot;ETHNIL&quot;                        
+## [269] &quot;ETHNIM&quot;                         &quot;ETHNIN&quot;                        
+## [271] &quot;ETHNIO&quot;                         &quot;ETHNIP&quot;                        
+## [273] &quot;ETHNIQ&quot;                         &quot;ETHNIR&quot;                        
+## [275] &quot;ETHNIS&quot;                         &quot;ETHNIT&quot;                        
+## [277] &quot;ETHNIU&quot;                         &quot;ETHNIV&quot;                        
+## [279] &quot;ETHNIW&quot;                         &quot;ETHNIX&quot;                        
+## [281] &quot;ETHNIY&quot;                         &quot;ETHNIZ&quot;                        
+## [283] &quot;ETHNI10&quot;                        &quot;ETHNI11&quot;                       
+## [285] &quot;ETHNI12&quot;                        &quot;ETHNI13&quot;                       
+## [287] &quot;ETHNI14&quot;                        &quot;ETHNI15&quot;                       
+## [289] &quot;ETHNI16&quot;                        &quot;ETHNI17&quot;                       
+## [291] &quot;ETHNI18&quot;                        &quot;ETHNI19&quot;                       
+## [293] &quot;ETHNI1A&quot;                        &quot;Language&quot;                      
+## [295] &quot;LANGU0&quot;                         &quot;LANGU1&quot;                        
+## [297] &quot;LANGU2&quot;                         &quot;LANGU3&quot;                        
+## [299] &quot;LANGU4&quot;                         &quot;LANGU5&quot;                        
+## [301] &quot;LANGU6&quot;                         &quot;LANGU7&quot;                        
+## [303] &quot;LANGU8&quot;                         &quot;LANGU9&quot;                        
+## [305] &quot;LANGUA&quot;                         &quot;LANGUB&quot;                        
+## [307] &quot;LANGUC&quot;                         &quot;LANGUD&quot;                        
+## [309] &quot;LANGUE&quot;                         &quot;LANGUF&quot;                        
+## [311] &quot;LANGUG&quot;                         &quot;LANGUH&quot;                        
+## [313] &quot;LANGUI&quot;                         &quot;LANGUJ&quot;                        
+## [315] &quot;LANGUK&quot;                         &quot;LANGUL&quot;                        
+## [317] &quot;LANGUM&quot;                         &quot;LANGUN&quot;                        
+## [319] &quot;LANGUO&quot;                         &quot;LANGUP&quot;                        
+## [321] &quot;LANGUQ&quot;                         &quot;LANGUR&quot;                        
+## [323] &quot;LANGUS&quot;                         &quot;LANGUT&quot;                        
+## [325] &quot;LANGUU&quot;                         &quot;LANGUV&quot;                        
+## [327] &quot;LANGUW&quot;                         &quot;LANGUX&quot;                        
+## [329] &quot;LANGUY&quot;                         &quot;LANGUZ&quot;                        
+## [331] &quot;LANGU10&quot;                        &quot;LANGU11&quot;                       
+## [333] &quot;LANGU12&quot;                        &quot;LANGU13&quot;                       
+## [335] &quot;LANGU14&quot;                        &quot;LANGU15&quot;                       
+## [337] &quot;LANGU16&quot;                        &quot;LANGU17&quot;                       
+## [339] &quot;LANGU18&quot;                        &quot;LANGU19&quot;                       
+## [341] &quot;LANGU1A&quot;                        &quot;Language_Coded&quot;                
+## [343] &quot;Has_kids&quot;                       &quot;Births&quot;                        
+## [345] &quot;Births_vaginal&quot;                 &quot;Births_cesarean&quot;               
+## [347] &quot;Births_cesarean_emerg&quot;          &quot;Births_cesarean_traumatic&quot;     
+## [349] &quot;Assisted_vaginal&quot;               &quot;Current_complications_describe&quot;
+## [351] &quot;CURRE1B&quot;                        &quot;CURRE1C&quot;                       
+## [353] &quot;CURRE1D&quot;                        &quot;CURRE1E&quot;                       
+## [355] &quot;CURRE1F&quot;                        &quot;CURRE1G&quot;                       
+## [357] &quot;CURRE1H&quot;                        &quot;CURRE1I&quot;                       
+## [359] &quot;CURRE1J&quot;                        &quot;CURRE1K&quot;                       
+## [361] &quot;CURRE1L&quot;                        &quot;CURRE1M&quot;                       
+## [363] &quot;CURRE1N&quot;                        &quot;CURRE1O&quot;                       
+## [365] &quot;CURRE1P&quot;                        &quot;CURRE1Q&quot;                       
+## [367] &quot;CURRE1R&quot;                        &quot;CURRE1S&quot;                       
+## [369] &quot;CURRE1T&quot;                        &quot;CURRE1U&quot;                       
+## [371] &quot;CURRE1V&quot;                        &quot;CURRE1W&quot;                       
+## [373] &quot;CURRE1X&quot;                        &quot;CURRE1Y&quot;                       
+## [375] &quot;CURRE1Z&quot;                        &quot;CURRE20&quot;                       
+## [377] &quot;CURRE21&quot;                        &quot;CURRE22&quot;                       
+## [379] &quot;CURRE23&quot;                        &quot;CURRE24&quot;                       
+## [381] &quot;CURRE25&quot;                        &quot;CURRE26&quot;                       
+## [383] &quot;CURRE27&quot;                        &quot;CURRE28&quot;                       
+## [385] &quot;CURRE29&quot;                        &quot;CURRE2A&quot;                       
+## [387] &quot;CURRE2B&quot;                        &quot;CURRE2C&quot;                       
+## [389] &quot;CURRE2D&quot;                        &quot;CURRE2E&quot;                       
+## [391] &quot;CURRE2F&quot;                        &quot;CURRE2G&quot;                       
+## [393] &quot;CURRE2H&quot;                        &quot;CURRE2I&quot;                       
+## [395] &quot;CURRE2J&quot;                        &quot;CURRE2K&quot;                       
+## [397] &quot;CURRE2L&quot;                        &quot;Current_conception_other&quot;      
+## [399] &quot;CURRE0&quot;                         &quot;CURRE1&quot;                        
+## [401] &quot;CURRE2&quot;                         &quot;CURRE3&quot;                        
+## [403] &quot;CURRE4&quot;                         &quot;CURRE5&quot;                        
+## [405] &quot;CURRE6&quot;                         &quot;CURRE7&quot;                        
+## [407] &quot;CURRE8&quot;                         &quot;CURRE9&quot;                        
+## [409] &quot;CURREA&quot;                         &quot;CURREB&quot;                        
+## [411] &quot;CURREC&quot;                         &quot;CURRED&quot;                        
+## [413] &quot;CURREE&quot;                         &quot;CURREF&quot;                        
+## [415] &quot;CURREG&quot;                         &quot;CURREH&quot;                        
+## [417] &quot;CURREI&quot;                         &quot;CURREJ&quot;                        
+## [419] &quot;CURREK&quot;                         &quot;CURREL&quot;                        
+## [421] &quot;CURREM&quot;                         &quot;CURREN&quot;                        
+## [423] &quot;CURREO&quot;                         &quot;CURREP&quot;                        
+## [425] &quot;CURREQ&quot;                         &quot;CURRER&quot;                        
+## [427] &quot;CURRES&quot;                         &quot;CURRET&quot;                        
+## [429] &quot;CURREU&quot;                         &quot;CURREV&quot;                        
+## [431] &quot;CURREW&quot;                         &quot;CURREX&quot;                        
+## [433] &quot;CURREY&quot;                         &quot;CURREZ&quot;                        
+## [435] &quot;CURRE10&quot;                        &quot;CURRE11&quot;                       
+## [437] &quot;CURRE12&quot;                        &quot;CURRE13&quot;                       
+## [439] &quot;CURRE14&quot;                        &quot;CURRE15&quot;                       
+## [441] &quot;CURRE16&quot;                        &quot;CURRE17&quot;                       
+## [443] &quot;CURRE18&quot;                        &quot;CURRE19&quot;                       
+## [445] &quot;CURRE1A&quot;                        &quot;Painful_event&quot;                 
+## [447] &quot;Painful_event_describe&quot;         &quot;PAINF0&quot;                        
+## [449] &quot;PAINF1&quot;                         &quot;PAINF2&quot;                        
+## [451] &quot;PAINF3&quot;                         &quot;PAINF4&quot;                        
+## [453] &quot;PAINF5&quot;                         &quot;PAINF6&quot;                        
+## [455] &quot;PAINF7&quot;                         &quot;PAINF8&quot;                        
+## [457] &quot;PAINF9&quot;                         &quot;PAINFA&quot;                        
+## [459] &quot;PAINFB&quot;                         &quot;PAINFC&quot;                        
+## [461] &quot;PAINFD&quot;                         &quot;PAINFE&quot;                        
+## [463] &quot;PAINFF&quot;                         &quot;PAINFG&quot;                        
+## [465] &quot;PAINFH&quot;                         &quot;PAINFI&quot;                        
+## [467] &quot;PAINFJ&quot;                         &quot;PAINFK&quot;                        
+## [469] &quot;PAINFL&quot;                         &quot;PAINFM&quot;                        
+## [471] &quot;PAINFN&quot;                         &quot;PAINFO&quot;                        
+## [473] &quot;PAINFP&quot;                         &quot;PAINFQ&quot;                        
+## [475] &quot;PAINFR&quot;                         &quot;PAINFS&quot;                        
+## [477] &quot;PAINFT&quot;                         &quot;PAINFU&quot;                        
+## [479] &quot;PAINFV&quot;                         &quot;PAINFW&quot;                        
+## [481] &quot;PAINFX&quot;                         &quot;PAINFY&quot;                        
+## [483] &quot;PAINFZ&quot;                         &quot;PAINF10&quot;                       
+## [485] &quot;PAINF11&quot;                        &quot;PAINF12&quot;                       
+## [487] &quot;PAINF13&quot;                        &quot;PAINF14&quot;                       
+## [489] &quot;PAINF15&quot;                        &quot;PAINF16&quot;                       
+## [491] &quot;PAINF17&quot;                        &quot;PAINF18&quot;                       
+## [493] &quot;PAINF19&quot;                        &quot;PAINF1A&quot;                       
+## [495] &quot;Care_Provider_Other&quot;            &quot;CARE_0&quot;                        
+## [497] &quot;CARE_1&quot;                         &quot;CARE_2&quot;                        
+## [499] &quot;CARE_3&quot;                         &quot;CARE_4&quot;                        
+## [501] &quot;CARE_5&quot;                         &quot;CARE_6&quot;                        
+## [503] &quot;CARE_7&quot;                         &quot;CARE_8&quot;                        
+## [505] &quot;CARE_9&quot;                         &quot;CARE_A&quot;                        
+## [507] &quot;CARE_B&quot;                         &quot;CARE_C&quot;                        
+## [509] &quot;CARE_D&quot;                         &quot;CARE_E&quot;                        
+## [511] &quot;CARE_F&quot;                         &quot;CARE_G&quot;                        
+## [513] &quot;CARE_H&quot;                         &quot;CARE_I&quot;                        
+## [515] &quot;CARE_J&quot;                         &quot;CARE_K&quot;                        
+## [517] &quot;CARE_L&quot;                         &quot;CARE_M&quot;                        
+## [519] &quot;CARE_N&quot;                         &quot;CARE_O&quot;                        
+## [521] &quot;CARE_P&quot;                         &quot;CARE_Q&quot;                        
+## [523] &quot;CARE_R&quot;                         &quot;CARE_S&quot;                        
+## [525] &quot;CARE_T&quot;                         &quot;CARE_U&quot;                        
+## [527] &quot;CARE_V&quot;                         &quot;CARE_W&quot;                        
+## [529] &quot;CARE_X&quot;                         &quot;CARE_Y&quot;                        
+## [531] &quot;CARE_Z&quot;                         &quot;CARE_10&quot;                       
+## [533] &quot;CARE_11&quot;                        &quot;CARE_12&quot;                       
+## [535] &quot;CARE_13&quot;                        &quot;CARE_14&quot;                       
+## [537] &quot;CARE_15&quot;                        &quot;CARE_16&quot;                       
+## [539] &quot;CARE_17&quot;                        &quot;CARE_18&quot;                       
+## [541] &quot;CARE_19&quot;                        &quot;CARE_1A&quot;                       
+## [543] &quot;Care_Provider_Present&quot;          &quot;Care_Provider_Satisfaction&quot;    
+## [545] &quot;Present_Partner&quot;                &quot;Present_Physician&quot;             
+## [547] &quot;Present_OB&quot;                     &quot;Present_Mother&quot;                
+## [549] &quot;Present_Father&quot;                 &quot;Present_Midwife&quot;               
+## [551] &quot;Present_Doula&quot;                  &quot;Present_Partner_Parents&quot;       
+## [553] &quot;Present_Sibling&quot;                &quot;Present_Children&quot;              
+## [555] &quot;Present_Friends&quot;                &quot;Present_Other&quot;                 
+## [557] &quot;Present_Other_specify&quot;          &quot;PRESE0&quot;                        
+## [559] &quot;PRESE1&quot;                         &quot;PRESE2&quot;                        
+## [561] &quot;PRESE3&quot;                         &quot;PRESE4&quot;                        
+## [563] &quot;PRESE5&quot;                         &quot;PRESE6&quot;                        
+## [565] &quot;PRESE7&quot;                         &quot;PRESE8&quot;                        
+## [567] &quot;PRESE9&quot;                         &quot;PRESEA&quot;                        
+## [569] &quot;PRESEB&quot;                         &quot;PRESEC&quot;                        
+## [571] &quot;PRESED&quot;                         &quot;PRESEE&quot;                        
+## [573] &quot;PRESEF&quot;                         &quot;PRESEG&quot;                        
+## [575] &quot;PRESEH&quot;                         &quot;PRESEI&quot;                        
+## [577] &quot;PRESEJ&quot;                         &quot;PRESEK&quot;                        
+## [579] &quot;PRESEL&quot;                         &quot;PRESEM&quot;                        
+## [581] &quot;PRESEN&quot;                         &quot;PRESEO&quot;                        
+## [583] &quot;PRESEP&quot;                         &quot;PRESEQ&quot;                        
+## [585] &quot;PRESER&quot;                         &quot;PRESES&quot;                        
+## [587] &quot;PRESET&quot;                         &quot;PRESEU&quot;                        
+## [589] &quot;PRESEV&quot;                         &quot;PRESEW&quot;                        
+## [591] &quot;PRESEX&quot;                         &quot;PRESEY&quot;                        
+## [593] &quot;PRESEZ&quot;                         &quot;PRESE10&quot;                       
+## [595] &quot;PRESE11&quot;                        &quot;PRESE12&quot;                       
+## [597] &quot;PRESE13&quot;                        &quot;PRESE14&quot;                       
+## [599] &quot;PRESE15&quot;                        &quot;PRESE16&quot;                       
+## [601] &quot;PRESE17&quot;                        &quot;PRESE18&quot;                       
+## [603] &quot;PRESE19&quot;                        &quot;PRESE1A&quot;                       
+## [605] &quot;Birthplace_other&quot;               &quot;BIRTH0&quot;                        
+## [607] &quot;BIRTH1&quot;                         &quot;BIRTH2&quot;                        
+## [609] &quot;BIRTH3&quot;                         &quot;BIRTH4&quot;                        
+## [611] &quot;BIRTH5&quot;                         &quot;BIRTH6&quot;                        
+## [613] &quot;BIRTH7&quot;                         &quot;BIRTH8&quot;                        
+## [615] &quot;BIRTH9&quot;                         &quot;BIRTHA&quot;                        
+## [617] &quot;BIRTHB&quot;                         &quot;BIRTHC&quot;                        
+## [619] &quot;BIRTHD&quot;                         &quot;BIRTHE&quot;                        
+## [621] &quot;BIRTHF&quot;                         &quot;BIRTHG&quot;                        
+## [623] &quot;BIRTHH&quot;                         &quot;BIRTHI&quot;                        
+## [625] &quot;BIRTHJ&quot;                         &quot;BIRTHK&quot;                        
+## [627] &quot;BIRTHL&quot;                         &quot;BIRTHM&quot;                        
+## [629] &quot;BIRTHN&quot;                         &quot;BIRTHO&quot;                        
+## [631] &quot;BIRTHP&quot;                         &quot;BIRTHQ&quot;                        
+## [633] &quot;BIRTHR&quot;                         &quot;BIRTHT&quot;                        
+## [635] &quot;BIRTHU&quot;                         &quot;BIRTHV&quot;                        
+## [637] &quot;BIRTHW&quot;                         &quot;BIRTHX&quot;                        
+## [639] &quot;BIRTHY&quot;                         &quot;BIRTHZ&quot;                        
+## [641] &quot;BIRTH10&quot;                        &quot;BIRTH11&quot;                       
+## [643] &quot;BIRTH12&quot;                        &quot;BIRTH13&quot;                       
+## [645] &quot;BIRTH14&quot;                        &quot;BIRTH15&quot;                       
+## [647] &quot;BIRTH16&quot;                        &quot;BIRTH17&quot;                       
+## [649] &quot;BIRTH18&quot;                        &quot;BIRTH19&quot;                       
+## [651] &quot;BIRTH1A&quot;                        &quot;BIRTH1B&quot;                       
+## [653] &quot;Birth_preference&quot;               &quot;Birth_preference_dichotomized&quot; 
+## [655] &quot;FOC1&quot;                           &quot;FOC2&quot;                          
+## [657] &quot;FOC3&quot;                           &quot;FOC4&quot;                          
+## [659] &quot;FOC5&quot;                           &quot;FOC6&quot;                          
+## [661] &quot;FOC7&quot;                           &quot;FOC8&quot;                          
+## [663] &quot;FOC9&quot;                           &quot;FOC10&quot;                         
+## [665] &quot;FOC11&quot;                          &quot;FOC12&quot;                         
+## [667] &quot;FOC13&quot;                          &quot;FOC14&quot;                         
+## [669] &quot;FOC15&quot;                          &quot;FOC16&quot;                         
+## [671] &quot;FOC17&quot;                          &quot;FOC18&quot;                         
+## [673] &quot;FOC19&quot;                          &quot;FOC20&quot;                         
+## [675] &quot;FOC21&quot;                          &quot;FOC22&quot;                         
+## [677] &quot;FOC23&quot;                          &quot;FOC24&quot;                         
+## [679] &quot;FOC25&quot;                          &quot;FOC26&quot;                         
+## [681] &quot;FOC27&quot;                          &quot;FOC28&quot;                         
+## [683] &quot;FOC29&quot;                          &quot;FOC30&quot;                         
+## [685] &quot;FOC31&quot;                          &quot;FOC32&quot;                         
+## [687] &quot;FOC33&quot;                          &quot;FOC34&quot;                         
+## [689] &quot;FOC35&quot;                          &quot;FOC36&quot;                         
+## [691] &quot;FOC37&quot;                          &quot;FOC38&quot;                         
+## [693] &quot;FOC39&quot;                          &quot;FOC40&quot;                         
+## [695] &quot;FOC41&quot;                          &quot;FOC42&quot;                         
+## [697] &quot;FOC43&quot;                          &quot;FOC44&quot;                         
+## [699] &quot;FOC45&quot;                          &quot;FOC46&quot;                         
+## [701] &quot;FOC47&quot;                          &quot;FOC48&quot;                         
+## [703] &quot;FOC49&quot;                          &quot;FOC_OTHER&quot;                     
+## [705] &quot;FOC_O0&quot;                         &quot;FOC_O1&quot;                        
+## [707] &quot;FOC_O2&quot;                         &quot;FOC_O3&quot;                        
+## [709] &quot;FOC_O4&quot;                         &quot;FOC_O5&quot;                        
+## [711] &quot;FOC_O6&quot;                         &quot;FOC_O7&quot;                        
+## [713] &quot;FOC_O8&quot;                         &quot;FOC_O9&quot;                        
+## [715] &quot;FOC_OA&quot;                         &quot;FOC_OB&quot;                        
+## [717] &quot;FOC_OC&quot;                         &quot;FOC_OD&quot;                        
+## [719] &quot;FOC_OE&quot;                         &quot;FOC_OF&quot;                        
+## [721] &quot;FOC_OG&quot;                         &quot;FOC_OH&quot;                        
+## [723] &quot;FOC_OI&quot;                         &quot;FOC_OJ&quot;                        
+## [725] &quot;FOC_OK&quot;                         &quot;FOC_OL&quot;                        
+## [727] &quot;FOC_OM&quot;                         &quot;FOC_ON&quot;                        
+## [729] &quot;FOC_OO&quot;                         &quot;FOC_OP&quot;                        
+## [731] &quot;FOC_OQ&quot;                         &quot;FOC_OR&quot;                        
+## [733] &quot;FOC_OS&quot;                         &quot;FOC_OT&quot;                        
+## [735] &quot;FOC_OU&quot;                         &quot;FOC_OV&quot;                        
+## [737] &quot;FOC_OW&quot;                         &quot;FOC_OX&quot;                        
+## [739] &quot;FOC_OY&quot;                         &quot;FOC_OZ&quot;                        
+## [741] &quot;FOC_O10&quot;                        &quot;FOC_O11&quot;                       
+## [743] &quot;FOC_O12&quot;                        &quot;FOC_O13&quot;                       
+## [745] &quot;FOC_O14&quot;                        &quot;FOC_O15&quot;                       
+## [747] &quot;FOC_O16&quot;                        &quot;FOC_O17&quot;                       
+## [749] &quot;FOC_O18&quot;                        &quot;FOC_O19&quot;                       
+## [751] &quot;FOC_O1A&quot;                        &quot;FOCI1&quot;                         
+## [753] &quot;FOCI2&quot;                          &quot;FOCI3&quot;                         
+## [755] &quot;FOCI4&quot;                          &quot;FOCI5&quot;                         
+## [757] &quot;FOCI6&quot;                          &quot;FOCI7&quot;                         
+## [759] &quot;FOCI_OTHER&quot;                     &quot;FOCI_0&quot;                        
+## [761] &quot;FOCI_1&quot;                         &quot;FOCI_2&quot;                        
+## [763] &quot;FOCI_3&quot;                         &quot;FOCI_4&quot;                        
+## [765] &quot;FOCI_5&quot;                         &quot;FOCI_6&quot;                        
+## [767] &quot;FOCI_7&quot;                         &quot;FOCI_8&quot;                        
+## [769] &quot;FOCI_9&quot;                         &quot;FOCI_A&quot;                        
+## [771] &quot;FOCI_B&quot;                         &quot;FOCI_C&quot;                        
+## [773] &quot;FOCI_D&quot;                         &quot;FOCI_E&quot;                        
+## [775] &quot;FOCI_F&quot;                         &quot;FOCI_G&quot;                        
+## [777] &quot;FOCI_H&quot;                         &quot;FOCI_I&quot;                        
+## [779] &quot;FOCI_J&quot;                         &quot;FOCI_K&quot;                        
+## [781] &quot;FOCI_L&quot;                         &quot;FOCI_M&quot;                        
+## [783] &quot;FOCI_N&quot;                         &quot;FOCI_O&quot;                        
+## [785] &quot;FOCI_P&quot;                         &quot;FOCI_Q&quot;                        
+## [787] &quot;FOCI_R&quot;                         &quot;FOCI_S&quot;                        
+## [789] &quot;FOCI_T&quot;                         &quot;FOCI_U&quot;                        
+## [791] &quot;FOCI_V&quot;                         &quot;FOCI_W&quot;                        
+## [793] &quot;FOCI_X&quot;                         &quot;FOCI_Y&quot;                        
+## [795] &quot;FOCI_Z&quot;                         &quot;FOCI_10&quot;                       
+## [797] &quot;FOCI_11&quot;                        &quot;FOCI_12&quot;                       
+## [799] &quot;FOCI_13&quot;                        &quot;FOCI_14&quot;                       
+## [801] &quot;FOCI_15&quot;                        &quot;FOCI_16&quot;                       
+## [803] &quot;FOCI_17&quot;                        &quot;FOCI_18&quot;                       
+## [805] &quot;FOCI_19&quot;                        &quot;FOCI_1A&quot;                       
+## [807] &quot;WDEQ1_LABOUR_FANTASTIC&quot;         &quot;WDEQ1_R&quot;                       
+## [809] &quot;WDEQ2_LABOUR_FRIGHTFUL&quot;         &quot;WDEQ3_LABOUR_LONELY&quot;           
+## [811] &quot;WDEQ4_LABOUR_STRONG&quot;            &quot;WDEQ4_R&quot;                       
+## [813] &quot;WDEQ5_LABOUR_CONFIDENT&quot;         &quot;WEDQ5_R&quot;                       
+## [815] &quot;WDEQ6_LABOUR_AFRAID&quot;            &quot;WDEQ7_LABOUR_DESERTED&quot;         
+## [817] &quot;WDEQ8_LABOUR_WEAK&quot;              &quot;WDEQ9_LABOUR_SAFE&quot;             
+## [819] &quot;WDEQ9_R&quot;                        &quot;WDEQ10_LABOUR_INDEPENDENT&quot;     
+## [821] &quot;WDEQ10_R&quot;                       &quot;WDEQ11_LABOUR_DESOLATE&quot;        
+## [823] &quot;WDEQ12_LABOUR_TENSE&quot;            &quot;WDEQ13_LABOUR_GLAD&quot;            
+## [825] &quot;WDEQ13_R&quot;                       &quot;WDEQ14_LABOUR_PROUD&quot;           
+## [827] &quot;WDEQ14_R&quot;                       &quot;WDEQ15_LABOUR_ABANDONED&quot;       
+## [829] &quot;WDEQ16_LABOUR_COMPOSED&quot;         &quot;WDEQ16_R&quot;                      
+## [831] &quot;WDEQ17_LABOUR_RELAXED&quot;          &quot;WDEQ17_R&quot;                      
+## [833] &quot;WDEQ18_LABOUR_HAPPY&quot;            &quot;WDEQ18_R&quot;                      
+## [835] &quot;WDEQ19_LABOUR_PANIC&quot;            &quot;WDEQ20_LABOUR_HOPELESSNESS&quot;    
+## [837] &quot;WDEQ21_LABOUR_LONGING&quot;          &quot;WDEQ21_R&quot;                      
+## [839] &quot;WDEQ22_LABOUR_CONFIDENCE&quot;       &quot;WDEQ22_R&quot;                      
+## [841] &quot;WDEQ23_LABOUR_TRUST&quot;            &quot;WDEQ23_R&quot;                      
+## [843] &quot;WDEQ24_LABOUR_PAIN&quot;             &quot;WDEQ25_LABOUR_BEHAVBADLY&quot;      
+## [845] &quot;WDEQ26_LABOUR_SURRENDER&quot;        &quot;WDEQ26_R&quot;                      
+## [847] &quot;WDEQ27_LABOUR_LOSECONTROL&quot;      &quot;WDEQ28_DELIVERY_ENJOYABLE&quot;     
+## [849] &quot;WDEQ28_R&quot;                       &quot;WDEQ29_DELIVERY_NATURAL&quot;       
+## [851] &quot;WDEQ29_R&quot;                       &quot;WDEQ30_DELIVERY_COURSE&quot;        
+## [853] &quot;WDEQ30_R&quot;                       &quot;WDEQ31_DELIVERY_DANGEROUS&quot;     
+## [855] &quot;WDEQ32_FANTASY_DEATH&quot;           &quot;WDEQ33_FANTASY_INJURY&quot;         
+## [857] &quot;EPDS1_LAUGH&quot;                    &quot;EPDS2_ENJOYMENT&quot;               
+## [859] &quot;EPDS3_BLAME&quot;                    &quot;EPDS4_ANXIOUS&quot;                 
+## [861] &quot;EPDS5_SCARED&quot;                   &quot;EPDS6_COPING&quot;                  
+## [863] &quot;EPDS7_SLEEPING&quot;                 &quot;EPDS8_MISERABLE&quot;               
+## [865] &quot;EPDS9_CRYING&quot;                   &quot;EPDS10_SELFHARM&quot;               
+## [867] &quot;MQ1&quot;                            &quot;MQ2&quot;                           
+## [869] &quot;MQ3&quot;                            &quot;MQ4&quot;                           
+## [871] &quot;MQ5&quot;                            &quot;MQ6&quot;                           
+## [873] &quot;MQ7&quot;                            &quot;MQ8&quot;                           
+## [875] &quot;MQ9&quot;                            &quot;MQ10&quot;                          
+## [877] &quot;MQ11&quot;                           &quot;MQ12&quot;                          
+## [879] &quot;MQ13&quot;                           &quot;MQ14&quot;                          
+## [881] &quot;MQ15&quot;                           &quot;MQ16&quot;                          
+## [883] &quot;MQ17&quot;                           &quot;MQ18&quot;                          
+## [885] &quot;MQ19&quot;                           &quot;MQ20&quot;                          
+## [887] &quot;MQ21&quot;                           &quot;MQ22&quot;                          
+## [889] &quot;MQ23&quot;                           &quot;MQ24&quot;                          
+## [891] &quot;MQ25&quot;                           &quot;MQ26&quot;                          
+## [893] &quot;MQ27&quot;                           &quot;MQ28&quot;                          
+## [895] &quot;MQ29&quot;                           &quot;MQ30&quot;                          
+## [897] &quot;INCLUDE_RESPONSES&quot;              &quot;filter_.&quot;                      
+## [899] &quot;EPDS3_R&quot;                        &quot;EPDS5_R&quot;                       
+## [901] &quot;EPDS6_R&quot;                        &quot;EPDS7_R&quot;                       
+## [903] &quot;EPDS8_R&quot;                        &quot;EPDS9_R&quot;                       
+## [905] &quot;EPDS10_R&quot;                       &quot;EPDSTOTM&quot;                      
+## [907] &quot;MQ5R&quot;                           &quot;MQ9R&quot;                          
+## [909] &quot;MQ14R&quot;                          &quot;MQ18R&quot;                         
+## [911] &quot;MQ21R&quot;                          &quot;MQ28R&quot;                         
+## [913] &quot;MQTOTM&quot;                         &quot;WDEQA_TOTM&quot;                    
+## [915] &quot;WDEQA_TOT&quot;                      &quot;WDEQA_SCALED_0_TO_5&quot;           
+## [917] &quot;Singletons_yes&quot;                 &quot;Income_recoded&quot;                
+## [919] &quot;Country_recode&quot;                 &quot;Episiotomy_yes&quot;                
+## [921] &quot;Painful_event_yes&quot;              &quot;Emergency_CS&quot;                  
+## [923] &quot;Traumatic_CS&quot;                   &quot;Assisted_vag&quot;                  
+## [925] &quot;Test&quot;                           &quot;Traumatic_vaginal&quot;             
+## [927] &quot;Previous_CS&quot;                    &quot;Previous_vag_delivery&quot;         
+## [929] &quot;Maternal_age&quot;                   &quot;Age_35_or_older&quot;               
+## [931] &quot;Age_40_or_older&quot;                &quot;Age_three_categories&quot;          
+## [933] &quot;Education_recode&quot;               &quot;Stillbirth_yes&quot;                
+## [935] &quot;Termination_yes&quot;                &quot;Miscarriage_yes&quot;
+</code></pre>
+
+<pre><code class="r"># 2nd element - meta data, info about variables
+names(dto[[&quot;metaData&quot;]])
+</code></pre>
+
+<pre><code>## [1] &quot;name&quot;        &quot;label&quot;       &quot;select&quot;      &quot;name_new&quot;    &quot;label_graph&quot;
+## [6] &quot;label_short&quot; &quot;domain&quot;
+</code></pre>
+
+<pre><code class="r"># 3rd element - small, groomed data to be used for analysis
+names(dto[[&quot;analytic&quot;]])
+</code></pre>
+
+<pre><code>##  [1] &quot;id&quot;             &quot;pregnant&quot;       &quot;marital&quot;        &quot;education&quot;     
+##  [5] &quot;weeks_pregnant&quot; &quot;haskids&quot;        &quot;foc_01&quot;         &quot;foc_02&quot;        
+##  [9] &quot;foc_03&quot;         &quot;foc_04&quot;         &quot;foc_05&quot;         &quot;foc_06&quot;        
+## [13] &quot;foc_07&quot;         &quot;foc_08&quot;         &quot;foc_09&quot;         &quot;foc_10&quot;        
+## [17] &quot;foc_11&quot;         &quot;foc_12&quot;         &quot;foc_13&quot;         &quot;foc_14&quot;        
+## [21] &quot;foc_15&quot;         &quot;foc_16&quot;         &quot;foc_17&quot;         &quot;foc_18&quot;        
+## [25] &quot;foc_19&quot;         &quot;foc_20&quot;         &quot;foc_21&quot;         &quot;foc_22&quot;        
+## [29] &quot;foc_23&quot;         &quot;foc_24&quot;         &quot;foc_25&quot;         &quot;foc_26&quot;        
+## [33] &quot;foc_27&quot;         &quot;foc_28&quot;         &quot;foc_29&quot;         &quot;foc_30&quot;        
+## [37] &quot;foc_31&quot;         &quot;foc_32&quot;         &quot;foc_33&quot;         &quot;foc_34&quot;        
+## [41] &quot;foc_35&quot;         &quot;foc_36&quot;         &quot;foc_37&quot;         &quot;foc_38&quot;        
+## [45] &quot;foc_39&quot;         &quot;foc_40&quot;         &quot;foc_41&quot;         &quot;foc_42&quot;        
+## [49] &quot;foc_43&quot;         &quot;foc_44&quot;         &quot;foc_45&quot;         &quot;foc_46&quot;        
+## [53] &quot;foc_47&quot;         &quot;foc_48&quot;         &quot;foc_49&quot;         &quot;itf_1&quot;         
+## [57] &quot;itf_2&quot;          &quot;itf_3&quot;          &quot;itf_4&quot;          &quot;itf_5&quot;         
+## [61] &quot;itf_6&quot;          &quot;itf_7&quot;
+</code></pre>
+
+<p>The R session information (including the OS info, R version and all
+packages used):</p>
+
+<pre><code class="r">sessionInfo()
+</code></pre>
+
+<pre><code>## R version 3.3.1 (2016-06-21)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows &gt;= 8 x64 (build 9200)
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252 
+## [2] LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252
+## [4] LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] magrittr_1.5 psych_1.6.9  shiny_0.14.1
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.7        RColorBrewer_1.1-2 formatR_1.4       
+##  [4] plyr_1.8.4         tools_3.3.1        extrafont_0.17    
+##  [7] digest_0.6.10      evaluate_0.10      tibble_1.2        
+## [10] gtable_0.2.0       DBI_0.5-1          parallel_3.3.1    
+## [13] Rttf2pt1_1.3.4     dplyr_0.5.0        stringr_1.1.0     
+## [16] knitr_1.14         grid_3.3.1         R6_2.2.0          
+## [19] foreign_0.8-67     rmarkdown_1.1      tidyr_0.6.0       
+## [22] ggplot2_2.1.0      readr_1.0.0        extrafontdb_1.0   
+## [25] scales_0.4.0       htmltools_0.3.5    rsconnect_0.5     
+## [28] assertthat_0.1     dichromat_2.0-0    mnormt_1.5-5      
+## [31] testit_0.5         mime_0.5           xtable_1.8-2      
+## [34] colorspace_1.2-7   httpuv_1.3.3       stringi_1.1.2     
+## [37] lazyeval_0.2.0     munsell_0.4.3
+</code></pre>
+
+<pre><code class="r">Sys.time()
+</code></pre>
+
+<pre><code>## [1] &quot;2016-11-06 13:31:53 EST&quot;
+</code></pre>
+
+</body>
+
+</html>

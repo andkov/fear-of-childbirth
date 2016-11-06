@@ -50,11 +50,7 @@ readr::write_csv(nl,"./data/shared/meta/meta-data-live.csv")
 # reproduce ellis-island script every time you make changes to `meta-data-map.csv`
 metaData <- read.csv("./data/shared/meta/meta-data-dead.csv")
 
-# ---- inspect-data ----------------------------------------------
-# inspect loaded data objects (using basic demographic variables )
 
-
-# ---- tweak-data --------------------------------------------------------------
 # ---- tweek-data ------------------------------------------------------------
 # list the variables to select
 select_variables <- metaData %>% 
