@@ -2,7 +2,7 @@
 # TODO: point to the script creating the object FPM.matrix, the source object
 # fpmFunction is used to create output$ objects in server.R
 fpmFunction <- function( FPM.matrix, mainTitle=NULL ) {   
-  roundingDigits <- 2 #Let the caller define in the future (especially with observed values that aren't close to 1.0).
+  roundingDigits <- 3 #Let the caller define in the future (especially with observed values that aren't close to 1.0).
   stripSize <- 11  #Let the caller define in the future?
   valuelabelSize <- 4 #7 # the values of the factor loadings
   axisTitleFontSize <- 12

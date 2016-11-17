@@ -1,0 +1,155 @@
+---
+title: "Revision comments"
+output:
+  word_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+  html_document:
+    css: ~/GitHub/fear-of-childbirth/libs/css/sidebar.css
+    highlight: tango
+    keep_md: yes
+    theme: flatly
+    toc: yes
+---
+
+<!-- These two chunks should be added in the beginning of every .Rmd that you want to source an .R script -->
+<!--  The 1st mandatory chunck  -->
+<!--  Set the working directory to the repository's base directory -->
+```{r, echo=F, message=F} 
+#Don't combine this call with any other chunk 
+# cat("Working directory: ", getwd()) # check where you are
+  library(knitr)
+# Rmd is in "./reports/reportA/reportA.Rmd", but now the root is "./"
+  knitr::opts_knit$set(root.dir='../../') 
+```
+
+<!--  The 2nd mandatory chunck  -->
+<!-- Set the report-wide options, and point to the external code file. -->
+```{r set_options, echo=F}
+# set options shared by all chunks
+opts_chunk$set(
+  results='show', 
+  message = TRUE,
+  comment = NA, 
+  tidy = FALSE,
+  # fig.height = 12,
+  # fig.width = 11,
+  out.width = "900px",
+  fig.path = 'figure_rmd_phase_1/',     
+  dev = "png",
+  dpi = 100
+  # fig.path = 'figure_pdf/',     
+  # dev = "pdf"#,
+  # dev.args=list(pdf = list(colormodel = 'cmyk'))
+)
+echoChunks <- FALSE
+options(width=120) #So the output is 50% wider than the default.
+# connect to the file with the underlying R script  
+read_chunk("./reports/extract-and-eliminate/extract-and-eliminate.R") 
+```
+
+<!-- Load 'sourced' R files.  Suppress the output when loading packages. --> 
+```{r load-packages, echo=echoChunks, message=FALSE, warning = F}
+library("paramap")
+```
+
+<!-- Load the sources.  Suppress the output when loading sources. --> 
+```{r load-sources, echo=echoChunks, message=FALSE}
+```
+
+<!-- Load any Global functions and variables declared in the R file.  Suppress the output. --> 
+```{r declare-globals, echo=echoChunks, results='show', message=FALSE}
+```
+
+<!-- Declare any global functions specific to a Rmd output.Suppress the output. --> 
+```{r, echo=echoChunks, message=FALSE}
+#Put code in here.  It doesn't call a chunk in the codebehind file.
+```
+
+<!-- Load the datasets.   -->
+```{r load-data, echo=echoChunks, results='show', message=FALSE}
+```
+
+<!-- Inspect the datasets.   -->
+```{r inspect-data, echo=echoChunks, results='hide', message=FALSE}
+```
+
+<!-- Tweak the datasets.   -->
+```{r tweak-data, echo=echoChunks, results='hide', message=FALSE}
+```
+
+```{r function-correlation, echo=echoChunks, results='show', message=FALSE}
+```
+
+```{r function-rotation, echo=echoChunks, results='show', message=FALSE}
+```
+
+```{r data-phase-0, echo=echoChunks, results='hide', message=FALSE}
+```
+
+```{r data-phase-1, echo=echoChunks, results='hide', message=FALSE}
+```
+
+# Revision comments
+
+## 1. Fit statistics.
+
+> 3.	SPSS does not provide fit statistics for exploratory factor analysis. In order to convince me of the structure of your measure, you have to provide fit statistics. For example, M plus provides fit statistics for such analyses (also see reviewer 3; and M plus will provide geomin rotation), besides chi-squared, RMSEA (and confidence interval), also report at least CFI and TLI.
+
+Response:
+
+Here are the fit statistics for factor analytic solution in table and graphic format. 
+
+```{r FA-statistics, echo=echoChunks, results='show', message=FALSE}
+```
+
+## 2. Number of factors
+
+> Using the standard scree plot is an outdated approach to select the number of factors. So please follow his advice and apply a more advanced method such as parallel analysis or the MAP test or if you use a scree plot, do this on basis of fit statistics like for example the Hull method described by Lorenzo-Seva, Timmerman and Kiers (2011).
+
+### PA with `psych`
+
+Using `psych` package conduct Parallel analysis
+```{r PA-psych, echo=TRUE, results='show', message=FALSE, out.width = "900px"}
+```
+
+
+### Velicer's MAP Test
+
+```{r MAP-paramap, echo=echoChunks, results='show', message=FALSE}
+```
+
+
+## 3. PA of Interference Scale
+
+Using 7 items of the Interference Scale
+<!-- Inspect the datasets.   -->
+```{r echo=echoChunks, results='show', message=FALSE}
+metaData %>% 
+  dplyr::filter(name_new %in% paste0("itf_",1:7)) %>% 
+  dplyr::select(name_new, label, label_graph)
+
+ds %>% 
+  dplyr::select(dplyr::contains("itf_")) %>% 
+  sapply(summary)
+```
+
+```{r function-correlation-itf, echo=echoChunks, results='show', message=FALSE}
+```
+ 
+
+```{r data-phase-itf, echo=T, results='show', message=FALSE}
+```
+
+```{r scree-plot-itf, echo=T, results='show', message=FALSE}
+```
+
+```{r PA-psych-itf, echo=T, results='show', message=FALSE}
+```
+
+
+## Reproducibility Information
+```{r}
+sessionInfo()
+```
