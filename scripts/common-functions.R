@@ -16,6 +16,7 @@ names_labels <- function(ds){
 }
 # names_labels(ds=oneFile)
 
+# ---- histogram-discrete -----------------------
 # function to create discrete histogram. taken from RAnalysisSkeleton
 histogram_discrete <- function(
   d_observed,
@@ -61,6 +62,7 @@ histogram_discrete <- function(
   return( g + theme )
 }
 
+# ----- histogram-continuous -----------------------
 # function to create continuous histogram. taken from RAnalysisSkeleton
 histogram_continuous <- function(
   d_observed,
@@ -92,4 +94,46 @@ histogram_continuous <- function(
   ds_mid_points$top <- stats::quantile(ggplot2::ggplot_build(g)$panel$ranges[[1]]$y.range, .8)
   g <- g + ggplot2::geom_text(data=ds_mid_points, ggplot2::aes_string(x="value", y="top", label="label"), color="tomato", hjust=c(1, 0), parse=TRUE)
   return( g )
+}
+
+# ---- make-correlation-matrix ---------------------
+make_corr_matrix <- function(ds,metaData,items){
+  
+  # d <- ds %>% dplyr::select(foc_01:foc_49)
+  d <- ds %>% dplyr::select_(.dots=items)
+  
+  rownames <- metaData %>% 
+    dplyr::filter(name_new %in% items) %>% 
+    # dplyr::mutate(name_ = paste0(gsub("foc_", "", items),"---",domain, "---", label_graph))
+    dplyr::mutate(name_ = paste0(gsub("foc_", "", items),"-", label_graph))
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",domain, "-",label_graph))
+  # dplyr::mutate(name_ = paste0(gsub("foc_", "", vars_49),"-",label_graph))
+  rownames <- rownames[,"name_"]
+  
+  d <- sapply(d, as.numeric)
+  cormat <- cor(d)
+  colnames(cormat) <- rownames; rownames(cormat) <- rownames
+  return(cormat)
+}
+# ---- make-correlation-graph ----------------------
+make_corr_plot <- function (
+  corr, 
+  lower="number", 
+  upper="circle", 
+  tl.pos=c("d","lt", "n"), 
+  diag=c("n", "l", "u"), 
+  bg="white", 
+  addgrid.col="gray", ...
+){
+  
+  diag <- match.arg(diag)
+  tl.pos <- match.arg(tl.pos)
+  n <- nrow(corr)
+  # corrplot::corrplot(corr, type="upper", method=upper, diag=TRUE, tl.pos=tl.pos, ...)
+  corrplot::corrplot(corr, type="upper", method=upper, diag=TRUE, tl.pos=tl.pos)
+  # corrplot::corrplot(corr, add=TRUE, type="lower", method=lower, diag=(diag == "l"), tl.pos="n", cl.pos="n", ...)
+  corrplot::corrplot(corr, add=TRUE, type="lower", method=lower, diag=(diag == "l"), tl.pos="n", cl.pos="n")
+  if (diag == "n" & tl.pos != "d") {
+    symbols(1:n, n:1, add=TRUE, bg=bg, fg=addgrid.col,  inches=FALSE, squares=rep(1, n))
+  }
 }
