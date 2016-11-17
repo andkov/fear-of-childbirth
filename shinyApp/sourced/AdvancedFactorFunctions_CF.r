@@ -740,27 +740,27 @@ if(!is.null(x$Phi)){
  invisible(x)
 }
 
-print.MLFA<-function(x,num.digits=3,cutoff=0.25,...)
+print.MLFA<-function(x,num.digits=3,cutoff=0.25,sort_=TRUE,...)
 {
 cat("\nUnrotated Loadings\n------------------\n")
-print.FLS(x$Unrotated,num.digits=num.digits,cutoff=cutoff)
+print.FLS(x$Unrotated,num.digits=num.digits,cutoff=cutoff,sort=sort_)
 cat("\nVarimax Loadings\n------------------\n")
-print.FLS(x$Varimax,num.digits=num.digits,cutoff=cutoff)
+print.FLS(x$Varimax,num.digits=num.digits,cutoff=cutoff,sort=sort_)
 cat("\nPromax Loadings\n-----------------\n")
-print.FLS(x$Promax,num.digits=num.digits,cutoff=cutoff)
+print.FLS(x$Promax,num.digits=num.digits,cutoff=cutoff,sort=sort_)
 cat("\nQuartimin Loadings\n-----------------\n")
-print.FLS(x$Quartimin,num.digits=num.digits,cutoff=cutoff)
+print.FLS(x$Quartimin,num.digits=num.digits,cutoff=cutoff,sort=sort_)
 cat("\nOrthogonal Bifactor Loadings\n---------------------------\n")
-print.FLS(x$Bifactor,num.digits=num.digits,cutoff=cutoff)
+print.FLS(x$Bifactor,num.digits=num.digits,cutoff=cutoff,sort=sort_)
 cat("\nOblique Bifactor Loadings\n-------------------------\n")
-print.FLS(x$BifactorOblique,num.digits=num.digits,cutoff=cutoff)
+print.FLS(x$BifactorOblique,num.digits=num.digits,cutoff=cutoff,sort=sort_)
 
 # Crawford-Ferguson added by Koval
 cat("\nCF Loadings\n-------------------------\n")
-print.FLS(x$CF,num.digits=num.digits,cutoff=cutoff)
+print.FLS(x$CF,num.digits=num.digits,cutoff=cutoff,sort=sort_)
 cat("\nCFQ Loadings\n-------------------------\n")
 # the last element must be invisible for proper output in R
-invisible(print.FLS(x$CFQ,num.digits=num.digits,cutoff=cutoff))
+invisible(print.FLS(x$CFQ,num.digits=num.digits,cutoff=cutoff,sort=sort_))
 
 }
 
@@ -773,7 +773,8 @@ MLFA <- function(Correlation.Matrix=NULL,
                  maxit=1000,
                  num.digits=3,
                  cutoff=0.30,
-                 promax.m=3)
+                 promax.m=3,
+                 sort = TRUE)
 {
 cat("This will take a moment.")
 if(!is.null(Correlation.Matrix)&&is.null(data)){
@@ -794,23 +795,23 @@ if(is.null(data)&&is.null(Correlation.Matrix)){
 
 m <- dim(A)[2]
 factor.labels <- paste("Factor",1:m,sep="")
-
+# browser()
 # Variamx
 A.varimax <- varimax(A)$loadings[1:p,]
 res <- list(Lh=A.varimax,orthogonal=TRUE)
-res <- FixPattern(res)
+res <- FixPattern(res, sort = sort)
 A.varimax <- list(F=res$Lh)
 # Promax
 res <- GPromax(A,pow=promax.m)
 res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
-res <- FixPattern(res)
+res <- FixPattern(res, sort = sort)
 Phi.promax <- res$Phi
 A.promax <- list(F=res$Lh,Phi=Phi.promax,orthogonal=FALSE)
 cat(".")
 # Quartimin
 res <- FindBestPattern(A,"quartimin",reps=random.starts,is.oblique=TRUE)
 res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
-res <- FixPattern(res)
+res <- FixPattern(res, sort = sort)
 Phi.quartimin <- res$Phi
 A.quartimin <- list(F=res$Lh,Phi = Phi.quartimin)
 cat(".")
@@ -818,14 +819,14 @@ cat(".")
 res <- FindBestPattern(A,"bifactor",reps=random.starts)
 orthogonal=TRUE
 res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=orthogonal)
-res <- FixPattern(res)
+res <- FixPattern(res, sort = sort)
 Phi=NULL
 A.bifactor <- list(F=res$Lh,Phi=Phi)
 cat(".")
 # Bifactor Oblique
 res <- FindBestPattern(A,"bifactor",reps=random.starts,is.oblique=TRUE)
 res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
-res <- FixPattern(res)
+res <- FixPattern(res, sort = sort)
 cat(".")
 Phi.bifactor.oblique <- res$Phi
 A.bifactor.oblique <- list(F=res$Lh,Phi=Phi.bifactor.oblique)
@@ -835,20 +836,22 @@ cat(".")
 # Crawford-Ferguson
 res <- FindBestPattern(A,"cf",reps=random.starts,is.oblique=FALSE)
 res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=TRUE)
-res <- FixPattern(res)
+res <- FixPattern(res, sort = sort)
 Phi=NULL
 A.cf <- list(F=res$Lh,Phi=Phi)
 cat(".")
 # Crawford-Ferguson Oblique
 res <- FindBestPattern(A,"cf",reps=random.starts,is.oblique=TRUE)
 res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
-res <- FixPattern(res)
+res <- FixPattern(res, sort = sort)
 cat(".")
 Phi.cfq <- res$Phi
 A.cfq <- list(F=res$Lh,Phi=Phi.cfq)
 cat(".")
-A = list(F=A,Phi=NULL) # line moved from end of the BifactorOblique section
-cat(".")
+# browser()
+# reconstruct the unrotated solution
+A <- list(F=A,Phi=NULL) # line moved from end of the BifactorOblique section
+# cat(".")
 #
 class(A.promax)="FLS"
 class(A)="FLS"
@@ -867,7 +870,8 @@ output<-list(Unrotated = A,
        Bifactor  = A.bifactor,
        BifactorOblique = A.bifactor.oblique,
        CF=A.cf,
-       CFq=A.cfq)
+       CFQ=A.cfq
+       )
 class(output) = "MLFA"
 return(output)
 }
