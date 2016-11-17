@@ -275,3 +275,168 @@ plot_factor_pattern <- function(
   
   return( g )
 }
+
+
+# ----- general-fitting-function ---------------------
+fit_rotate <- function(
+  R,             # correlation matrix
+  k,             # number of factors 
+  sample_size,   # number of observations
+  rotation,      # method
+  save_file = F, # save the factor pattern matrix?
+  folder = NULL  # location for saving files
+){
+  # Values for testing and development
+  # R = R0
+  # k = 6
+  # sample_size = 643
+  # rotation = "quartimin"
+  # 
+  A <- stats::factanal(factors = k, covmat=R, rotation="none", control=list(rotate=list(normalize=TRUE)))
+  L <- A$loadings
+  if(rotation=="oblimin"  ){rotation_string <- "(L, Tmat=diag(ncol(L)), gam=0,               normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="quartimin"){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="targetT"  ){rotation_string <- "(L, Tmat=diag(ncol(L)),         Target=NULL, normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="targetQ"  ){rotation_string <- "(L, Tmat=diag(ncol(L)),         Target=NULL, normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="pstT"     ){rotation_string <- "(L, Tmat=diag(ncol(L)), W=NULL, Target=NULL, normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="pstQ"     ){rotation_string <- "(L, Tmat=diag(ncol(L)), W=NULL, Target=NULL, normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="oblimax"  ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="entropy"  ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="quartimax"){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="Varimax"  ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="simplimax"){rotation_string <- "(L, Tmat=diag(ncol(L)),           k=nrow(L), normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="bentlerT" ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="bentlerQ" ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="tandemI"  ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="tandemII" ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="geominT"  ){rotation_string <- "(L, Tmat=diag(ncol(L)),           delta=.01, normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="geominQ"  ){rotation_string <- "(L, Tmat=diag(ncol(L)),           delta=.01, normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="cfT"      ){rotation_string <- "(L, Tmat=diag(ncol(L)),             kappa=0, normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="cfQ"      ){rotation_string <- "(L, Tmat=diag(ncol(L)),             kappa=0, normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="infomaxT" ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="infomaxQ" ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="mccammon" ){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="bifactorT"){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  if(rotation=="bifactorQ"){rotation_string <- "(L, Tmat=diag(ncol(L)),                      normalize=FALSE, eps=1e-5, maxit=1000)"}
+  
+  rotated_solution <- base::eval(base::parse(text=paste0(rotation,rotation_string)))  
+  return(rotated_solution)
+}
+
+fit_rotate_best <- function(
+  R,             # correlation matrix
+  k,             # number of factors 
+  sample_size,   # number of observations
+  rotation,      # method
+  random.starts = 15, # replications in FindBestPattern()
+  maxit         = 1000, # maximu iteration for factanal()
+  num.digits    = 3, # option for print.FLS
+  cutoff        = 0.30, # option for print.FLS
+  promax.m      = 3 # option for promax
+  # sort          = FALSE # order rows in FixPattern()
+){
+  # Values for testing and development
+  # R = R0
+  # k = 6
+  # sample_size = 643
+  # rotation = "quartimin"
+  # random.starts = 15 # replications in FindBestPattern()
+  # maxit         = 1000 # maximu iteration for factanal()
+  # num.digits    = 3
+  # cutoff        = 0.30
+  # promax.m      = 3 # option for promax
+  # sort_          = TRUE # order rows in FixPattern()
+  # 
+  # get the matrix of factor loadings (factor pattern matrix)
+  solution <- factanal(covmat=R,n.obs=sample_size,factors=k,maxit=maxit,rotation="none")
+  p <- dim(solution$loadings)[1]
+  m <- dim(solution$loadings)[2]
+  A <- solution$loadings[1:p,]
+  
+  factor.labels <- paste("F",1:m,sep="")
+  # plot_factor_pattern(A, factor_width = 8) %>% quick_save("01-unrotated")
+  
+  if(rotation == "Varimax"){
+    # now we rotate the initial matrix of factor patterns
+    A.varimax <- varimax(A)$loadings[1:p,]
+    # examine the rotated matrix
+    # plot_factor_pattern(A.varimax, factor_width = 8) %>% quick_save("02-varimax-a")
+    # Variamx
+    res <- list(Lh=A.varimax,orthogonal=TRUE)
+    res <- FixPattern(res, sort=FALSE)
+    A.varimax <- list(F=res$Lh)
+    A <- A.varimax
+    # plot_factor_pattern(A.varimax$F, factor_width = 8) %>% quick_save("02-varimax-b")
+  }
+  
+  if(rotation == "promax"){
+    ###### Promax ###############
+    res <- GPromax(A,pow=promax.m)
+    # plot_factor_pattern(res$Lh, factor_width = 8) %>% quick_save("03-promax-a")
+    res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
+    res <- FixPattern(res, sort=FALSE)
+    Phi.promax <- res$Phi
+    A.promax <- list(F=res$Lh,Phi=Phi.promax,orthogonal=FALSE)
+    A <- A.promax
+    # plot_factor_pattern(A.promax$F, factor_width = 8) %>% quick_save("03-promax-b")
+    # cat(".")
+  }
+  
+  if(rotation == "quartiminQ"){
+    ###### Quartimin ###################
+    res <- FindBestPattern(A,"quartimin",reps=random.starts,is.oblique=TRUE)
+    # plot_factor_pattern(res$Lh, factor_width = 8) %>% quick_save("04-quartimin-a")
+    res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
+    res <- FixPattern(res, sort=FALSE)
+    Phi.quartimin <- res$Phi
+    A.quartimin <- list(F=res$Lh,Phi = Phi.quartimin)
+    A <- A.quartimin
+    # plot_factor_pattern(A.quartimin$F, factor_width = 8) %>% quick_save("04-quartimin-b")
+    # cat(".")
+  }
+  
+  if(rotation == "bifactorT"){
+    # Bifactor
+    res <- FindBestPattern(A,"bifactor",reps=random.starts)
+    # plot_factor_pattern(res$Lh, factor_width = 8) %>% quick_save("05-bifactorT-a")
+    orthogonal=TRUE
+    res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=orthogonal)
+    res <- FixPattern(res, sort=FALSE)
+    Phi=NULL
+    A.bifactor <- list(F=res$Lh,Phi=Phi)
+    A <- A.bifactor
+    # plot_factor_pattern(A.bifactor $F, factor_width = 8) %>% quick_save("05-bifactorT-b")
+    # cat(".")
+  }
+  
+  if(rotation == "bifactorQ"){
+    # Bifactor Oblique
+    res <- FindBestPattern(A,"bifactor",reps=random.starts,is.oblique=TRUE)
+    res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
+    res <- FixPattern(res, sort=FALSE)
+    # cat(".")
+    Phi.bifactor.oblique <- res$Phi
+    A.bifactor.oblique <- list(F=res$Lh,Phi=Phi.bifactor.oblique)
+    A <- A.bifactor.oblique
+    # cat(".")
+  }
+  class(A)="FLS"
+  return(A)
+  
+}
+
+#Usage:
+# solution <- fit_rotate_best(
+#   R = R0,             # correlation matrix
+#   k = 6,             # number of factors 
+#   sample_size = 643,   # number of observations
+#   rotation = "Varimax",      # method
+#   random.starts = 15, # replications in FindBestPattern()
+#   maxit         = 1000, # maximu iteration for factanal()
+#   num.digits    = 3,
+#   cutoff        = 0.30,
+#   promax.m      = 3 # option for promax
+#   # sort_         = FALSE # order rows in FixPattern()
+# )
+# print(solution,sort=F)
+# solution$F %>% plot_factor_pattern()
