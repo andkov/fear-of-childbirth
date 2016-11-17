@@ -11,6 +11,7 @@ cat("\f") # clear console
 # Attach these packages so their functions don't need to be qualified: http://r-pkgs.had.co.nz/namespace.html#search-path
 library(magrittr) # enables piping : %>% 
 library(plotrix)
+library(ggplot2)
 library(ggplot2)# graphing
 library(sem)
 library(GPArotation)
