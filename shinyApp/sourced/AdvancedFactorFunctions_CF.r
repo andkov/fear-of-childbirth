@@ -1003,9 +1003,17 @@ FAtoREF <-  function(x,R,model.name="fit",factor.names=colnames(x$F),
   return(sem.model)
 }
 
-FAtoSEM <-  function(x,model.name="fit",cutoff=0.30,factor.names=colnames(x$F),
-                     make.start.values=FALSE,cov.matrix=FALSE,num.digits=4,
-                     par.prefix=c("Theta","Theta"),reference.variables=FALSE){
+FAtoSEM <-  function(
+  x,
+  model.name          = "fit",
+  cutoff              = 0.30,
+  factor.names        = colnames(x$F),
+  make.start.values   = FALSE,
+  cov.matrix          = FALSE,
+  num.digits          = 4,
+  par.prefix          = c("Theta","Theta"),
+  reference.variables = FALSE
+){
   F <- round(x$F,num.digits)
   fname <- paste(model.name,".r",sep="")
   file.create(fname)
