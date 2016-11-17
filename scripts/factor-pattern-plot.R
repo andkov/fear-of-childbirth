@@ -136,7 +136,7 @@ Scree.PlotGG <- function(R, main="Scree Plot", sub=NULL){
   roots <- eigen(R)$values
   x <- 1:dim(R)[1]    
   ds <- data.frame(x=x, roots=roots)
-  g <- ggplot(ds, aes(x=x, y=roots)) +
+  g <- ggplot2::ggplot(ds, aes(x=x, y=roots)) +
     annotate("rect", ymax=1, ymin=-Inf, xmin=-Inf, xmax=Inf, fill="#F4A58255") +#rgb(1, 0, 0, alpha=.1,maxColorValue=1)) +
     geom_line(size=1.5, color="#0571B0", na.rm = TRUE) +
     geom_point(size=5, color="#92C5DE", na.rm = TRUE)+
@@ -151,4 +151,127 @@ Scree.PlotGG <- function(R, main="Scree Plot", sub=NULL){
     theme(axis.text.y=element_text(color="gray50", size=18))  #(eg, 0.5, 1.0)
   
   print(g)
+}
+
+
+# ---- print-factor-pattern ---------------------------
+# a modern version of fpmFunction()
+plot_factor_pattern <- function(
+  fpm,   # matrix of factor loadings, solution$loadings, Factor Pattern Matrix (fpm)
+  factor_width = 10, # number of columns to show, width of canvass
+  save = F,
+  filename = NULL,
+  mainTitle=NULL
+) {
+  # Values for testing & development
+  # fpm <- solution$loadings
+  # factor_width = 10
+
+  p <- dim(fpm)[1]
+  k <- dim(fpm)[2]
+  
+  # FPM <- solution$loadings # FPM - Factor Pattern Matrix
+  fpm <- cbind(fpm, matrix(numeric(0), p, p-k)) # appends empty columns to have p columns
+  colnames(fpm) <- paste0("F", 1:p) # renames for better presentation in tables and graphs
+  
+  keep_factors <- paste0("F",1:factor_width) # number of columns to show, width of canvass
+  show_factors <- paste0("F",1:k) # number of factors to print, fill of canvass
+  
+  fpm <- fpm[,1:factor_width]
+  # prepare data for plotting
+  dsFORp <- reshape2::melt(fpm, id.vars=rownames(fpm))  ## id.vars declares MEASURED variables (as opposed to RESPONSE variable)
+  dsFORp <- plyr::rename(dsFORp, replace=c(Var1="Variable", Var2="Factor", value="Loading"))
+  # browser()
+  dsFORp$Positive <- ifelse(dsFORp$Loading >= 0, "Positive", "Negative") #Or see Recipe 10.8
+  dsFORp$LoadingAbs <- abs(dsFORp$Loading) # Long form
+  # dsFORp$LoadingPretty <- round(dsFORp$Loading, roundingDigits) # Long form
+  numformat <- function(val) { sub("^(-?)0.", "\\1.", sprintf("%.2f", val)) }
+  dsFORp$LoadingPretty <- numformat(dsFORp$Loading) # Long form
+  # dsFORp$LoadingPretty <- paste0(ifelse(dsFORp$Loading>=0, "+", "-"), dsFORp$LoadingPretty)
+  dsFORp$VariablePretty <- gsub(pattern=" ", replacement="\n", x=dsFORp$Variable) # seems unnecessary
+  # temp <- dsFORp
+  
+  
+  # set options 
+  roundingDigits     <- 2 # Let the caller define in the future (especially with observed values that aren't close to 1.0).
+  stripSize          <- 11# Let the caller define in the future?
+  valuelabelSize     <- 4 # 7 # the values of the factor loadings
+  axisTitleFontSize  <- 12
+  axisTextFontSize   <- 12
+  legendTextFontSize <- 6 # 
+  titleSize          <- 14 # 
+
+  # Colors for fill and font
+  {
+    # positive Green, negative Purple
+    colorsFill <- c("Positive"="#A6DBA0" ,"Negative"="#C2A5CF") # The colors for negative and positve values of factor loadings for ggplot
+    colorFont <- c("Positive"="#008837" ,"Negative"="#7B3294") # The colors for negative and positve values of factor loadings for ggplot
+    
+    #   # positive Organge,negative Purple
+    #   colorsFill <- c("Positive"="#FDB863" ,"Negative"="#B2ABD2") # The colors for negative and positve values of factor loadings for ggplot
+    #   colorFont <- c("Positive"="#E66101" ,"Negative"="#5E3C99") # The colors for negative and positve values of factor loadings for ggplot
+    
+    #   # Positive Teal,Negative Brown
+    #   colorsFill <- c("Positive"="#80CDC1" ,"Negative"="#DFC27D") # The colors for negative and positve values of factor loadings for ggplot
+    #   colorFont <- c("Positive"="#018571" ,"Negative"="#A6611A") # The colors for negative and positve values of factor loadings for ggplot
+    
+    #   # Positive Teal,Negative Brown
+    #   colorsFill <- c("Positive"="#80CDC1" ,"Negative"="#DFC27D") # The colors for negative and positve values of factor loadings for ggplot
+    #   colorFont <- c("Positive"="#018571" ,"Negative"="#A6611A") # The colors for negative and positve values of factor loadings for ggplot
+    
+    #   # Positive Blue, Negative Red
+    #   colorsFill <- c("Positive"="#92C5DE" ,"Negative"="#F4A582") # The colors for negative and positve values of factor loadings for ggplot
+    #   colorFont <- c("Positive"="#0571B0" ,"Negative"="#CA0020") # The colors for negative and positve values of factor loadings for ggplot
+    
+    
+  } # close color theme selection
+  
+  # browser()
+  # keep_factors <- paste0("F",1:10)
+  # show_factors <- paste0("F",1:k)
+  # vjust_ <- 2.2#1.3
+  # stripSize <- 12 #24
+  # valuelabelSize <- 4 #  7
+  dsFORp <- dsFORp %>% dplyr::filter(Factor %in% keep_factors)# %>% dplyr::slice(1:20)
+  temp <- dsFORp
+  # Graph definition
+  g <- ggplot2::ggplot(
+    dsFORp,
+    ggplot2::aes(
+      x     = Factor,
+      y     = LoadingAbs,
+      fill  = Positive,
+      color = Positive,
+      label = LoadingPretty
+      )
+    ) +
+    geom_bar(stat="identity", na.rm=T) +
+    geom_text(y=0, vjust=-.1,size=valuelabelSize, na.rm=T) +
+    scale_color_manual(values=colorFont, guide="none") +
+    scale_fill_manual(values=colorsFill) +
+    scale_y_continuous(limits=c(0,1.1), breaks=c(0), expand=c(0,0)) +
+    facet_grid(VariablePretty ~ .) +
+    labs(title=mainTitle, x="Weights", y="Loadings (Absolute)", fill=NULL) + 
+    theme_minimal() +
+    # theme_tufte()+
+    theme(panel.grid.minor=element_blank()) + 
+    theme(axis.title=element_text(color="gray30", size=axisTitleFontSize)) + #The labels (eg, 'Weights' & 'Loadings') 
+    theme(axis.text.x=element_text(color="gray50", size=axisTextFontSize, vjust=1.2)) + #(eg, V1, V2,...)
+    # theme(axis.text.y=element_text(color="gray50", size=axisTextFontSize)) + #(eg, 0.5, 1.0)
+    theme(axis.text.y=element_blank()) + #(eg, 0.5, 1.0)
+    theme(strip.text.y=element_text(angle=0, size=stripSize,hjust = 0, vjust=1)) + 
+    theme(plot.title = element_text(size=titleSize, hjust=1, vjust=1)) +
+    theme(legend.position="blank")
+  # g
+  # if(save){
+  #   savePlot <- function(myPlot) {
+  #     folder <- "./reports/temp_image/"
+  #     png("myPlot.png")
+  #     print(myPlot)
+  #     dev.off()
+  #   }
+  #   savePlot(g)
+  # }
+  
+  return( g )
 }
