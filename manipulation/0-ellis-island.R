@@ -28,8 +28,10 @@ data_path_input  <- "./data/unshared/raw/Final Dataset NFSept 6 2015_1.sav"
 
 # ---- load-data ------------------------------------------------
 # load data objects
-unitData <- foreign::read.spss(data_path_input,to.data.frame = TRUE) 
- 
+unitData <- foreign::read.spss(data_path_input,to.data.frame = TRUE)
+# Hmisc is superior, b/c extract labels, but separates with "." not "_"
+# unitData <- Hmisc::spss.get(data_path_input, use.value.labels = TRUE)
+
 # ---- inspect-data -------------------------------------------------------------
 nl <- names_labels(unitData)
 
@@ -51,6 +53,8 @@ readr::write_csv(nl,"./data/shared/meta/meta-data-live.csv")
 metaData <- read.csv("./data/shared/meta/meta-data-dead.csv")
 
 
+
+
 # ---- tweek-data ------------------------------------------------------------
 # list the variables to select
 select_variables <- metaData %>% 
@@ -66,6 +70,18 @@ d_rules <- metaData %>%
   dplyr::select(name, name_new ) # leave only collumn, which values you wish to append
 names(ds_small) <- d_rules[,"name_new"]
 
+
+# ---- assing-lables --------------------------------------------------------
+attr(ds_small, "variable.labels")  <- NULL
+attr(ds_small, "codepage")  <- NULL
+
+for(i in unique(colnames(ds_small))){
+  d_rules <- metaData %>%
+    dplyr::filter(name_new %in% names(ds_small)) %>% 
+    dplyr::select(name_new, label_short ) 
+  attr(ds_small[,i], "label") <-  as.character(d_rules[d_rules$name_new==i,"label_short"])
+}
+# names_labels(ds_small)
 
 # ---- save-to-disk ------------------------------------------------------------
 
