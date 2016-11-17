@@ -795,8 +795,8 @@ if(is.null(data)&&is.null(Correlation.Matrix)){
 m <- dim(A)[2]
 factor.labels <- paste("Factor",1:m,sep="")
 
-A.varimax <- varimax(A)$loadings[1:p,]
 # Variamx
+A.varimax <- varimax(A)$loadings[1:p,]
 res <- list(Lh=A.varimax,orthogonal=TRUE)
 res <- FixPattern(res)
 A.varimax <- list(F=res$Lh)
@@ -1234,7 +1234,19 @@ RMSEA <- function(fit.object,conf=0.90){
   df <- p*(p+1)/2 - t
   rmsea.ci(X2,df,n.obs,conf)
 }
-QuickEFAtoCFA <- function(R,n.factors,n.obs,rotation="Varimax",model.name="model.0",cutoff=0.30,alpha=0.05,make.start.values=TRUE,cov.matrix=TRUE,num.digits=4,promax.m=3){
+QuickEFAtoCFA <- function(
+  R,
+  n.factors,
+  n.obs,
+  rotation="Varimax",
+  model.name="model.0",
+  cutoff=0.30,
+  alpha=0.05,
+  make.start.values=TRUE,
+  cov.matrix=TRUE,
+  num.digits=4,
+  promax.m=3
+){
   rotation.list <- c("Varimax","Promax","Quartimin","Bifactor", "BifactorOblique")
   rot <- 0
   for(i in 1:5)
