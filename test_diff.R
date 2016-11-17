@@ -39,7 +39,7 @@ if(!packageLoaded("sem")) library(sem)
 
 GPForth <- function(A,Tmat=diag(ncol(A)),method="varimax",...){
   al <- 1
-  L <- A %*% Tmat
+  L  <- A %*% Tmat
   VgQ <- get(paste("vgQ",method,sep="."))(L,...)
   G <- crossprod(A,VgQ$Gq)
   f <- VgQ$f
@@ -403,6 +403,7 @@ vgQ.bifactor <- function(L){
   return(list(Gq=Gq,f=f,Method=Method))
 }
 
+
 ################  End of Augmented Jennrich-Bentler Functions ############
 
 
@@ -583,6 +584,23 @@ Scree.Plot <- function(R,main="Scree Plot",sub=NULL){
   abline(h=1,lty=2,col="red")
   
 }
+# Scree.PlotGG <- function(R, main="Scree Plot",sub=NULL){
+#   roots <- eigen(R)$values
+#   x <- 1:dim(R)[1]
+# #   plot(x,roots,type="b",col='blue',ylab="Eigenvalue",
+# #        xlab="Component Number",main=main,sub=sub) 
+# #   abline(h=1,lty=2,col="red")
+#   
+#   ds <- data.frame(x=x, roots=roots)
+#   g <- ggplot(ds, aes(x=x, y=roots)) +
+#     geom_rect(ymax=1, ymin=-Inf, xmin=-Inf, xmax=Inf, fill="red") +
+#     geom_line(size=1.5, color="blue", na.rm = TRUE) +
+#     geom_point(size=5, color="darkblue", na.rm = TRUE) +
+#     labs(title=main, x="Component Number", y="Eigenvalue") +
+#     theme_bw()
+#   
+#   print(g)
+# }
 
 FindBifactor <- function(A,reps){
   warn=-1
@@ -661,6 +679,7 @@ FixPattern <- function(res,sort=TRUE){
   return(res)
 }
 
+# FindBifactorPattern is not used anywhere else in this code
 FindBifactorPattern <- function(A,reps,digits=2) {
   options(warn=-1)
   p<-dim(A)[1]
@@ -671,7 +690,7 @@ FindBifactorPattern <- function(A,reps,digits=2) {
   F <- F %*% diag(F.sign)
   options(warn=1)
   return(round(F,digits))
-}
+} 
 
 GPromax <- function(A,pow=3){
   method <- "Promax"
@@ -721,7 +740,8 @@ print.FLS <- function(x, sort=TRUE, num.digits=3, cutoff=.25, ...)
   invisible(x)
 }
 
-print.MLFA<-function(x,num.digits=3,cutoff=0.25,...){
+print.MLFA<-function(x,num.digits=3,cutoff=0.25,...)
+{
   cat("\nUnrotated Loadings\n------------------\n")
   print.FLS(x$Unrotated,num.digits=num.digits,cutoff=cutoff)
   cat("\nVarimax Loadings\n------------------\n")
@@ -733,46 +753,68 @@ print.MLFA<-function(x,num.digits=3,cutoff=0.25,...){
   cat("\nOrthogonal Bifactor Loadings\n---------------------------\n")
   print.FLS(x$Bifactor,num.digits=num.digits,cutoff=cutoff)
   cat("\nOblique Bifactor Loadings\n-------------------------\n")
-  invisible(print.FLS(x$BifactorOblique,num.digits=num.digits,cutoff=cutoff))
+  print.FLS(x$BifactorOblique,num.digits=num.digits,cutoff=cutoff)
+  
+  # Crawford-Ferguson added by Koval
+  cat("\nCF Loadings\n-------------------------\n")
+  print.FLS(x$CF,num.digits=num.digits,cutoff=cutoff)
+  cat("\nCFQ Loadings\n-------------------------\n")
+  # the last element must be invisible for proper output in R
+  invisible(print.FLS(x$CFQ,num.digits=num.digits,cutoff=cutoff))
+  
 }
 
-MLFA <- function(Correlation.Matrix=NULL,n.factors=NA,n.obs=NA,data=NULL,Factor.Pattern=NULL,random.starts=15,maxit=1000,num.digits=3,cutoff=0.30,promax.m=3){
+MLFA <- function(Correlation.Matrix=NULL,
+                 n.factors=NA,
+                 n.obs=NA,
+                 data=NULL,
+                 Factor.Pattern=NULL,
+                 random.starts=15,
+                 maxit=1000,
+                 num.digits=3,
+                 cutoff=0.30,
+                 promax.m=3)
+{
   cat("This will take a moment.")
   if(!is.null(Correlation.Matrix)&&is.null(data)){
     R <- Correlation.Matrix
     p <- dim(R)[1]
-    A <- factanal(covmat=R,n.obs=n.obs,factors=n.factors,maxit=maxit,
-                  rotation="none")$loadings[1:p,]
+    A <- factanal(covmat=R,n.obs=n.obs,factors=n.factors,maxit=maxit,rotation="none")$loadings[1:p,]
+  }
+  if(!is.null(data)){
+    R <- cor(data)
+    n.obs <- dim(data)[1]
+    p <- dim(R)[1]
+    A <- factanal(covmat=R,n.obs=n.obs,factors=n.factors,maxit=maxit,rotation="none")$loadings[1:p,]
+  }
+  if(is.null(data)&&is.null(Correlation.Matrix)){ 
+    A <- Factor.Pattern
+    p <- dim(A)[1]
   }
   
-  if(!is.null(data))
-  {R <- cor(data)
-  n.obs <- dim(data)[1]
-  p <- dim(R)[1]
-  A <- factanal(covmat=R,n.obs=n.obs,factors=n.factors,maxit=maxit,
-                rotation="none")$loadings[1:p,]}
-  if(is.null(data)&&is.null(Correlation.Matrix)){ A <- Factor.Pattern
-  p <- dim(A)[1]
-  }
   m <- dim(A)[2]
   factor.labels <- paste("Factor",1:m,sep="")
+  
   A.varimax <- varimax(A)$loadings[1:p,]
-  o = TRUE
-  res <- list(Lh=A.varimax,orthogonal=o)
+  # Variamx
+  res <- list(Lh=A.varimax,orthogonal=TRUE)
   res <- FixPattern(res)
   A.varimax <- list(F=res$Lh)
+  # Promax
   res <- GPromax(A,pow=promax.m)
   res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
   res <- FixPattern(res)
   Phi.promax <- res$Phi
   A.promax <- list(F=res$Lh,Phi=Phi.promax,orthogonal=FALSE)
   cat(".")
+  # Quartimin
   res <- FindBestPattern(A,"quartimin",reps=random.starts,is.oblique=TRUE)
   res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
   res <- FixPattern(res)
   Phi.quartimin <- res$Phi
   A.quartimin <- list(F=res$Lh,Phi = Phi.quartimin)
   cat(".")
+  # Bifactor
   res <- FindBestPattern(A,"bifactor",reps=random.starts)
   orthogonal=TRUE
   res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=orthogonal)
@@ -780,30 +822,56 @@ MLFA <- function(Correlation.Matrix=NULL,n.factors=NA,n.obs=NA,data=NULL,Factor.
   Phi=NULL
   A.bifactor <- list(F=res$Lh,Phi=Phi)
   cat(".")
+  # Bifactor Oblique
   res <- FindBestPattern(A,"bifactor",reps=random.starts,is.oblique=TRUE)
   res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
   res <- FixPattern(res)
   cat(".")
   Phi.bifactor.oblique <- res$Phi
   A.bifactor.oblique <- list(F=res$Lh,Phi=Phi.bifactor.oblique)
-  A = list(F=A,Phi=NULL)
   cat(".")
+  
+  # CF added by Koval
+  # Crawford-Ferguson
+  res <- FindBestPattern(A,"cf",reps=random.starts,is.oblique=FALSE)
+  res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=TRUE)
+  res <- FixPattern(res)
+  Phi=NULL
+  A.cf <- list(F=res$Lh,Phi=Phi)
+  cat(".")
+  # Crawford-Ferguson Oblique
+  res <- FindBestPattern(A,"cf",reps=random.starts,is.oblique=TRUE)
+  res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
+  res <- FixPattern(res)
+  cat(".")
+  Phi.cfq <- res$Phi
+  A.cfq <- list(F=res$Lh,Phi=Phi.cfq)
+  cat(".")
+  A = list(F=A,Phi=NULL) # line moved from end of the BifactorOblique section
+  cat(".")
+  #
   class(A.promax)="FLS"
   class(A)="FLS"
   class(A.quartimin)="FLS"
-  cat(".exiting\n")
+  cat(".exiting\n") # what is this for?
   class(A.varimax)="FLS"
   class(A.bifactor)="FLS"
   class(A.bifactor.oblique)="FLS"
+  # adding CF
+  class(A.cf)="FLS"
+  class(A.cfq)="FLS"
   output<-list(Unrotated = A, 
                Varimax=A.varimax,
                Promax = A.promax,
                Quartimin = A.quartimin,
                Bifactor  = A.bifactor,
-               BifactorOblique = A.bifactor.oblique  )
+               BifactorOblique = A.bifactor.oblique,
+               CF=A.cf,
+               CFq=A.cfq)
   class(output) = "MLFA"
   return(output)
 }
+# end of MLFA function definition
 
 Loadings <- function(x,num.digits=3,cutoff=.25){
   invisible(print.MLFA(x,cutoff=cutoff,num.digits=num.digits))
@@ -1147,8 +1215,8 @@ QuickJoreskog <- function(R,n.factors,n.obs,model.name="model.0",
   return(culled.fit)
 }
 
-GetPrettyPattern <- function(fit.object,cutoff=0.10, sort=TRUE){
-  print.FLS(GetPattern(fit.object),cutoff=cutoff, sort=sort)}
+GetPrettyPattern <- function(fit.object,cutoff=0.10){
+  print.FLS(GetPattern(fit.object),cutoff=cutoff)}
 
 RMSEA <- function(fit.object,conf=0.90){
   n.obs <- fit.object$N
