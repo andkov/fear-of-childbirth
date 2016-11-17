@@ -1,11 +1,11 @@
 name,label,select,name_new,label_graph,label_short,domain
-RespondentID,NA,TRUE,id,id,person identifier,
+RespondentID,NA,TRUE,id,id,person identifier,demographic
 DOB,Date of birth,,,,,
 Over_18,Are you over the age of 18?,,,,,
-Pregnant,ARE YOU PREGNANT?,TRUE,pregnant,pregnant,Are you pregnant?,
+Pregnant,ARE YOU PREGNANT?,TRUE,pregnant,pregnant,Are you pregnant?,demographic
 Gender,WHAT IS YOUR GENDER?,,,,,
-Marital_status,WHAT IS YOUR MARITAL STATUS?,TRUE,marital,marital,What is your marital status?,
-Education,HOW FAR DID YOU GO IN SCHOOL?,TRUE,education,education,How far did you go in school?,
+Marital_status,WHAT IS YOUR MARITAL STATUS?,TRUE,marital,marital,What is your marital status?,demographic
+Education,HOW FAR DID YOU GO IN SCHOOL?,TRUE,education,education,How far did you go in school?,demographic
 Education_other,"Other, please specify:",,,,,
 EDUCA0,"Other, please specify:",,,,,
 EDUCA1,"Other, please specify:",,,,,
@@ -64,7 +64,7 @@ Current_conception,How was your baby (this pregnancy) conceived? ,,,,,
 Episiotomy,Have you ever experienced an episiotomy (a cut to the tissue between the vagina and the rectum to help a baby to be born)?,,,,,
 Current_babies,"How many babies are you carrying (i.e., singleton, twins, triplets)? ",,,,,
 Income,WHAT IS YOUR FAMILY INCOME?,,,,,
-Weeks_pregnant,HOW MANY WEEKS ALONG IN YOUR PREGNANCY ARE YOU?,TRUE,weeks_pregnant,weeks_pregnant,Duration of pregnancy (weeks),
+Weeks_pregnant,HOW MANY WEEKS ALONG IN YOUR PREGNANCY ARE YOU?,TRUE,weeks_pregnant,weeks_pregnant,Duration of pregnancy (weeks),demographic
 Care_Provider,Who is your primary care provider for this pregnancy? (choose one),,,,,
 Very_satisfied,NA,,,,,
 Birthplace,Where do you plan to give birth?,,,,,
@@ -341,7 +341,7 @@ LANGU18,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?,,,,,
 LANGU19,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?,,,,,
 LANGU1A,WHICH LANGUAGE DO YOU SPEAK MOST OFTEN AT HOME?,,,,,
 Language_Coded,Which language(s) do you speak at home,,,,,
-Has_kids,Do you have children?,TRUE,haskids,haskids,Do you have children?,
+Has_kids,Do you have children?,TRUE,haskids,haskids,Do you have children?,demographic
 Births,Have you ever given birth before (vaginally or by cesarean section)? ,,,,,
 Births_vaginal,How many times have you given birth vaginally?,,,,,
 Births_cesarean,How many times have you given birth by cesarean section?,,,,,
@@ -659,7 +659,7 @@ FOC3,3 - Other people seeing me have a bowel movement during labour/birth?,TRUE,
 FOC4,4 - Other people seeing me naked during labour/birth?,TRUE,foc_04,naked,4 - Other people seeing me naked during labour/birth?,embarrassment
 FOC5,5 - Not living up to expectations to be strong?,TRUE,foc_05,weak,5 - Not living up to expectations to be strong?,embarrassment
 FOC6,6 - Being watched by strangers during labour/birth?,TRUE,foc_06,watched,6 - Being watched by strangers during labour/birth?,embarrassment
-FOC7,7 - Experiencing pain during contractions?,TRUE,foc_07,contractions,7 - Experiencing pain during contractions?,pain
+FOC7,7 - Experiencing pain during contractions?,TRUE,foc_07,contracts,7 - Experiencing pain during contractions?,pain
 FOC8,8 - Experiencing pain during a vaginal birth?,TRUE,foc_08,vaginal,8 - Experiencing pain during a vaginal birth?,pain
 FOC9,9 - Experiencing pain during a cesarean birth?,TRUE,foc_09,cesarean,9 - Experiencing pain during a cesarean birth?,pain
 FOC10,10 - Experiencing pain during labour?,TRUE,foc_10,labour,10 - Experiencing pain during labour?,pain
@@ -670,16 +670,16 @@ FOC14,14 - Receiving unwanted pain medication during labour/birth?,TRUE,foc_14,u
 FOC15,15 - Feeling pressure to receive pain medication during labour/birth even though I may not want to?,TRUE,foc_15,pres.pain,15 - Feeling pressure to receive pain medication during labour/birth even though I may not want to?,meds
 FOC16,"16 - Feeling pressure from others to have a natural (unmedicated) childbirth, even though this is not really what I want?",TRUE,foc_16,pres.natur,"16 - Feeling pressure from others to have a natural (unmedicated) childbirth, even though this is not really what I want?",meds
 FOC17,"17 - Not being able to have the kind of birth I want (i.e., either vaginal or cesarean)?",TRUE,foc_17,no.choice,"17 - Not being able to have the kind of birth I want (i.e., either vaginal or cesarean)?",delivery.mode
-FOC18,"18 - Not being able to have a cesarean birth, even though this is what I would prefer?",TRUE,foc_18,no.cesarean,"18 - Not being able to have a cesarean birth, even though this is what I would prefer?",delivery.mode
+FOC18,"18 - Not being able to have a cesarean birth, even though this is what I would prefer?",TRUE,foc_18,no.cesar,"18 - Not being able to have a cesarean birth, even though this is what I would prefer?",delivery.mode
 FOC19,"19 - Not being able to have a vaginal birth, even though this is what I would prefer?",TRUE,foc_19,no.vaginal,"19 - Not being able to have a vaginal birth, even though this is what I would prefer?",delivery.mode
 FOC20,20 - Having a vaginal birth?,TRUE,foc_20,vaginal?,20 - Having a vaginal birth?,delivery.mode
-FOC21,21 - Having a cesarean birth?,TRUE,foc_21,ceasarean?,21 - Having a cesarean birth?,delivery.mode
+FOC21,21 - Having a cesarean birth?,TRUE,foc_21,ceasar?,21 - Having a cesarean birth?,delivery.mode
 FOC22,22 - The baby being harmed during labour/birth?,TRUE,foc_22,harmed,22 - The baby being harmed during labour/birth?,safe.baby
 FOC23,23 - The baby dying during labour/birth?,TRUE,foc_23,die,23 - The baby dying during labour/birth?,safe.baby
-FOC24,24 - The baby being damaged/handicapped as a consequence of labour/birth?,TRUE,foc_24,handicapped,24 - The baby being damaged/handicapped as a consequence of labour/birth?,safe.baby
+FOC24,24 - The baby being damaged/handicapped as a consequence of labour/birth?,TRUE,foc_24,hcapped,24 - The baby being damaged/handicapped as a consequence of labour/birth?,safe.baby
 FOC25,"25 - The baby contracting an illness during labour/birth (e.g., Herpes, HIV)?",TRUE,foc_25,illness,"25 - The baby contracting an illness during labour/birth (e.g., Herpes, HIV)?",safe.baby
 FOC26,26 - The baby suffocating during labour/birth?,TRUE,foc_26,suffocate,26 - The baby suffocating during labour/birth?,safe.baby
-FOC27,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",TRUE,foc_27,hurt.in.labor,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",safe.baby
+FOC27,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",TRUE,foc_27,hurt.labor,"27 - The baby being hurt by a medical intervention that takes place during labour/birth (e.g., vacuum, anesthetics)?",safe.baby
 FOC28,28 - Bleeding too much during labour/birth?,TRUE,foc_28,bleed,28 - Bleeding too much during labour/birth?,safe.mom
 FOC29,29 - Being harmed because of incompetent medical care?,TRUE,foc_29,incompetent,29 - Being harmed because of incompetent medical care?,safe.mom
 FOC30,30 - Dying during labour/birth?,TRUE,foc_30,die,30 - Dying during labour/birth?,safe.mom
@@ -700,7 +700,7 @@ FOC44,44 - Having general anesthetic?,TRUE,foc_44,gen.anesthetic,44 - Having gen
 FOC45,45 - Having scars or wounds that do not heal properly?,TRUE,foc_45,no.healing,45 - Having scars or wounds that do not heal properly?,interventions
 FOC46,46 - Needing to have stitches after the birth?,TRUE,foc_46,stitches,46 - Needing to have stitches after the birth?,interventions
 FOC47,47 - Enjoying sexual intercourse less because of pain or discomfort from the birth?,TRUE,foc_47,sex.discomfort,47 - Enjoying sexual intercourse less because of pain or discomfort from the birth?,sex.function
-FOC48,48 - Being administered an epidural?,TRUE,foc_48,epidural,48 - Being administered an epidural?,sex.function
+FOC48,48 - Being administered an epidural?,TRUE,foc_48,epidural,48 - Being administered an epidural?,pain
 FOC49,49 - Vomiting during labour/birth?,TRUE,foc_49,vomit,49 - Vomiting during labour/birth?,delivery.mode
 FOC_OTHER,Other (please specify):,,,,,
 FOC_O0,Other (please specify):,,,,,
@@ -750,13 +750,13 @@ FOC_O17,Other (please specify):,,,,,
 FOC_O18,Other (please specify):,,,,,
 FOC_O19,Other (please specify):,,,,,
 FOC_O1A,Other (please specify):,,,,,
-FOCI1,Interference 1 - My relationship with my partner/spouse.,TRUE,itf_1,relations-spouse,Interference 1 - My relationship with my partner/spouse.,
-FOCI2,Interference 2 - My relationships with family members,TRUE,itf_2,relations-family,Interference 2 - My relationships with family members,
-FOCI3,Interference 3 - Other relationships in my life,TRUE,itf_3,relations-other,Interference 3 - Other relationships in my life,
-FOCI4,Interference 4 - My relationships with my prenatal caregivers,TRUE,itf_4,relations-parents,Interference 4 - My relationships with my prenatal caregivers,
-FOCI5,Interference 5 - My work life,TRUE,itf_5,work-life,Interference 5 - My work life,
-FOCI6,Interference 6 - My leisure activities,TRUE,itf_6,leisure,Interference 6 - My leisure activities,
-FOCI7,Interference 7 - Getting ready for the new baby,TRUE,itf_7,baby-ready,Interference 7 - Getting ready for the new baby,
+FOCI1,Interference 1 - My relationship with my partner/spouse.,TRUE,itf_1,relations-spouse,Interference 1 - My relationship with my partner/spouse.,interference
+FOCI2,Interference 2 - My relationships with family members,TRUE,itf_2,relations-family,Interference 2 - My relationships with family members,interference
+FOCI3,Interference 3 - Other relationships in my life,TRUE,itf_3,relations-other,Interference 3 - Other relationships in my life,interference
+FOCI4,Interference 4 - My relationships with my prenatal caregivers,TRUE,itf_4,relations-parents,Interference 4 - My relationships with my prenatal caregivers,interference
+FOCI5,Interference 5 - My work life,TRUE,itf_5,work-life,Interference 5 - My work life,interference
+FOCI6,Interference 6 - My leisure activities,TRUE,itf_6,leisure,Interference 6 - My leisure activities,interference
+FOCI7,Interference 7 - Getting ready for the new baby,TRUE,itf_7,baby-ready,Interference 7 - Getting ready for the new baby,interference
 FOCI_OTHER,Other (please specify):,,,,,
 FOCI_0,Other (please specify):,,,,,
 FOCI_1,Other (please specify):,,,,,
