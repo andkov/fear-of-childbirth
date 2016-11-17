@@ -103,7 +103,6 @@ fit_rotate_best <- function(
   }
   
   if(rotation == "promax"){
-    ###### Promax ###############
     res <- GPromax(A,pow=promax.m)
     # plot_factor_pattern(res$Lh, factor_width = 8) %>% quick_save("03-promax-a")
     res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
@@ -116,7 +115,6 @@ fit_rotate_best <- function(
   }
   
   if(rotation == "quartiminQ"){
-    ###### Quartimin ###################
     res <- FindBestPattern(A,"quartimin",reps=random.starts,is.oblique=TRUE)
     # plot_factor_pattern(res$Lh, factor_width = 8) %>% quick_save("04-quartimin-a")
     res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
@@ -188,6 +186,27 @@ model_summary <- function(model_object){
 }
 
 # ----- general-functions -----------------------
+make_cor <- function(ds,metaData,items){
+  # items <- items_phase_0
+  # d <- ds %>% dplyr::select(foc_01:foc_49)
+  d <- ds %>% dplyr::select_(.dots=items)
+  d <- sapply(d, as.numeric)
+  cormat <- cor(d)
+  # str(cormat)
+  names <- attr(cormat,"dimnames")[[1]]
+  names(names) <- names
+  for(i in names){
+    domain <- as.character(metaData[metaData$name_new==i,"domain"])
+    label_graph <- as.character(metaData[metaData$name_new==i,"label_graph"])
+    names[i] <- paste0(gsub("foc_","",names[i]),"_", domain,"_",label_graph)
+  }
+  names_new <- as.character(names)
+  attr(cormat,"dimnames")[[1]] <- names_new
+  attr(cormat,"dimnames")[[2]] <- names_new
+  # str(cormat)
+  return(cormat)
+}
+
 # this funtion may need to be brought into the script for specific tweaking
 quick_save <- function(g,name,folder){
   ggplot2::ggsave(
