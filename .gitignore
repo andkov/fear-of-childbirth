@@ -29,6 +29,17 @@ devtools.zip
 !data-unshared/raw/README.md
 !data-unshared/derived/README.md
 
+/sandbox/*
+/sandbox/*/*
+/sandbox/*/*/*
+/sandbox/*/*/*/*
+
+/reports/*/*.png
+/reports/*/*/*.png
+/reports/*/*/*/*.png
+
+/libs/doc/*
+/libs/doc/*/*
 ##############
 # Exclude caches in case they contain PHI
 cache/
