@@ -1,3 +1,86 @@
+
+compute_CFI <- function(chi_null,df_null,chi_model,df_model){
+  d_null <- chi_null - df_null
+  d_model <- chi_model - df_model
+  (cfi <- (d_null - d_model) / d_null)
+  return(cfi)
+}
+
+compute_TLI <- function(chi_null,df_null,chi_model,df_model){
+  (r_null <- chi_null/df_null)
+  (r_model <- chi_model/df_model)
+  (tli <- (r_null - r_model)/((r_null)-1))
+  return(tli)
+}
+
+solve_factors <- function(corrmat,min,max,sample_size,fm="minres",rotation="none"){
+  # corrmat = R0
+  # maxfactors = 10
+  # sample_size = 643
+  # rotation = "bifactor"
+  # rotation = "none"
+  ls_fit <- list()
+  for(i in c(min:max) ){
+    # i <- 2
+    ls_fit[[paste(i)]] <- psych::fa(
+      r = corrmat,
+      nfactors = i,
+      n.obs = sample_size,
+      fm = fm,
+      rotate = rotation
+    )
+  }
+  return(ls_fit)
+  
+} 
+# ls_solution <- solve_factors(R0,1,15,643)
+
+get_indices <- function(ls){
+  # ls <- ls_solution
+  # i <- 1
+  indices <- list()
+  for(i in seq_along(names(ls)) ){
+    indices[["n_factors"]][[i]] <- names(ls)[i] %>% as.numeric()
+    indices[["chisq_null"]][[i]] <- ls[[i]]$null.chisq
+    indices[["df_null"]][[i]] <- ls[[i]]$null.dof
+    indices[["chisq"]][[i]] <- ls[[i]]$chi
+    indices[["df"]][[i]] <- ls[[i]]$dof
+    indices[["RMSEA"]][[i]] <- ls[[i]]$RMSEA["RMSEA"]
+    indices[["RMSEA_low"]][[i]] <- ls[[i]]$RMSEA["lower"]
+    indices[["RMSEA_high"]][[i]] <- ls[[i]]$RMSEA["upper"]
+    indices[["TLI2"]][[i]] <- ls[[i]]$TLI
+  }
+  d <- as.data.frame(indices) %>% 
+    dplyr::mutate(
+      CFI = ((chisq_null-df_null) - (chisq-df))/(chisq_null-df_null),
+      # TLI = ((chisq_null/df_null) - (chisq-df))/((chisq_null/df_null)) 
+      TLI = ((chisq_null/df_null) - (chisq/df))/((chisq_null/df_null)-1)
+    ) %>% 
+    dplyr::select(
+      n_factors, 
+      chisq_null, df_null,
+      chisq, df, CFI, TLI
+      # , TLI2
+      # , RMSEA, RMSEA_low, RMSEA_high
+    )
+  
+  return(d)
+}
+# ds_index <- get_indices(ls_solution)
+plot_fit_indices <- function(x){
+  x <- ds_index
+  d <- x %>% 
+    tidyr::gather_(key="index",value = "value",c("CFI","TLI"))   
+  d %>% 
+    ggplot2::ggplot(aes(x=n_factors, y=value,shape=index))+
+    geom_abline(intercept=.95,size=1,alpha=.5, slope=0,linetype="dotted", color="black")+
+    geom_point(size = 3)+
+    scale_shape_manual(values = c("TLI"=22, "CFI"=24))+
+    geom_line(aes(group=index, linetype=index))+
+    scale_x_continuous(breaks=c(1:15))+
+    scale_y_continuous(breaks=seq(0,1,.1), limits=c(.6,1.1))+
+    main_theme 
+}
 # ----- fitting-functions ---------------------
 
 fit_rotate <- function(
@@ -174,7 +257,7 @@ fit_rotate_best <- function(
 
 
 # ----- inspecting-functions ----------------------
-model_summary <- function(model_object){
+fa_model_summary <- function(model_object){
   cat("\nRMSEA: \n")
   print(RMSEA(model_object))
   cat("\nLL:",logLik(model_object))
@@ -184,6 +267,45 @@ model_summary <- function(model_object){
   cat("\n")
   GetPrettyPattern(model_object, cutoff = 0.05,sort=FALSE)
 }
+
+numformat2 <- function(val) { sub("^(-?)0.", "\\1.", sprintf("%.2f", val)) }
+numformat3 <- function(val) { sub("^(-?)0.", "\\1.", sprintf("%.3f", val)) }
+numformat4 <- function(val) { sub("^(-?)0.", "\\1.", sprintf("%.4f", val)) }
+
+sem_model_summary <- function(model_object){
+  # model_object <- fit_sem_0_bifactor
+  modsum <- summary(model_object,fit.indices = c("GFI","AGFI","RMSEA","AIC","AICc","BIC","CFI","NNFI")) 
+  
+  chisq    <- modsum$chisq 
+  df_model <- modsum$df 
+  df_null <-  modsum$dfNull 
+  GFI <- modsum$GFI 
+  AGFI <- modsum$AGFI 
+  CFI <- modsum$CFI 
+  NNFI <- modsum$NNFI
+  AIC <- modsum$AIC 
+  AICc <- modsum$AICc 
+  BIC <- modsum$BIC
+  RMSEA <- RMSEA(model_object) 
+
+  # str(modsum) 
+   
+  cat("\nModel Chiquare = ",chisq, " | df model = ",df_model," | df null = ",df_null) 
+  cat("\nGoodness-of-fit index = ", GFI) 
+  cat("\nAdjusted Goodness-of-fit index = ", AGFI)
+  cat("\nRMSEA index = ",numformat4(RMSEA$Point.Estimate),"         ",
+      paste0(
+        RMSEA$Confidence.Level*100,"% CI: (",
+        numformat3(RMSEA$Lower.Limit),",",
+        numformat3(RMSEA$Upper.Limit),")"
+        ))
+  cat("\nComparitive Fit Index (CFI =", CFI)
+  cat("\nTucker Lewis Index (TLI/NNFI) = ", NNFI)
+  cat("\nAkaike Information Criterion (AIC) =", AIC)
+  cat("\nBayesian Information Criterion (BIC) =", BIC)
+}
+  
+
 
 # ----- general-functions -----------------------
 make_cor <- function(ds,metaData,items){
@@ -209,6 +331,9 @@ make_cor <- function(ds,metaData,items){
 
 # this funtion may need to be brought into the script for specific tweaking
 quick_save <- function(g,name,folder){
+  # g <- g
+  # name = "0_bifactorT_1"
+  # folder  = "./reports/temp_image/"
   ggplot2::ggsave(
     filename= paste0(name,".png"), 
     plot=g,
@@ -220,6 +345,35 @@ quick_save <- function(g,name,folder){
     dpi = 400,
     limitsize = FALSE
   )
+
+}
+
+save_fp_dummy <- function(R,n.factors,path){
+  # R <- R0
+  # n.factors = 6
+  # path = "./analysis/fp_dummy.csv"
+  varnames <- row.names(R)
+  m <- as.data.frame(matrix(nrow=length(varnames),ncol=n.factors))
+  # row.names(m) <- varnames
+  colnames(m) <- paste0("Factor",1:n.factors)
+  
+  d <- data.frame(cbind(varnames,m))
+  readr::write_csv(d,path)
+}
+
+input_factor_pattern <- function(path,sheet){
+  # path = "./analysis/phase0_cfa_patterns.xlsx"
+  # sheet = "A"
+  
+  model <- readxl::read_excel(path, sheet = sheet)
+  item_names <- model$varnames
+  factor_names <- colnames(model %>% dplyr::select(-varnames))
+  m <- as.matrix(model %>% dplyr::select(-varnames))
+  row.names(m) <- item_names
+  colnames(m) <- factor_names
+  str(m)
+  x <- list(F=m)
+  return(x)
 }
 
 # ---- graphing-functions ------------------------
@@ -405,5 +559,31 @@ plot_factor_pattern <- function(
   # }
   
   return( g )
+}
+
+# examine the relative contribution of items
+# input = vector of items' Rsqures
+dot_plot <- function(x, sorted = T){
+  d <- data.frame(
+    item = attr(x,"names"),
+    value = x
+  )
+  if(sorted){
+    g <- ggplot(d, aes(x=value, y=reorder(item, value))) 
+  }
+  if(!sorted){
+    g <- ggplot(d, aes(x=value, y=item)) 
+  }
+  g <- g +
+    geom_point(size=3) + # Use a larger dot
+    geom_segment(aes(yend=item), xend=0, colour="grey50") +
+    theme(panel.grid.major.y = element_blank()) +
+    theme_bw() +
+    theme(panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
+          panel.grid.major.y = element_line(colour="grey60", linetype="dashed"))+
+    labs(title = "Relative contribution of items",
+         y = "Item name", x = "R-squared")
+  g
 }
 

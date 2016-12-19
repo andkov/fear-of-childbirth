@@ -545,35 +545,110 @@ rmsea.ci <- function(chisq,df,n,conf=.90){
   return((results))
 }
 
-FA.Stats <- function(Correlation.Matrix,n.obs,n.factors,conf=.90,
+compute_CFI <- function(chi_null,df_null,chi_model,df_model){
+  d_null <- chi_null - df_null
+  d_model <- chi_model - df_model
+  (cfi <- (d_null - d_model) / d_null)
+  return(cfi)
+}
+
+compute_TLI <- function(chi_null,df_null,chi_model,df_model){
+  (r_null <- chi_null/df_null)
+  (r_model <- chi_model/df_model)
+  (tli <- (r_null - r_model)/((r_null)-1))
+  return(tli)
+}
+
+fa_stats <- function(Correlation.Matrix,n.obs,n.factors,conf=.90,
                      maxit=1000,RMSEA.cutoff=NULL,
                      main="RMSEA Plot",sub=NULL){
-runs <- length(n.factors)  
-R <- Correlation.Matrix
-maxfac <- max(n.factors)
-res <- matrix(NA,runs,8)
-roots <- eigen(R)$values
-for(i in 1:runs){
-   output <- factanal(covmat=R,n.obs=n.obs,factors=n.factors[i],maxit=maxit)
-   X2 <- output$STATISTIC
-   df <- output$dof
-   ci <- rmsea.ci(X2,df,n.obs,conf)
-   pvar <- sum(roots[1:n.factors[i]])
-   v <- c(n.factors[i],pvar,X2,df,1-pchisq(X2,df),ci$Point.Estimate,
-          ci$Lower.Limit,ci$Upper.Limit)
+  # browser()
+  runs <- length(n.factors)  
+  R <- Correlation.Matrix
+  maxfac <- max(n.factors)
+  res <- matrix(NA,runs,10)
+  roots <- eigen(R)$values
+  for(i in 1:runs){
+    # i <- 3
+    # R <- R0
+    # n.obs = 643
+    # n.factors=3:5
+    # maxit = 1000
+    output <- factanal(covmat=R,n.obs=n.obs,factors=n.factors[i],maxit=maxit)
+    fit <- psych::fa(R,nfactors=n.factors[i],n.obs=n.obs,fm="ml")
+    X2 <- output$STATISTIC
+    df <- output$dof
+    ci <- rmsea.ci(X2,df,n.obs,conf)
+    pvar <- sum(roots[1:n.factors[i]])
+    # cfi  <- compute_CFI(fit$null.chisq,fit$null.dof,fit$chi, fit$dof)
+    # tli  <- compute_TLI(fit$null.chisq,fit$null.dof,fit$chi, fit$dof)
+    cfi  <- compute_CFI(fit$null.chisq,fit$null.dof,X2, df)
+    tli  <- compute_TLI(fit$null.chisq,fit$null.dof,X2, df)
+    v <- c(n.factors[i],pvar,X2,df,1-pchisq(X2,df),ci$Point.Estimate,
+           ci$Lower.Limit,ci$Upper.Limit, cfi,tli)
+    
+    res[i,] <- v
+  }
+  colnames(res)=c("Factors","Cum.Eigen","Chi-Square","Df","p.value",
+                  "RMSEA.Pt","RMSEA.Lo","RMSEA.Hi","CFI","TLI")
+  plotCI(n.factors,res[,6],li = res[,7],ui=res[,8],
+         ylab="RMSEA",xlab="Number of Factors",main=main,
+         sub=sub)
+  lines(n.factors,res[,6],col="blue")
+  abline(h=0,col="black",lty=3)
+  abline(h=RMSEA.cutoff,col="red",lty=2)
   
-   res[i,] <- v
+  return(res)
 }
-colnames(res)=c("Factors","Cum.Eigen","Chi-Square","Df","p.value",
-                    "RMSEA.Pt","RMSEA.Lo","RMSEA.Hi")
-plotCI(n.factors,res[,6],li = res[,7],ui=res[,8],
-       ylab="RMSEA",xlab="Number of Factors",main=main,
-       sub=sub)
-lines(n.factors,res[,6],col="blue")
-abline(h=0,col="black",lty=3)
-abline(h=RMSEA.cutoff,col="red",lty=2)
 
-return(res)
+FA.Stats <- function(
+  Correlation.Matrix,
+  n.obs,
+  n.factors,
+  conf=.90,
+  maxit=1000,
+  RMSEA.cutoff=NULL,
+  main="RMSEA Plot",
+  sub=NULL
+){
+  # browser()
+  runs <- length(n.factors)  
+  R <- Correlation.Matrix
+  maxfac <- max(n.factors)
+  res <- matrix(NA,runs,8)
+  roots <- eigen(R)$values
+  for(i in 1:runs){
+     output <- stats::factanal(
+       covmat=R,
+       n.obs=n.obs,
+       factors=n.factors[i],
+       maxit=maxit
+     )
+     X2 <- output$STATISTIC
+     df <- output$dof
+     ci <- rmsea.ci(X2,df,n.obs,conf)
+     pvar <- sum(roots[1:n.factors[i]])
+     v <- c(
+       n.factors[i],
+       pvar,
+       X2,
+       df,
+       1-pchisq(X2,df),
+       ci$Point.Estimate,
+       ci$Lower.Limit,
+       ci$Upper.Limit
+     )
+     res[i,] <- v
+  }
+  colnames(res)=c("Factors","Cum.Eigen","Chi-Square","Df","p.value",
+                      "RMSEA.Pt","RMSEA.Lo","RMSEA.Hi")
+  plotCI(n.factors,res[,6],li = res[,7],ui=res[,8],
+         ylab="RMSEA",xlab="Number of Factors",main=main,
+         sub=sub)
+  lines(n.factors,res[,6],col="blue")
+  abline(h=0,col="black",lty=3)
+  abline(h=RMSEA.cutoff,col="red",lty=2)
+  return(res)
 }
 
 Scree.Plot <- function(R,main="Scree Plot",sub=NULL){
@@ -742,25 +817,28 @@ if(!is.null(x$Phi)){
 
 print.MLFA<-function(x,num.digits=3,cutoff=0.25,sort_=TRUE,...)
 {
-cat("\nUnrotated Loadings\n------------------\n")
+cat("\n## Unrotated\n------------------\n")
 print.FLS(x$Unrotated,num.digits=num.digits,cutoff=cutoff,sort=sort_)
-cat("\nVarimax Loadings\n------------------\n")
+cat("\n## Varimax (T)\n------------------\n")
 print.FLS(x$Varimax,num.digits=num.digits,cutoff=cutoff,sort=sort_)
-cat("\nPromax Loadings\n-----------------\n")
+cat("\n## Promax (Q)\n-----------------\n")
 print.FLS(x$Promax,num.digits=num.digits,cutoff=cutoff,sort=sort_)
-cat("\nQuartimin Loadings\n-----------------\n")
+cat("\n## Quartimin (Q)\n-----------------\n")
 print.FLS(x$Quartimin,num.digits=num.digits,cutoff=cutoff,sort=sort_)
-cat("\nOrthogonal Bifactor Loadings\n---------------------------\n")
+cat("\n## Bifactor (T)Loadings\n---------------------------\n")
 print.FLS(x$Bifactor,num.digits=num.digits,cutoff=cutoff,sort=sort_)
-cat("\nOblique Bifactor Loadings\n-------------------------\n")
-print.FLS(x$BifactorOblique,num.digits=num.digits,cutoff=cutoff,sort=sort_)
+cat("\n## Bifactor (Q)\n-------------------------\n")
+# print.FLS(x$BifactorOblique,num.digits=num.digits,cutoff=cutoff,sort=sort_)
+# # the last element must be invisible for proper output in R
+invisible(print.FLS(x$BifactorOblique,num.digits=num.digits,cutoff=cutoff,sort=sort_))
 
-# Crawford-Ferguson added by Koval
-cat("\nCF Loadings\n-------------------------\n")
-print.FLS(x$CF,num.digits=num.digits,cutoff=cutoff,sort=sort_)
-cat("\nCFQ Loadings\n-------------------------\n")
-# the last element must be invisible for proper output in R
-invisible(print.FLS(x$CFQ,num.digits=num.digits,cutoff=cutoff,sort=sort_))
+
+# # Crawford-Ferguson added by Koval
+# cat("\nCF Loadings\n-------------------------\n")
+# print.FLS(x$CF,num.digits=num.digits,cutoff=cutoff,sort=sort_)
+# cat("\nCFQ Loadings\n-------------------------\n")
+# # the last element must be invisible for proper output in R
+# invisible(print.FLS(x$CFQ,num.digits=num.digits,cutoff=cutoff,sort=sort_))
 
 }
 
@@ -832,45 +910,83 @@ Phi.bifactor.oblique <- res$Phi
 A.bifactor.oblique <- list(F=res$Lh,Phi=Phi.bifactor.oblique)
 cat(".")
 
-# CF added by Koval
-# Crawford-Ferguson
-res <- FindBestPattern(A,"cf",reps=random.starts,is.oblique=FALSE)
-res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=TRUE)
+
+
+#### ADDitional rotations 
+
+# Geomin (orthogonal)
+res <- FindBestPattern(A,"geomin",reps=random.starts)
+orthogonal=TRUE
+res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=orthogonal)
 res <- FixPattern(res, sort = sort)
 Phi=NULL
-A.cf <- list(F=res$Lh,Phi=Phi)
+A.geominT <- list(F=res$Lh,Phi=Phi)
 cat(".")
-# Crawford-Ferguson Oblique
-res <- FindBestPattern(A,"cf",reps=random.starts,is.oblique=TRUE)
+# Geomin (Oblique)
+res <- FindBestPattern(A,"geomin",reps=random.starts,is.oblique=TRUE)
 res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
 res <- FixPattern(res, sort = sort)
 cat(".")
-Phi.cfq <- res$Phi
-A.cfq <- list(F=res$Lh,Phi=Phi.cfq)
+Phi.bifactor.oblique <- res$Phi
+A.geominQ <- list(F=res$Lh,Phi=Phi.bifactor.oblique)
 cat(".")
+
+# # Oblimin
+# res <- FindBestPattern(A,"oblimin",reps=random.starts,is.oblique=TRUE)
+# res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
+# res <- FixPattern(res, sort = sort)
+# Phi.oblimin <- res$Phi
+# A.oblimin <- list(F=res$Lh,Phi = Phi.oblimin)
+# cat(".")
+
+# # CF added by Koval
+# # Crawford-Ferguson
+# res <- FindBestPattern(A,"cf",reps=random.starts,is.oblique=FALSE)
+# res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=TRUE)
+# res <- FixPattern(res, sort = sort)
+# Phi=NULL
+# A.cf <- list(F=res$Lh,Phi=Phi)
+# cat(".")
+# # Crawford-Ferguson Oblique
+# res <- FindBestPattern(A,"cf",reps=random.starts,is.oblique=TRUE)
+# res <- list(Lh=res$Lh,Phi=res$Phi,orthogonal=FALSE)
+# res <- FixPattern(res, sort = sort)
+# cat(".")
+# Phi.cfq <- res$Phi
+# A.cfq <- list(F=res$Lh,Phi=Phi.cfq)
+# cat(".")
 # browser()
 # reconstruct the unrotated solution
 A <- list(F=A,Phi=NULL) # line moved from end of the BifactorOblique section
 # cat(".")
 #
-class(A.promax)="FLS"
 class(A)="FLS"
+class(A.varimax)="FLS"
+class(A.promax)="FLS"
 class(A.quartimin)="FLS"
 cat(".exiting\n") # what is this for?
-class(A.varimax)="FLS"
 class(A.bifactor)="FLS"
 class(A.bifactor.oblique)="FLS"
-# adding CF
-class(A.cf)="FLS"
-class(A.cfq)="FLS"
-output<-list(Unrotated = A, 
-       Varimax=A.varimax,
-       Promax = A.promax,
-       Quartimin = A.quartimin,
-       Bifactor  = A.bifactor,
-       BifactorOblique = A.bifactor.oblique,
-       CF=A.cf,
-       CFQ=A.cfq
+class(A.geominT) ="FLS"
+class(A.geominQ) ="FLS"
+
+# additional rotations
+# class(A.cf)="FLS"
+# class(A.cfq)="FLS"
+# class(A.oblimin) = "FLS"
+
+output<-list(
+  Unrotated       = A, 
+  Varimax         = A.varimax,
+  GeominT         = A.geominT,
+  Bifactor        = A.bifactor,
+  Promax          = A.promax,
+  Quartimin       = A.quartimin,
+  GeominQ         = A.geominQ,
+  BifactorOblique = A.bifactor.oblique 
+  # Oblimin = A.oblimin
+  # CF=A.cf,
+  # CFQ=A.cfq
        )
 class(output) = "MLFA"
 return(output)
@@ -881,7 +997,15 @@ Loadings <- function(x,num.digits=3,cutoff=.25){
   invisible(print.MLFA(x,cutoff=cutoff,num.digits=num.digits))
 }
 
-FAtoCFA <-  function(x,model.name="fit",cutoff=0.30,factor.names=colnames(x$F),reference.indicators=FALSE,covs=paste(factor.names, collapse=",")){
+FAtoCFA <-  function(
+  x,
+  model.name           = "fit",
+  cutoff               = 0.30,
+  factor.names         = colnames(x$F),
+  reference.indicators = FALSE,
+  covs                 = paste(factor.names, collapse=",")
+){
+  # browser()
   F <- x$F
   fname <- paste(model.name,".r",sep="")
   file.create(fname)
@@ -1087,7 +1211,11 @@ GetPattern <- function(sem.object){
   return(list(F=F,Phi=Phi))
 }
 
-SetupCFAPattern <- function(R,n.factors=NA,factor.names=NULL){
+SetupCFAPattern <- function(
+  R,
+  n.factors    = NA,
+  factor.names = NULL
+){
   p <- dim(R)[1]
   m <- n.factors
   Fp <- matrix(0,p,m)
@@ -1096,7 +1224,7 @@ SetupCFAPattern <- function(R,n.factors=NA,factor.names=NULL){
   colnames(Fp) <- factor.names
   Fp <- edit(Fp)
   return(list(F=Fp))
-}
+} # return Factor pattern that was manually set up in the editor
 
 UseMod <- function(sem.object,loadings.only=TRUE){
   options(warn=-1)
@@ -1110,25 +1238,53 @@ fit.object <- sem(new.model,R,n.obs)
 return(fit.object)
 }
 
-CFAModel <- function(R,model.name="fit",n.factors=NULL,factor.names=NULL,cutoff=0.30,covs=TRUE,reference.indicators=FALSE)
-{
+CFAModel <- function(
+  R,
+  model.name           = "fit",
+  n.factors            = NULL,
+  factor.names         = NULL,
+  cutoff               = 0.30,
+  covs                 = TRUE,
+  reference.indicators = FALSE
+){
  if(is.null(n.factors))n.factors=length(factor.names)
  x <- SetupCFAPattern(R,n.factors,factor.names)
  factor.names <- colnames(x$F)
  if(covs){
    covariances=paste(factor.names, collapse=",")
  }else{covariances=NULL}
-model <- FAtoCFA(x,model.name,cutoff,factor.names,reference.indicators,covariances)
+ # browser()
+model <- FAtoCFA(
+  x                    = x,
+  model.name           = model.name,
+  cutoff               = cutoff,
+  factor.names         = factor.names,
+  reference.indicators = reference.indicators,
+  covs                 = covariances
+)
 return(model)
 }
 
-QuickCFA <- function(R,n.factors=NULL,n.obs,model.name="Model0",
-                    factor.names=NULL,cutoff=0.30,factor.correlations=FALSE,
-                     reference.indicators=FALSE)
+QuickCFA <- function(
+  R,
+  n.factors            = NULL,
+  n.obs,
+  model.name           = "Model0",
+  factor.names         = NULL,
+  cutoff               =0.30,
+  factor.correlations  = FALSE,
+  reference.indicators = FALSE)
 {
   if(is.null(factor.names))factor.names <- paste("Factor",1:n.factors,sep="")
-  model <- CFAModel(R,model.name,n.factors,factor.names,cutoff,
-                    covs=factor.correlations,reference.indicators)
+  model <- CFAModel(
+    R,
+    model.name,
+    n.factors,
+    factor.names,
+    cutoff,
+    covs=factor.correlations,
+    reference.indicators
+  )
   fit.object <- sem(model,R,n.obs)
   return(fit.object)
 }
