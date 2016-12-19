@@ -1,0 +1,443 @@
+---
+title: "Appendix A"
+output:
+  html_document:
+    css: ~/GitHub/fear-of-childbirth/libs/css/sidebar.css
+    highlight: tango
+    keep_md: yes
+    theme: flatly
+    toc: yes
+---
+This report narrates the process of factor analizing the proposed scale, eliminating items, and fitting  the resulting scale to a confirmatory model. 
+
+<!-- These two chunks should be added in the beginning of every .Rmd that you want to source an .R script -->
+<!--  The 1st mandatory chunck  -->
+<!--  Set the working directory to the repository's base directory -->
+```{r, echo=F, message=F} 
+#Don't combine this call with any other chunk 
+# cat("Working directory: ", getwd()) # check where you are
+  library(knitr)
+# Rmd is in "./reports/reportA/reportA.Rmd", but now the root is "./"
+  knitr::opts_knit$set(root.dir='../../') 
+```
+
+<!--  The 2nd mandatory chunck  -->
+<!-- Set the report-wide options, and point to the external code file. -->
+```{r set_options, echo=F}
+# set options shared by all chunks
+opts_chunk$set(
+  results='show', 
+  message = TRUE,
+  comment = NA, 
+  tidy = FALSE,
+  fig.height = 12,
+  fig.width = 11,
+  # out.width = "550px",
+  fig.path = 'figures-phase/',     
+  dev = "png",
+  dpi = 100
+  # fig.path = 'figure_pdf/',     
+  # dev = "pdf"#,
+  # dev.args=list(pdf = list(colormodel = 'cmyk'))
+)
+echoChunks <- TRUE
+options(width=120) #So the output is 50% wider than the default.
+# connect to the file with the underlying R script  
+read_chunk("./reports/appendix-a/appendix-a.R") 
+```
+
+<!-- Load 'sourced' R files.  Suppress the output when loading packages. --> 
+```{r load-packages, echo=echoChunks, message=FALSE}
+```
+
+<!-- Load the sources.  Suppress the output when loading sources. --> 
+```{r load-sources, echo=echoChunks, message=FALSE}
+```
+
+<!-- Load any Global functions and variables declared in the R file.  Suppress the output. --> 
+```{r declare-globals, echo=echoChunks, results='show', message=FALSE}
+```
+
+<!-- Declare any global functions specific to a Rmd output.Suppress the output. --> 
+```{r, echo=echoChunks, message=FALSE}
+```
+
+<!-- Load the datasets.   -->
+```{r load-data, echo=echoChunks, results='show', message=FALSE}
+```
+
+<!-- Inspect the datasets.   -->
+```{r inspect-data, echo=FALSE, results='hide', message=FALSE}
+```
+
+<!-- Tweak the datasets.   -->
+```{r tweak-data, echo=FALSE, results='hide', message=FALSE}
+```
+
+
+# Introduction
+
+The purpose of this research was to develop a new measure of fear of childbirth (the Childbirth Fear Questionnaire; CFQ) that would address the limitations of existing measures. Participants were 643 pregnant women residing in English speaking countries, and were recruited via online forums. Participants completed a set of questionnaires, including the CFQ, via an online survey.
+
+The administered CFQ contained 49 items grouped into 9 subgroups. The review of items on the questionnaire, their descriptive statistics, and group correlations are available in the [Appendix C](https://rawgit.com/andkov/fear-of-childbirth/master/reports/appendix-c/appendix-c.html). 
+
+
+# Overview
+
+This section give a summary of the steps applied during the analysis.
+
+Out analysis consists of a series of phases. We start with the original Fear of Childbirth Questionnaire (FCQ) items, conduct exploratory factor analysis and use the results to diagnose those items exhibiting poor performance. At the end of each step we eliminate **one** item and repeat the steps of the analysis. This process is repeated until we no longer have the basis for item elimination.
+
+
+By comparing various rotations and considering interpretive qualities of the solutions, we have decided to use orthogonal bifactor rotation, as the one that offers the greatest interpretability. To examine the various solutions in details consult [Appendix B](https://rawgit.com/andkov/fear-of-childbirth/master/reports/appendix-b/appendix-b-0.html)
+
+## Analysis Steps
+
+The following steps are repeated for each of the analytic phases:
+
+####1.Scree 
+Scree plot is plotted and top eigen values are displayed
+
+####2.MAP
+`psych::nfactors` call is applied, producing  Very Simple Structure, Velicer's MAP, and other criteria to determine the appropriate number of factors. See [documentation](http://www.personality-project.org/r/html/VSS.html)
+
+####3.Parallel
+`psych::fa.parallel` call is applied, comparing the number of factors in the correlation matrix to random "parallel" matrices. For details, see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa.parallel?)
+
+####4.Fit
+`psych::fa` call is applied to conduct maximum likelihood factor analysis (`fm="ml"`) in order to obtain the chi-square of the proposed models, which incrementally increase the number of retained factors. CFI and TLI indices are then computed, following the formulae:
+```
+  CFI = ((chisq_null-df_null) - (chisq-df))/(chisq_null-df_null)
+  TLI = ((chisq_null/df_null) - (chisq/df))/((chisq_null/df_null)-1)
+```
+For details on `psych::fa` see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa)
+
+####5.RMSEA 
+RMSEA diagnostic is conducted using [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger. The routine relies on the maxim likelihood factor analysis conducted by `stats::factanal` call. For details on the latter see [here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/factanal.html) 
+
+####6.Estimate
+Using [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger, we conduct maximum likelihood factor analysis, by obtaining the unrotated solution from `stats::factanal` call and then rotating solution using gradient projection algorithms (Bernaards & Jennrich, 2005). 
+
+####7.Confirm
+Applying "Exploratory-Confirmatory" procedure described by [Joreskog(1978)](https://scholar.google.ca/scholar?q=Structural+analysis+of+covariance+and+correlation+matrices&btnG=&hl=en&as_sdt=0%2C33), we find the largest loading for each column of the factor pattern, then constrain all the other loadings in that row to be zero, and fit the resulting model as a confirmatory factor model. Given that we chose the orthogonal bifactor solution, we permit the the cross-loadings between general factor and subfactors. 
+
+
+## Elimination
+
+The decisions to eliminate an item from the scale is guided by the following considerations:  
+1. Does the item have a non-trivial (>.30) loading on a subfactor?  
+2. Does the item have a non-trivial (>.50) loading on the general factor?  
+3. Does item load on more than two subfactors?  
+4. Does item have substantive relevance and aid interpretability of the solution?  
+5. Does item have a substantial contribution to the R-square of the model relative other items?  
+
+
+
+
+# Phase 0
+
+We create a correlation matrix using all 49 items on the administered scale and conduct eigen diagnostics: 
+```{r create-correlation-matrix-0, echo=TRUE, results='hide', message=FALSE}
+```
+## Scree
+```{r diagnose-0a, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+Scree plot is somewhat ambiguious, suggesting a solution involving 4-5 factors, while Keiser rule (eigenvalue > 1) suggests up to 9 factors. 
+
+## MAP
+`psych::nfactors` call is applied, producing  Very Simple Structure, Velicer's MAP, and other criteria to determine the appropriate number of factors. See [documentation](http://www.personality-project.org/r/html/VSS.html)
+
+```{r diagnose-0b, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Parallel
+`psych::fa.parallel` call is applied, comparing the number of factors in the correlation matrix to random "parallel" matrices. For details, see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa.parallel?)
+```{r diagnose-0c, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Fit
+`psych::fa` call is applied to conduct maximum likelihood factor analysls (`fm="ml"`) in order to obtain the chi-square of the proposed models, which incrementally increase the number of retained factors. CFI and TLI indices are then computed from the produced criteria. For details on `psych::fa` see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa)
+```{r diagnose-0d, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## RMSEA
+RMSEA diagnostic is conducted using [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger. The routine  relies on the maxim likelihood factor analysis conducted by `stats::factanal` call. For details on the latter see [here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/factanal.html) 
+```{r diagnose-0e, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Estimate
+Using  [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger, we conduct maximum likelihood factor analysis, by obtaining the unrotated solution from `stats::factanal` call and then rotating solution using gradient projection algorithms (Bernaards & Jennrich, 2005). 
+
+```{r estimate-0, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+## Confirm
+Applying "Exploratory-Confirmatory" procedure described by [Joreskog(1978)](https://scholar.google.ca/scholar?q=Structural+analysis+of+covariance+and+correlation+matrices&btnG=&hl=en&as_sdt=0%2C33), we find the largest loading for each column of the factor pattern, then constrain all the other loadings in that row to be zero, and fit the resulting model as a confirmatory factor model. Given that we chose the orthogonal bifactor solution, we permit the the cross-loadings between general factor and subfactors. 
+
+```{r confirm-0, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+<!-- ####################### PHASE 1 ########################### --> 
+# Phase 1
+
+Based on the results from phase 0 we identified that `items 18` and `item 16` are performing poorly in the scale, based on the consideration we have [outlined](#elimination). They both do not have a non-trivial loading on any subscales (1), have small loadings on the general factor (2) and contribute marketly less to the R-square compared to other items (5). We also did not percieve them to be crucial for interpretive validity of the solution (4).  
+
+Thus we remove `item 16` and `item 18` from the pool of items and repeat the analytical steps. 
+
+```{r create-correlation-matrix-1, echo=TRUE, results='hide', message=FALSE}
+```
+
+## Scree
+```{r diagnose-1a, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## MAP
+`psych::nfactors` call is applied, producing  Very Simple Structure, Velicer's MAP, and other criteria to determine the appropriate number of factors. See [documentation](http://www.personality-project.org/r/html/VSS.html)
+
+```{r diagnose-1b, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Parallel
+`psych::fa.parallel` call is applied, comparing the number of factors in the correlation matrix to random "parallel" matrices. For details, see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa.parallel?)
+```{r diagnose-1c, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Fit
+`psych::fa` call is applied to conduct maximum likelihood factor analysls (`fm="ml"`) in order to obtain the chi-square of the proposed models, which incrementally increase the number of retained factors. CFI and TLI indices are then computed from the produced criteria. For details on `psych::fa` see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa)
+```{r diagnose-1d, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## RMSEA
+RMSEA diagnostic is conducted using [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger. The routine  relies on the maxim likelihood factor analysis conducted by `stats::factanal` call. For details on the latter see [here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/factanal.html) 
+```{r diagnose-1e, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Estimate
+Using  [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger, we conduct maximum likelihood factor analysis, by obtaining the unrotated solution from `stats::factanal` call and then rotating solution using gradient projection algorithms (Bernaards & Jennrich, 2005). 
+
+```{r estimate-1, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+## Confirm
+Applying "Exploratory-Confirmatory" procedure described by [Joreskog(1978)](https://scholar.google.ca/scholar?q=Structural+analysis+of+covariance+and+correlation+matrices&btnG=&hl=en&as_sdt=0%2C33), we find the largest loading for each column of the factor pattern, then constrain all the other loadings in that row to be zero, and fit the resulting model as a confirmatory factor model. Given that we chose the orthogonal bifactor solution, we permit the the cross-loadings between general factor and subfactors. 
+
+```{r confirm-1, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+
+<!-- ####################### PHASE 2 ########################### --> 
+# Phase 2
+
+Based on the results from phase 1 we identified that `item 49` performs poorly on the scale, according to the consideration we have [outlined](#elimination). It does not load on any of the subscales (1) and has a borderline non-trivial loading on the general factor (2). Also, we didn't think it was contributing coherence or interpretability to the scale (4). Although `item 34` had a lower R-square contribution than `item 49`, we did not remove it from the scale because it has a stong subscale loading and contributed to interpretability. 
+
+Thus we removed `item 49` from the pool of items and repeat the analytical steps.
+
+```{r create-correlation-matrix-2, echo=TRUE, results='hide', message=FALSE}
+```
+
+## Scree
+```{r diagnose-2a, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## MAP
+`psych::nfactors` call is applied, producing  Very Simple Structure, Velicer's MAP, and other criteria to determine the appropriate number of factors. See [documentation](http://www.personality-project.org/r/html/VSS.html)
+
+```{r diagnose-2b, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Parallel
+`psych::fa.parallel` call is applied, comparing the number of factors in the correlation matrix to random "parallel" matrices. For details, see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa.parallel?)
+```{r diagnose-2c, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Fit
+`psych::fa` call is applied to conduct maximum likelihood factor analysls (`fm="ml"`) in order to obtain the chi-square of the proposed models, which incrementally increase the number of retained factors. CFI and TLI indices are then computed from the produced criteria. For details on `psych::fa` see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa)
+```{r diagnose-2d, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## RMSEA
+RMSEA diagnostic is conducted using [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger. The routine  relies on the maxim likelihood factor analysis conducted by `stats::factanal` call. For details on the latter see [here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/factanal.html) 
+```{r diagnose-2e, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Estimate
+Using  [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger, we conduct maximum likelihood factor analysis, by obtaining the unrotated solution from `stats::factanal` call and then rotating solution using gradient projection algorithms (Bernaards & Jennrich, 2005). 
+
+```{r estimate-2, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+## Confirm
+Applying "Exploratory-Confirmatory" procedure described by [Joreskog(1978)](https://scholar.google.ca/scholar?q=Structural+analysis+of+covariance+and+correlation+matrices&btnG=&hl=en&as_sdt=0%2C33), we find the largest loading for each column of the factor pattern, then constrain all the other loadings in that row to be zero, and fit the resulting model as a confirmatory factor model. Given that we chose the orthogonal bifactor solution, we permit the the cross-loadings between general factor and subfactors. 
+
+```{r confirm-2, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+<!-- ####################### PHASE 3 ########################### --> 
+
+# Phase 3
+
+Based on the results from phase 1 we identified that `item 27` performs poorly on the scale, according to the consideration we have [outlined](#elimination). It loads above `.30` on two subfactors(1), and has a borderline loading on the general factor(2). We also don't think that the removal of this item will affect the interpretabiliyt of the scale adversly (4) 
+
+Thus we removed `item 27` from the pool of items and repeat the analytical steps.
+
+```{r create-correlation-matrix-3, echo=TRUE, results='hide', message=FALSE}
+```
+
+## Scree
+```{r diagnose-3a, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## MAP
+`psych::nfactors` call is applied, producing  Very Simple Structure, Velicer's MAP, and other criteria to determine the appropriate number of factors. See [documentation](http://www.personality-project.org/r/html/VSS.html)
+
+```{r diagnose-3b, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Parallel
+`psych::fa.parallel` call is applied, comparing the number of factors in the correlation matrix to random "parallel" matrices. For details, see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa.parallel?)
+```{r diagnose-3c, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Fit
+`psych::fa` call is applied to conduct maximum likelihood factor analysls (`fm="ml"`) in order to obtain the chi-square of the proposed models, which incrementally increase the number of retained factors. CFI and TLI indices are then computed from the produced criteria. For details on `psych::fa` see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa)
+```{r diagnose-3d, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## RMSEA
+RMSEA diagnostic is conducted using [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger. The routine  relies on the maxim likelihood factor analysis conducted by `stats::factanal` call. For details on the latter see [here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/factanal.html) 
+```{r diagnose-3e, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Estimate
+Using  [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger, we conduct maximum likelihood factor analysis, by obtaining the unrotated solution from `stats::factanal` call and then rotating solution using gradient projection algorithms (Bernaards & Jennrich, 2005). 
+
+```{r estimate-3, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+## Confirm
+Applying "Exploratory-Confirmatory" procedure described by [Joreskog(1978)](https://scholar.google.ca/scholar?q=Structural+analysis+of+covariance+and+correlation+matrices&btnG=&hl=en&as_sdt=0%2C33), we find the largest loading for each column of the factor pattern, then constrain all the other loadings in that row to be zero, and fit the resulting model as a confirmatory factor model. Given that we chose the orthogonal bifactor solution, we permit the the cross-loadings between general factor and subfactors. 
+
+NOTE: we chose to fix the loading of `item 6` on subscale 2 to `0` because it was borderline trivial (`.30`), and because it had substantial loadings on the subscale 6. We decided not to eliminate it from the scale because it had a strong conceptual fit to subscale 6 and contributed to the interpretability of the overall scale. 
+
+```{r confirm-3, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+
+
+
+<!-- ####################### PHASE 4 ########################### --> 
+
+# Phase 4
+
+Based on the results from phase 3 we identified that `item 28` performs poorly on the scale, according to the consideration we have [outlined](#elimination). It does not have non-trivial loadings on any of the subscale (1), has a modest loading on the general factor(2), and has a relatively small R-square contribution(5). 
+
+Thus we removed `item 28` from the pool of items and repeat the analytical steps.
+
+```{r create-correlation-matrix-4, echo=TRUE, results='hide', message=FALSE}
+```
+
+## Scree
+```{r diagnose-4a, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## MAP
+`psych::nfactors` call is applied, producing  Very Simple Structure, Velicer's MAP, and other criteria to determine the appropriate number of factors. See [documentation](http://www.personality-project.org/r/html/VSS.html)
+
+```{r diagnose-4b, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Parallel
+`psych::fa.parallel` call is applied, comparing the number of factors in the correlation matrix to random "parallel" matrices. For details, see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa.parallel?)
+```{r diagnose-4c, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Fit
+`psych::fa` call is applied to conduct maximum likelihood factor analysls (`fm="ml"`) in order to obtain the chi-square of the proposed models, which incrementally increase the number of retained factors. CFI and TLI indices are then computed from the produced criteria. For details on `psych::fa` see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa)
+```{r diagnose-4d, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## RMSEA
+RMSEA diagnostic is conducted using [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger. The routine  relies on the maxim likelihood factor analysis conducted by `stats::factanal` call. For details on the latter see [here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/factanal.html) 
+```{r diagnose-4e, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Estimate
+Using  [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger, we conduct maximum likelihood factor analysis, by obtaining the unrotated solution from `stats::factanal` call and then rotating solution using gradient projection algorithms (Bernaards & Jennrich, 2005). 
+
+```{r estimate-4, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+## Confirm
+Applying "Exploratory-Confirmatory" procedure described by [Joreskog(1978)](https://scholar.google.ca/scholar?q=Structural+analysis+of+covariance+and+correlation+matrices&btnG=&hl=en&as_sdt=0%2C33), we find the largest loading for each column of the factor pattern, then constrain all the other loadings in that row to be zero, and fit the resulting model as a confirmatory factor model. Given that we chose the orthogonal bifactor solution, we permit the the cross-loadings between general factor and subfactors. 
+
+NOTE: we chose to fix the loading of `item 6` on subscale 2 to `0` because it was borderline trivial (`.31`), and because it had substantial loadings on the subscale 6. We decided not to eliminate it from the scale because it had a strong conceptual fit to subscale 6 and contributed to the interpretability of the overall scale. 
+
+```{r confirm-4, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+
+
+<!-- ####################### PHASE 5 ########################### --> 
+
+# Phase 5
+
+Based on the results from phase 3 we identified that `item 5` performs poorly on the scale, according to the consideration we have [outlined](#elimination). It does not have non-trivial loadings on any of the subscale (1), has a modest loading on the general factor(2), and has a relatively small R-square contribution(5). 
+
+Thus we removed `item 5` from the pool of items and repeat the analytical steps.
+
+```{r create-correlation-matrix-5, echo=TRUE, results='hide', message=FALSE}
+```
+
+## Scree
+```{r diagnose-5a, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## MAP
+`psych::nfactors` call is applied, producing  Very Simple Structure, Velicer's MAP, and other criteria to determine the appropriate number of factors. See [documentation](http://www.personality-project.org/r/html/VSS.html)
+
+```{r diagnose-5b, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Parallel
+`psych::fa.parallel` call is applied, comparing the number of factors in the correlation matrix to random "parallel" matrices. For details, see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa.parallel?)
+```{r diagnose-5c, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Fit
+`psych::fa` call is applied to conduct maximum likelihood factor analysls (`fm="ml"`) in order to obtain the chi-square of the proposed models, which incrementally increase the number of retained factors. CFI and TLI indices are then computed from the produced criteria. For details on `psych::fa` see [documentation](https://www.rdocumentation.org/packages/psych/versions/1.6.9/topics/fa)
+```{r diagnose-5d, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## RMSEA
+RMSEA diagnostic is conducted using [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger. The routine  relies on the maxim likelihood factor analysis conducted by `stats::factanal` call. For details on the latter see [here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/factanal.html) 
+```{r diagnose-5e, echo=echoChunks, results='show', message=FALSE, eval=T,fig.width=7, fig.height=5}
+```
+
+## Estimate
+Using  [Advanced Factor Function](http://statpower.net/Content/312/R%20Stuff/AdvancedFactorFunctions.txt) by James Steiger, we conduct maximum likelihood factor analysis, by obtaining the unrotated solution from `stats::factanal` call and then rotating solution using gradient projection algorithms (Bernaards & Jennrich, 2005). 
+
+```{r estimate-5, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+## Confirm
+Applying "Exploratory-Confirmatory" procedure described by [Joreskog(1978)](https://scholar.google.ca/scholar?q=Structural+analysis+of+covariance+and+correlation+matrices&btnG=&hl=en&as_sdt=0%2C33), we find the largest loading for each column of the factor pattern, then constrain all the other loadings in that row to be zero, and fit the resulting model as a confirmatory factor model. Given that we chose the orthogonal bifactor solution, we permit the the cross-loadings between general factor and subfactors. 
+
+NOTE: we chose to fix the loading of `item 6` on subscale 2 to `0` because it was borderline trivial (`.31`), and because it had substantial loadings on the subscale 6. We decided not to eliminate it from the scale because it had a strong conceptual fit to subscale 6 and contributed to the interpretability of the overall scale. 
+
+```{r confirm-5, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+# Conclusion
+
+The remaining items do not violate the consideraton we have [outlined](#elimination).  
+
+One contention item is `item 6` which consistently exhibits crossloading between subscale 2 and subscale 6. Given that one of the loadings is borderline trivial (.31) and that `item 6` has a good conceptual fit to subscale 6, we chose to fix the loadings of `item 6` on subscale 2 to `0`, instead of eliminating it from the scale. 
+
+Thus the remaing simple structure the we recommend as the final solution is as follow:
+```{r conclusion, echo=echoChunks, results='show', message=FALSE, warning=F,fig.height = 12,fig.width = 9,out.width="700px"}
+```
+
+# Reproducibility
+```{r}
+sessionInfo()
+```
