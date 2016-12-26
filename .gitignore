@@ -29,6 +29,7 @@ devtools.zip
 !data-unshared/raw/README.md
 !data-unshared/derived/README.md
 
+
 /sandbox/*
 /sandbox/*/*
 /sandbox/*/*/*
@@ -37,6 +38,8 @@ devtools.zip
 /reports/*/*.png
 /reports/*/*/*.png
 /reports/*/*/*/*.png
+
+!/reports/appendix-c/figures-phase/conclusion-1.png
 
 /libs/doc/*
 /libs/doc/*/*
