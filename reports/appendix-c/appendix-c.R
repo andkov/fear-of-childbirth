@@ -170,6 +170,13 @@ domain_descriptives(ds, meta, "interventions")
 # ---- interventions --------------------------
 domain_descriptives(ds, meta, "interventions")
 
-# ---- reproduce ---------------------------------------
-rmarkdown::render(input = "./sandbox/report-a.Rmd" ,
-                  output_format="html_document", clean=TRUE)
+# ----- publisher --------------------
+path <- "./reports/appendix-c/appendix-c.Rmd"
+rmarkdown::render(
+  input = path ,
+  output_format=c(
+    "html_document" 
+    ,"word_document"
+  ),
+  clean=TRUE
+)
