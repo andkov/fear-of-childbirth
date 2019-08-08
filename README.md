@@ -17,9 +17,9 @@ All CFQ items are scored on a 0 (not at all) to 4 (extremely) point, Likert-type
 
 # Results
 
-- [Appendix A](https://rawgit.com/andkov/fear-of-childbirth/master/reports/appendix-a/appendix-a.html) : Item elimination and model testing of Orthogonal Bifactor solution with 6 factors. ([.docx format](https://rawgit.com/andkov/fear-of-childbirth/master/reports/appendix-a/appendix-a.docx))
-- [Appendix B](https://rawgit.com/andkov/fear-of-childbirth/master/reports/appendix-b/appendix-b.html) : Factor patterns from various rotation from the original 49 items of FCQ and various number of factor extracted
-- [Appendix C](https://rawgit.com/andkov/fear-of-childbirth/master/reports/appendix-c/appendix-c.html) :  Descriptives of the original scale variables and covariates. ([.docx format](https://rawgit.com/andkov/fear-of-childbirth/master/reports/appendix-c/appendix-c.docx))
+- [Appendix A](https://raw.githack.com/andkov/fear-of-childbirth/master/reports/appendix-a/appendix-a.html) : Item elimination and model testing of Orthogonal Bifactor solution with 6 factors. ([.docx format](https://rawgit.com/andkov/fear-of-childbirth/master/reports/appendix-a/appendix-a.docx))
+- [Appendix B](https://raw.githack.com/andkov/fear-of-childbirth/master/reports/appendix-b/appendix-b.html) : Factor patterns from various rotation from the original 49 items of FCQ and various number of factor extracted
+- [Appendix C](https://raw.githack.com/andkov/fear-of-childbirth/master/reports/appendix-c/appendix-c.html) :  Descriptives of the original scale variables and covariates. ([.docx format](https://rawgit.com/andkov/fear-of-childbirth/master/reports/appendix-c/appendix-c.docx))
 
 After eigen analysis and examination of factor patterns, we have settled on a orthogonal bifactor solution (with one general factor and 5 subscales) as the best fitting and the most interpretable. The final simple solution (with trivial loadings masked for clarity) is displayed below:
 
